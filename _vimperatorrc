@@ -1,0 +1,44 @@
+"3.9 (created: 2015/02/15 15:49:05)
+
+source! "C:\\Users\\Ryoto\\_vimperatorrc.local"
+
+" vim: set ft=vimperator:
+
+" colorscheme abyss
+colorscheme indigo-fx3
+
+" set fullscreen
+
+set tabnumbers
+set focuscontent
+set popups=resized
+set titlestring="Firefox"
+set visualbell=true
+set ignorecase
+set complete=sl
+" set gui=noaddons,nobookmarks,nomenu,nonavigation,tabs
+
+map j 7<C-e>
+map k 7<C-y>
+map <S-j> 35<C-e>
+map <S-k> 35<C-y>
+map a <NOP>
+map <S-b> :tabopen about:mybookmarks<CR>
+map a :set<Space>maxitems=30<CR>::buffer!
+map b :set<Space>maxitems=40<CR>::bmarks!
+map <C-r> :set<Space>maxitems=40<CR>::history!
+
+" Up and Down key couldn't change mapping by map command.
+nnoremap / i<C-f>
+nnoremap n i<C-g>
+
+nnoremap <S-h> <BS>
+nnoremap <S-l> <S-BS>
+
+nnoremap o :set<Space>maxitems=6<CR>:open 
+nnoremap t :set<Space>maxitems=6<CR>:tabopen 
+
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+hi Hint z-index:5000; font-size:12px; color:white; background-color:gray; border-color:lightgray; border-width:2px; border-style:solid; padding:0px 2px 0px 2px; position:absolute; font-family: Menlo, Consolas, Monaco, monospace; text-transform: uppercase;
+
+:style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
