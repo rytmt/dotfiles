@@ -1,0 +1,19 @@
+escape ^Tt
+hardstatus alwayslastline  "%{= kW}%-w%{= kc}%n %t%{= kW}%+w %=%{= G}%H %{= y}%m-%d %c"
+caption always '%?%F%{=r dw}%:%{=u dw}%?%n %f %t%='
+defbce "on"
+term xterm-256color
+startup_message off
+altscreen on
+defscrollback 10000
+bind r eval 'echo "Resize window"' 'command -c resize'
+bind -c resize ^] command
+bind -c resize j eval 'resize +1' 'command -c resize'
+bind -c resize k eval 'resize -1' 'command -c resize'
+bindkey -m ' ' eval 'stuff \040' 'writebuf' 'exec sh -c "/usr/local/bin/putclip < /tmp/screen-exchange"'
+bindkey -m Y   eval 'stuff Y'    'writebuf' 'exec sh -c "/usr/local/bin/putclip < /tmp/screen-exchange"'
+bindkey -m W   eval 'stuff W'    'writebuf' 'exec sh -c "/usr/local/bin/putclip < /tmp/screen-exchange"'
+bindkey -m J stuff 10j
+bindkey -m K stuff 10k
+logfile "/var/log/screen/screen-%Y%m%d-%n.log"
+deflog on

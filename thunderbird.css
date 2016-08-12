@@ -1,0 +1,101 @@
+body, body body, hbox, vbox, box{
+  background-color: #2b2b2f !important;
+  color:#e6e6c6 !important;
+  border: none !important;
+}
+
+/* Hyper link */
+a {
+  color: #9acd32;
+  text-decoration: none;
+  pointer-events: none;
+}
+a[href^="imap://"] {
+  color: #9acd32;
+  text-decoration: none;
+  pointer-events: auto;
+}
+span[_moz_quote=true] {
+  color: #b0c4de !important;
+}
+
+/* Mail quote */
+blockquote[type=cite] {
+  color: #b0c4de !important;
+}
+blockquote[type=cite] blockquote[type=cite] {
+  color: #cd853f !important;
+}
+blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] {
+  color: #8bae43 !important;
+}
+blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] {
+  color: #9370db !important;
+}
+blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] {
+  color: #cd5c5c !important;
+}
+
+/* Folder pane row */
+#folderTree treechildren:-moz-tree-row {
+  height: 16px !important;
+  min-height: 0px !important;
+}
+
+/* Folder pane */
+#folderTree treechildren {
+  font-size: 11px;
+  font-family: "Migu 1M";
+  background-color: #2b2b2f !important;
+}
+
+/* Thread pane row */
+#threadTree treechildren::-moz-tree-row {
+  min-height : 16px !important;
+}
+
+/* Thread pane */
+#threadTree treechildren {
+  font-size: 11px;
+  font-family: "Migu 1M";
+  background-color: #2b2b2f !important;
+}
+treechildren:-moz-tree-cell-text(unread) {
+  color:#e6e6c6 !important;
+}
+
+/* Mail Header */
+.headerValue {
+  color:#e6e6c6;
+  font-size: 12px;
+  font-family: "Migu 1M";
+}
+
+/* Hidden spliter */
+splitter {
+  display: none;
+}
+
+/*Hidden Buttons*/
+#titlebar-min { display: none !important; }
+#titlebar-max { display: none !important; }
+#titlebar-close { display: none !important; }
+#calendar-tab-button { display: none !important; }
+#task-tab-button { display: none !important; }
+#alltabs-button { display: none !important; }
+
+/* Hidden Tab Icon */
+.tab-icon-image { display: none !important; }
+
+
+/* Thread pane Header */
+#flaggedCol, #attachmentCol, #subjectCol, #unreadButtonColHeader, #senderCol, #recipientCol, #junkStatusCol, #receivedCol, #dateCol, #statusCol, #sizeCol, #tagsCol, #accountCol, #priorityCol, #unreadCol, #totalCol, #locationCol, #idCol, .treecol-image {
+  background-image: none;
+  background-color: #2b2b2f;
+  border: none !important;
+}
+
+/* Scrollbar */
+scrollbar, scrollbox, scrollcorner, allowscrollbox, slider {
+  background-color: #2b2b2f;
+}

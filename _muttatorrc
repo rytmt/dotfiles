@@ -1,0 +1,12 @@
+colorscheme indigo-fx3
+nnoremap <DOWN> <C-n>
+nnoremap <UP> <C-p>
+nnoremap y m;y
+nnoremap <C-n> <C-Tab>
+nnoremap <C-p> <C-S-Tab>
+nnoremap <S-f> :emenu 表示.ツールバー.クイックフィルタバー<CR>
+nnoremap a :buffer!
+set gui=nomail
+set gui=nomenu
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+set visualbell=true
