@@ -1,6 +1,6 @@
 colorscheme jellybeans
-set lines=40
-set columns=120
+"set lines=40
+"set columns=120
 set nomousefocus
 set mousehide
 "set guifont=MS_Gothic:h10
