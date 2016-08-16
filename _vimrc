@@ -58,7 +58,6 @@ nnoremap <S-j> 10j
 nnoremap <S-k> 10k
 nnoremap <S-h> 10h
 nnoremap <S-l> 10l
-nnoremap :vd :vertical diffsplit 
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
 inoremap <C-a> <Home>
@@ -74,6 +73,7 @@ set showcmd
 set ruler
 set showmatch
 set list
+"set listchars=eol:¬,tab:>
 set listchars=eol:¬,tab:»\ 
 set wrap
 set cursorline
@@ -83,21 +83,25 @@ set laststatus=2
 set visualbell t_vb=
 
 
-"let ff_table = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
-"let &statusline='%<%f %h%m%r%w%=[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %-14.(%l,%c%V%) %P'
-"augroup InsertHook
-"autocmd!
-"autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
-"autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
-"augroup END
+" Status Line
+" -----------
+" let ff_table = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
+" let &statusline='%<%f %h%m%r%w%=[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %-14.(%l,%c%V%) %P'
+augroup InsertHook
+autocmd!
+autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
+autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
+augroup END
 augroup highlightIdegraphicSpace
   autocmd!
   autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGray guibg=#444444
   autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
 
+
 " Check colors
 " :so $VIMRUNTIME/syntax/colortest.vim
+
 
 " Tabpage
 " -------
@@ -123,14 +127,6 @@ if !exists(":DiffOrig")
 endif
 
 
-" lightline.vim
-" -------------
-let g:lightline = {
-\  'colorscheme': 'jellybeans',
-\  'separator': { 'left': "", 'right': "" }
-\}
-
-
 " Unite.vim
 " ---------
 nnoremap <S-u>t :Unite tab<CR>
@@ -140,6 +136,14 @@ nnoremap <S-q> :Unite buffer -no-quit -keep-focus<CR>:set number<CR>
 "nnoremap <S-u>f :Unite file_mru<CR>
 nnoremap <S-u>f :MRU<CR>
 nnoremap <S-u>y :Unite history/yank<CR>
+
+
+" lightline.vim
+" -------------
+let g:lightline = {
+\  'colorscheme': 'jellybeans',
+\  'separator': { 'left': "", 'right': "" }
+\}
 
 
 " neocomplete.vim
@@ -201,10 +205,10 @@ set shell=C:\cygwin64\bin\bash
 set shellcmdflag=--login\ -c
 set shellxquote=\" 
 
-:function! MailDomain()
-:  let to_line = getline(2)
-:  let cc_line = getline(3)
-:  let to_addrs = substitute(to_line,"To:        ","","g")
-:  let cc_addrs = substitute(cc_line,"Cc:        ","","g")
-:endfunction
 
+" :function! MailDomain()
+" :  let to_line = getline(2)
+" :  let cc_line = getline(3)
+" :  let to_addrs = substitute(to_line,"To:        ","","g")
+" :  let cc_addrs = substitute(cc_line,"Cc:        ","","g")
+" :endfunction

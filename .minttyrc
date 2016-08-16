@@ -8,6 +8,6 @@ BellTaskbar=no
 CursorType=line
 Font=Migu 1M
 FontHeight=10
-ForegroundColour=230,230,220
+ForegroundColour=230,230,198
 BackgroundColour=20,20,20
 Term=xterm-256color

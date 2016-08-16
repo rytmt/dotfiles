@@ -199,9 +199,7 @@
 
 #export PS1="[\[\e]0;\w\a\]\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\]$ "
 export PS1='[\u@\h \W]\$ '
-export http_proxy=http://10.10.0.10:8080/
 export PATH=$PATH:/cygdrive/c/applications/vim74-kaoriya-win64
-export SCREENDIR=~/.screens
 
 #alias gvim='HOME= SHELL= PATH=$ORIGINAL_PATH /cygdrive/c/applications/vim74-kaoriya-win64/gvim.exe --remote-tab-silent +"set tw=0"'
 alias telnet='/usr/bin/telnet'
@@ -210,11 +208,14 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias ipconfig='ipconfig | iconv -f CP932 -t UTF-8'
 
 function ping (){
   /cygdrive/c/WINDOWS/system32/ping $* 2>&1 | iconv -f CP932 -t UTF-8
 }
+function ipconfig(){
+  /cygdrive/c/Windows/system32/ipconfig $* 2>&1 | iconv -f CP932 -t UTF-8
+}
+
 function mklink (){
   cygstart --action=runas cmd /c mklink $* 2>&1 | iconv -f CP932 -t UTF-8
 }
@@ -239,3 +240,5 @@ HISTTIMEFORMAT='%y/%m/%d %H:%M:%S '
 [ "$SSH_TTY" != "" ] && stty stop undef
 
 set -o posix
+
+source ~/.bash_options
