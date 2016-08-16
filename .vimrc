@@ -25,6 +25,9 @@ set autoread
 set backup
 set swapfile
 set undofile
+set backupdir=~/.vimtmp
+set undodir=~/.vimtmp
+set directory=~/.vimtmp
 
 
 " Search
