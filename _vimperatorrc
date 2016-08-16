@@ -1,6 +1,6 @@
 "3.9 (created: 2015/02/15 15:49:05)
 
-source! "C:\\Users\\Ryoto\\_vimperatorrc.local"
+" source! "C:\\Users\\Ryoto\\_vimperatorrc.local"
 
 " vim: set ft=vimperator:
 
@@ -28,9 +28,6 @@ map a :set<Space>maxitems=30<CR>::buffer!
 map b :set<Space>maxitems=40<CR>::bmarks!
 map <C-r> :set<Space>maxitems=40<CR>::history!
 
-" Up and Down key couldn't change mapping by map command.
-nnoremap / i<C-f>
-nnoremap n i<C-g>
 
 nnoremap <S-h> <BS>
 nnoremap <S-l> <S-BS>

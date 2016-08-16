@@ -1,13 +1,12 @@
 colorscheme jellybeans
 "set lines=40
 "set columns=120
-set nomousefocus
-set mousehide
 "set guifont=MS_Gothic:h10
 "set guifontwide=MS_Gothic:h10
+set nomousefocus
+set mousehide
 set guifont=Migu_1M:h10
 set guifontwide=Migu_1M:h10
-set showtabline=1
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
@@ -19,17 +18,16 @@ set guioptions-=e
 highlight NonText guifg=#444444
 highlight SpecialKey guifg=#888888 guibg=#111111
 highlight CursorLine gui=underline guifg=NONE guibg=NONE
+highlight Visual guibg=#666666
 highlight LineNr guibg=#222222
 highlight CursorLineNr guibg=#222222
 highlight Normal guifg=#e6e6c6
 highlight mailQuoted1 guifg=#b0c4de
-" highlight mailQuoted1 guifg=#4682b4
+"highlight mailQuoted1 guifg=#4682b4
 highlight mailQuoted2 guifg=#cd853f
-highlight mailQuoted3 guifg=#6b8e23
+highlight mailQuoted3 guifg=#8bae43
 highlight mailQuoted4 guifg=#9370db
 highlight mailQuoted5 guifg=#cd5c5c
-"au BufRead,BufNewFile *.eml set cursorcolumn
-"au BufRead,BufNewFile *.eml highlight CursorColumn guibg=#444444
 autocmd GUIEnter * set transparency=235
 autocmd FocusGained * set transparency=235
 "autocmd FocusLost * set transparency=200
