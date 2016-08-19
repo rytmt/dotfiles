@@ -19,7 +19,7 @@ highlight NonText guifg=#444444
 highlight SpecialKey guifg=#888888 guibg=#111111
 highlight CursorLine gui=underline guifg=NONE guibg=NONE
 highlight Visual guibg=#666666
-highlight LineNr guibg=#222222
+highlight LineNr guibg=#333333 guifg=#888888
 highlight CursorLineNr guibg=#222222
 highlight Normal guifg=#e6e6c6
 highlight mailQuoted1 guifg=#b0c4de

@@ -92,11 +92,16 @@ autocmd!
 autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
 autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
 augroup END
-augroup highlightIdegraphicSpace
+augroup highlightIdeographicSpace
   autocmd!
   autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGray guibg=#444444
+  autocmd Colorscheme * highlight HeadNormalSpace term=underline ctermbg=DarkGray guibg=#333355
+  autocmd Colorscheme * highlight TailNormalSpace term=underline ctermbg=DarkGray guibg=#333355
   autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+  autocmd VimEnter,WinEnter * 2match HeadNormalSpace /\v^ +/
+  autocmd VimEnter,WinEnter * 3match TailNormalSpace /\v +$/
 augroup END
+
 
 
 " Check colors
