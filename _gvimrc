@@ -28,8 +28,8 @@ highlight mailQuoted2 guifg=#cd853f
 highlight mailQuoted3 guifg=#8bae43
 highlight mailQuoted4 guifg=#9370db
 highlight mailQuoted5 guifg=#cd5c5c
-autocmd GUIEnter * set transparency=235
-autocmd FocusGained * set transparency=235
+autocmd GUIEnter * set transparency=255
+"autocmd FocusGained * set transparency=235
 "autocmd FocusLost * set transparency=200
 
 " Save gvim window size and position
@@ -53,3 +53,4 @@ endif
 
 " <S-j> is overwritten by JpFormat.vim
 nnoremap <S-j> 10j
+

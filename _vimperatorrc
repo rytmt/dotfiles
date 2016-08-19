@@ -16,6 +16,7 @@ set titlestring="Firefox"
 set visualbell=true
 set ignorecase
 set complete=sl
+set hlsearch
 " set gui=noaddons,nobookmarks,nomenu,nonavigation,tabs
 
 map j 7<C-e>
