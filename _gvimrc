@@ -19,8 +19,8 @@ highlight NonText guifg=#444444
 highlight SpecialKey guifg=#888888 guibg=#111111
 highlight CursorLine gui=underline guifg=NONE guibg=NONE
 highlight Visual guibg=#666666
-highlight LineNr guibg=#333333 guifg=#888888
-highlight CursorLineNr guibg=#222222
+highlight LineNr guibg=#333333 guifg=#777777
+highlight CursorLineNr guibg=#333333 guifg=#ddddff
 highlight Normal guifg=#e6e6c6
 highlight mailQuoted1 guifg=#b0c4de
 "highlight mailQuoted1 guifg=#4682b4
@@ -31,6 +31,7 @@ highlight mailQuoted5 guifg=#cd5c5c
 autocmd GUIEnter * set transparency=255
 "autocmd FocusGained * set transparency=235
 "autocmd FocusLost * set transparency=200
+
 
 " Save gvim window size and position
 let g:save_window_file = 'C:\applications\vimtmp\.vimwinpos'

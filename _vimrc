@@ -81,27 +81,25 @@ set background=dark
 set matchtime=3
 set laststatus=2
 set visualbell t_vb=
-
-
-" Status Line
-" -----------
-" let ff_table = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
-" let &statusline='%<%f %h%m%r%w%=[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %-14.(%l,%c%V%) %P'
-augroup InsertHook
-autocmd!
-autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
-autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
-augroup END
 augroup highlightIdeographicSpace
   autocmd!
   autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGray guibg=#444444
-  autocmd Colorscheme * highlight HeadNormalSpace term=underline ctermbg=DarkGray guibg=#333355
-  autocmd Colorscheme * highlight TailNormalSpace term=underline ctermbg=DarkGray guibg=#333355
+  autocmd Colorscheme * highlight HeadNormalSpace term=underline ctermbg=DarkGray guibg=#222244
+  autocmd Colorscheme * highlight TailNormalSpace term=underline ctermbg=DarkGray guibg=#222244
   autocmd VimEnter,WinEnter * match IdeographicSpace /　/
   autocmd VimEnter,WinEnter * 2match HeadNormalSpace /\v^ +/
   autocmd VimEnter,WinEnter * 3match TailNormalSpace /\v +$/
 augroup END
 
+" Status Line
+" -----------
+" let ff_table = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
+" let &statusline='%<%f %h%m%r%w%=[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %-14.(%l,%c%V%) %P'
+" augroup InsertHook
+" autocmd!
+" autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
+" autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
+" augroup END
 
 
 " Check colors
