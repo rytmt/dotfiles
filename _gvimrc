@@ -32,6 +32,7 @@ autocmd GUIEnter * set transparency=255
 "autocmd FocusGained * set transparency=235
 "autocmd FocusLost * set transparency=200
 
+ScreenMode 5
 
 " Save gvim window size and position
 let g:save_window_file = 'C:\applications\vimtmp\.vimwinpos'
