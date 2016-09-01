@@ -73,6 +73,7 @@ set textwidth=0
 set formatoptions=q
 nnoremap x "_x
 nnoremap Y v$hy
+nnoremap yl ^v$hy
 nnoremap <S-j> 10j
 nnoremap <S-k> 10k
 nnoremap <S-h> 10h
