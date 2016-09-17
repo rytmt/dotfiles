@@ -199,7 +199,7 @@
 
 #export PS1="[\[\e]0;\w\a\]\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\]$ "
 #export PS1='[\u@\h \W]\$ '
-export PS1='\[\e[38;5;111m\][\s\V \t \W]\$ \[\e[00m\]'
+export PS1='\[\e[38;5;189m\][\s\V \t \W]\$ \[\e[00m\]'
 export PATH=$PATH:/cygdrive/c/applications/vim74-kaoriya-win64
 
 #alias gvim='HOME= SHELL= PATH=$ORIGINAL_PATH /cygdrive/c/applications/vim74-kaoriya-win64/gvim.exe --remote-tab-silent +"set tw=0"'
