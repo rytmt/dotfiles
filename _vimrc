@@ -80,9 +80,14 @@ nnoremap <S-h> 10h
 nnoremap <S-l> 10l
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
+nnoremap <C-s> :w<CR>
+nnoremap <C-q> :bw!<CR>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
-
+inoremap <C-u> <esc>ui
+inoremap <C-r> <esc><C-r>i
+inoremap <C-s> <esc>:w<CR>
+inoremap <C-q> <esc>:bw!<CR>
 
 " Display
 " -------
@@ -204,8 +209,10 @@ let g:clever_f_smart_case = 1
 " JpFormat.vim
 " ------------
 au BufRead *.eml JpSetAutoFormat!
-au BufRead,BufNewFile *.eml let JpFormatCursorMovedI=1
-au BufRead,BufNewFile *.eml let b:JpCountChars=32
+au BufRead,BufNewFile *.eml let JpFormatCursorMovedI = 1
+au BufRead,BufNewFile *.eml let b:JpCountChars = 32
+"au BufRead,BufNewFile *.eml let b:JpFormatExclude = '^\(>\|http\).*$'
+au BufRead,BufNewFile *.eml let b:JpFormatExclude = '^\(>.*\|http.*\)$'
 
 
 " MRU

@@ -52,6 +52,8 @@ ppcw() {
 ^8::Send #+{Right}
 ^9::Send #+{Left}
 
+^vkBAsc028::Send {Esc}
+
 ^!n::
 IfWinExist Untitled - Notepad
 	WinActivate
