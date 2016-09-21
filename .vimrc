@@ -64,10 +64,10 @@ nnoremap <C-s> :w<CR>
 nnoremap <C-q> :bw!<CR>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
-inoremap <C-u> <esc>ui
-inoremap <C-r> <esc><C-r>i
-inoremap <C-s> <esc>:w<CR>
-inoremap <C-q> <esc>:bw!<CR>
+inoremap <C-u> <Esc>ui
+inoremap <C-r> <Esc><C-r>i
+inoremap <C-s> <Esc>:w<CR>
+inoremap <C-q> <Esc>:bw!<CR>
 
 
 " Display
