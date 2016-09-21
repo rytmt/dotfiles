@@ -53,15 +53,21 @@ set textwidth=0
 set formatoptions=q
 nnoremap x "_x
 nnoremap Y v$hy
+nnoremap yl ^v$hy
 nnoremap <S-j> 10j
 nnoremap <S-k> 10k
 nnoremap <S-h> 10h
 nnoremap <S-l> 10l
-nnoremap :vd :vertical diffsplit 
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
+nnoremap <C-s> :w<CR>
+nnoremap <C-q> :bw!<CR>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
+inoremap <C-u> <esc>ui
+inoremap <C-r> <esc><C-r>i
+inoremap <C-s> <esc>:w<CR>
+inoremap <C-q> <esc>:bw!<CR>
 
 
 " Display
