@@ -73,7 +73,7 @@ set textwidth=0
 set formatoptions=q
 nnoremap x "_x
 nnoremap Y v$hy
-nnoremap yl ^v$hy
+nnoremap ya :call YankLineWithoutCR()<CR>
 nnoremap <S-j> 10j
 nnoremap <S-k> 10k
 nnoremap <S-h> 10h
@@ -88,6 +88,7 @@ inoremap <C-u> <Esc>ui
 inoremap <C-r> <Esc><C-r>i
 inoremap <C-s> <Esc>:w<CR>
 inoremap <C-q> <Esc>:bw!<CR>
+inoremap <C-o> <Esc>o
 
 " Display
 " -------
@@ -129,13 +130,6 @@ augroup END
 
 " Check colors
 " :so $VIMRUNTIME/syntax/colortest.vim
-
-
-" Tabpage
-" -------
-nnoremap <C-t> :tablast <bar> tabnew<CR>
-nnoremap <C-Tab> gt
-nnoremap <C-S-Tab> gT
 
 
 " Session
@@ -235,10 +229,26 @@ set shell=C:\cygwin64\bin\bash
 set shellcmdflag=--login\ -c
 set shellxquote=\" 
 
+" yank current cursor line without \n
+function! YankLineWithoutCR()
+    call feedkeys(":let row = line('.')\<CR>")
+    call feedkeys(":let col = col('.')\<CR>")
+    call feedkeys("^y$")
+    call feedkeys(":call cursor(row, col)\<CR>")
+endfunction
 
-" :function! MailDomain()
-" :  let to_line = getline(2)
-" :  let cc_line = getline(3)
-" :  let to_addrs = substitute(to_line,"To:        ","","g")
-" :  let cc_addrs = substitute(cc_line,"Cc:        ","","g")
-" :endfunction
+" for manage todo
+au BufRead,BufNewFile *.md abbreviate tl - [ ]
+nnoremap <C-t> :call ToggleCheckbox()<CR>
+inoremap <C-t> <Esc>:call ToggleCheckbox()<CR>a
+function! ToggleCheckbox()
+  let l:line = getline('.')
+  if l:line =~ '\-\s\[\s\]'
+    let l:result = substitute(l:line, '-\s\[\s\]', '- [x]', '')
+    call setline('.', l:result)
+  elseif l:line =~ '\-\s\[x\]'
+    let l:result = substitute(l:line, '-\s\[x\]', '- [ ]', '')
+    call setline('.', l:result)
+  end
+endfunction
+
