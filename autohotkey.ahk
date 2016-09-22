@@ -52,7 +52,17 @@ ppcw() {
 ^8::Send #+{Right}
 ^9::Send #+{Left}
 
+; Ctrl + Colon -> Escape
 ^vkBAsc028::Send {Esc}
+
+; Ctrl + Space -> Enter
+;^Space::Send {Enter}
+
+; Ctrl + o -> e/j
+;^o::Send {vkF3sc029}
+
+; Ctrl + @ -> BackSpace
+;^@::Send {BS}
 
 ^!n::
 IfWinExist Untitled - Notepad
