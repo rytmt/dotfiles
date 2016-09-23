@@ -89,6 +89,8 @@ inoremap <C-r> <Esc><C-r>i
 inoremap <C-s> <Esc>:w<CR>
 inoremap <C-q> <Esc>:bw!<CR>
 inoremap <C-o> <Esc>o
+au BufRead,BufNewFile *.eml nnoremap <C-q> :q<CR>
+
 
 " Display
 " -------
