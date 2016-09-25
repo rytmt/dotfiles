@@ -7,6 +7,7 @@ set nomousefocus
 set mousehide
 set guifont=Migu_1M:h10
 set guifontwide=Migu_1M:h10
+set renderoptions=type:directx,renmode:5
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
