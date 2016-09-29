@@ -231,6 +231,7 @@ set shell=C:\cygwin64\bin\bash
 set shellcmdflag=--login\ -c
 set shellxquote=\" 
 
+
 " yank current cursor line without \n
 function! YankLineWithoutCR()
     call feedkeys(":let row = line('.')\<CR>")
@@ -239,23 +240,49 @@ function! YankLineWithoutCR()
     call feedkeys(":call cursor(row, col)\<CR>")
 endfunction
 
+
 " for manage todo
 au BufRead,BufNewFile *.md abbreviate tl - [ ]
 au BufRead,BufNewFile *.md call CheckedList()
-nnoremap <C-t> :call ToggleCheckbox()<CR>
-inoremap <C-t> <Esc>:call ToggleCheckbox()<CR>a
+au BufRead,BufNewFile *.md call ColorPriority()
+au BufRead,BufNewFile *.md nnoremap <C-t> :call ToggleCheckbox()<CR>
+au BufRead,BufNewFile *.md nnoremap <C-Tab> :call AddPriority()<CR>
+au BufRead,BufNewFile *.md nnoremap <C-S-Tab> :call RemovePriority()<CR>
 function! ToggleCheckbox()
     let l:line = getline('.')
     if l:line =~ '\-\s\[\s\]'
-        let l:result = substitute(l:line, '-\s\[\s\]', '- [x]', '')
+        let l:result = substitute(l:line, '\-\s\[\s\]', '- [x]', '')
         call setline('.', l:result)
     elseif l:line =~ '\-\s\[x\]'
-        let l:result = substitute(l:line, '-\s\[x\]', '- [ ]', '')
+        let l:result = substitute(l:line, '\-\s\[x\]', '- [ ]', '')
         call setline('.', l:result)
     end
 endfunction
 function! CheckedList()
-    syntax match checkedlist "-\s\[x\].\+$" display containedin=ALL
+    syntax match checkedlist "\-\s\[x\].\+$" display containedin=ALL
     highlight checkedlist guifg=#888888
 endfunction
+function! AddPriority()
+    call setline('.', substitute(getline('.'), '\-\s\[\s\]', '- [ ]\t', ''))
+endfunction
+function! RemovePriority()
+    call setline('.', substitute(getline('.'), '\-\s\[\s\]\t', '- [ ]', ''))
+endfunction
+function! ColorPriority()
+    syntax match priority_one "\-\s\[\s\]\t[^\t]\+$" display containedin=ALL
+    highlight priority_one guifg=#A55B9A
+    syntax match priority_two "\-\s\[\s\]\t\t[^\t]\+$" display containedin=ALL
+    highlight priority_two guifg=#5D5099
+    syntax match priority_three "\-\s\[\s\]\t\t\t[^\t]\+$" display containedin=ALL
+    highlight priority_three guifg=#4784BF
+    syntax match priority_four "\-\s\[\s\]\t\t\t\t[^\t]\+$" display containedin=ALL
+    highlight priority_four guifg=#39A869
+    syntax match priority_five "\-\s\[\s\]\t\t\t\t\t[^\t]\+$" display containedin=ALL
+    highlight priority_five guifg=#F2E55C
+    syntax match priority_six "\-\s\[\s\]\t\t\t\t\t\t[^\t]\+$" display containedin=ALL
+    highlight priority_six guifg=#E8AC51
+    syntax match priority_seven "\-\s\[\s\]\t\t\t\t\t\t\t.\+$" display containedin=ALL
+    highlight priority_seven guifg=#DE6641
+endfunction
+
 
