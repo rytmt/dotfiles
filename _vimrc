@@ -241,16 +241,21 @@ endfunction
 
 " for manage todo
 au BufRead,BufNewFile *.md abbreviate tl - [ ]
+au BufRead,BufNewFile *.md call CheckedList()
 nnoremap <C-t> :call ToggleCheckbox()<CR>
 inoremap <C-t> <Esc>:call ToggleCheckbox()<CR>a
 function! ToggleCheckbox()
-  let l:line = getline('.')
-  if l:line =~ '\-\s\[\s\]'
-    let l:result = substitute(l:line, '-\s\[\s\]', '- [x]', '')
-    call setline('.', l:result)
-  elseif l:line =~ '\-\s\[x\]'
-    let l:result = substitute(l:line, '-\s\[x\]', '- [ ]', '')
-    call setline('.', l:result)
-  end
+    let l:line = getline('.')
+    if l:line =~ '\-\s\[\s\]'
+        let l:result = substitute(l:line, '-\s\[\s\]', '- [x]', '')
+        call setline('.', l:result)
+    elseif l:line =~ '\-\s\[x\]'
+        let l:result = substitute(l:line, '-\s\[x\]', '- [ ]', '')
+        call setline('.', l:result)
+    end
+endfunction
+function! CheckedList()
+    syntax match checkedlist "-\s\[x\].\+$" display containedin=ALL
+    highlight checkedlist guifg=#888888
 endfunction
 
