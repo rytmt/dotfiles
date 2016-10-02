@@ -1,4 +1,6 @@
-colorscheme jellybeans
+set background=dark
+colorscheme hybrid
+"colorscheme jellybeans
 "set lines=40
 "set columns=120
 "set guifont=MS_Gothic:h10
@@ -20,15 +22,15 @@ highlight NonText guifg=#444444
 highlight SpecialKey guifg=#888888 guibg=#111111
 highlight CursorLine gui=underline guifg=NONE guibg=NONE
 highlight Visual guibg=#666666
-highlight LineNr guibg=#333333 guifg=#777777
-highlight CursorLineNr guibg=#333333 guifg=#ddddff
+"highlight LineNr guibg=#333333 guifg=#777777
+"highlight CursorLineNr guibg=#333333 guifg=#ddddff
 highlight Normal guifg=#e6e6c6
-highlight mailQuoted1 guifg=#b0c4de
+highlight mailQuoted1 guifg=#81a2be
 "highlight mailQuoted1 guifg=#4682b4
 highlight mailQuoted2 guifg=#cd853f
-highlight mailQuoted3 guifg=#8bae43
-highlight mailQuoted4 guifg=#9370db
-highlight mailQuoted5 guifg=#cd5c5c
+highlight mailQuoted3 guifg=#b5bd68
+highlight mailQuoted4 guifg=#b294bb
+highlight mailQuoted5 guifg=#cc6666
 autocmd GUIEnter * set transparency=255
 "autocmd FocusGained * set transparency=235
 "autocmd FocusLost * set transparency=200
@@ -56,4 +58,3 @@ endif
 
 " <S-j> is overwritten by JpFormat.vim
 nnoremap <S-j> 10j
-
