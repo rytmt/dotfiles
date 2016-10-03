@@ -272,7 +272,7 @@ function! ColorPriority()
     syntax match priority_one "\-\s\[\s\]\t[^\t]\+$" display containedin=ALL
     highlight priority_one guifg=#A55B9A
     syntax match priority_two "\-\s\[\s\]\t\t[^\t]\+$" display containedin=ALL
-    highlight priority_two guifg=#5D5099
+    highlight priority_two guifg=#9370DB
     syntax match priority_three "\-\s\[\s\]\t\t\t[^\t]\+$" display containedin=ALL
     highlight priority_three guifg=#4784BF
     syntax match priority_four "\-\s\[\s\]\t\t\t\t[^\t]\+$" display containedin=ALL
