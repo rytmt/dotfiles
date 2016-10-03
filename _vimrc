@@ -207,6 +207,7 @@ let g:clever_f_smart_case = 1
 au BufRead *.eml JpSetAutoFormat!
 au BufRead,BufNewFile *.eml let JpFormatCursorMovedI = 1
 au BufRead,BufNewFile *.eml let b:JpCountChars = 32
+au BufRead,BufNewFile *.eml set colorcolumn=64
 "au BufRead,BufNewFile *.eml let b:JpFormatExclude = '^\(>\|http\).*$'
 au BufRead,BufNewFile *.eml let b:JpFormatExclude = '^\(>.*\|http.*\)$'
 
