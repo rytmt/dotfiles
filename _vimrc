@@ -276,7 +276,6 @@ function! ColorPriority()
     highlight priority_yellow guifg=#cd853f
     syntax match priority_red "\-\s\[\s\]\t\t\t.\+$" display containedin=ALL
     highlight priority_red guifg=#cc6666
->>>>>>> refs/remotes/dotfiles/master
 endfunction
 
 
