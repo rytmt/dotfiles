@@ -270,22 +270,6 @@ function! RemovePriority()
     call setline('.', substitute(getline('.'), '\-\s\[\s\]\t', '- [ ]', ''))
 endfunction
 function! ColorPriority()
-<<<<<<< HEAD
-    syntax match priority_one "\-\s\[\s\]\t[^\t]\+$" display containedin=ALL
-    highlight priority_one guifg=#A55B9A
-    syntax match priority_two "\-\s\[\s\]\t\t[^\t]\+$" display containedin=ALL
-    highlight priority_two guifg=#9370DB
-    syntax match priority_three "\-\s\[\s\]\t\t\t[^\t]\+$" display containedin=ALL
-    highlight priority_three guifg=#4784BF
-    syntax match priority_four "\-\s\[\s\]\t\t\t\t[^\t]\+$" display containedin=ALL
-    highlight priority_four guifg=#39A869
-    syntax match priority_five "\-\s\[\s\]\t\t\t\t\t[^\t]\+$" display containedin=ALL
-    highlight priority_five guifg=#F2E55C
-    syntax match priority_six "\-\s\[\s\]\t\t\t\t\t\t[^\t]\+$" display containedin=ALL
-    highlight priority_six guifg=#E8AC51
-    syntax match priority_seven "\-\s\[\s\]\t\t\t\t\t\t\t.\+$" display containedin=ALL
-    highlight priority_seven guifg=#DE6641
-=======
     syntax match priority_green "\-\s\[\s\]\t[^\t]\+$" display containedin=ALL
     highlight priority_green guifg=#b5bd68
     syntax match priority_yellow "\-\s\[\s\]\t\t[^\t]\+$" display containedin=ALL
