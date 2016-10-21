@@ -51,6 +51,7 @@ ppcw() {
 
 ^8::Send #+{Right}
 ^9::Send #+{Left}
+^0::Send #+{Up}
 
 ; Ctrl + Colon -> Escape
 ^vkBAsc028::Send {Esc}
