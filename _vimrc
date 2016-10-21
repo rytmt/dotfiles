@@ -82,6 +82,7 @@ nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :bw!<CR>
+nnoremap :fpath :echo expand("%:p")<CR>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 inoremap <C-u> <Esc>ui
