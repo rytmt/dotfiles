@@ -65,6 +65,8 @@ ppcw() {
 ; Ctrl + @ -> BackSpace
 ;^@::Send {BS}
 
+^+d::Send {Home}+{End}{Del}
+
 ^!n::
 IfWinExist Untitled - Notepad
 	WinActivate
