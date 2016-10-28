@@ -238,7 +238,7 @@ shopt -u histappend
 export HISTSIZE=9999
 HISTTIMEFORMAT='%y/%m/%d %H:%M:%S '
 
-[ "$SSH_TTY" != "" ] && stty stop undef
+stty stop undef
 [ -d /var/log/screen ] || mkdir /var/log/screen
 [ -d ~/.vimtmp ] || mkdir ~/.vimtmp
 
