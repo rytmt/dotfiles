@@ -46,7 +46,7 @@ set hintchars=hjklasdfgyuiopqwertnmzxcvb
 " Overwrite colorscheme
 hi URL color: #b5bd68;
 " Overwrite Hint by solarized_dark colorscheme
-hi Hint font-family: monospace; font-size: 15px; font-weight: normal; color: #dc322f; background-color: #002b36; border-color: #839496; border-width: 0px; border-style: solid; padding: 0px 5px 0px 5px; text-transform: uppercase;
+hi Hint font-family: monospace; font-size: 15px; font-weight: normal; color: #dc322f; background-color: #002b36; border-color: #839496; border-width: 0px; border-style: solid; padding: 0px 5px 0px 5px;
 hi HintElem background-color: #073642; color: #b58900;
 hi HintActive background-color: #dc322f; color: #073642;
 hi -append Hint         background-color: rgba(253, 246, 227, 0.7); border: 1px solid #fdf6e3; -moz-border-radius: 4px; -moz-box-shadow: 0px 0px 1px black;
