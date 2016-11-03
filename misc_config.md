@@ -12,7 +12,7 @@
 ### アドオン
 - Adblock Plus
 - Dark Background and Light Text
-    - foreground  : #e6e6c6
+    - foreground  : #c5c8c6
     - background  : #2b2b2f
     - link        : #81a2be
     - visited link: #b294bb
