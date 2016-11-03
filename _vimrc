@@ -110,11 +110,11 @@ set background=dark
 set matchtime=3
 set laststatus=2
 set visualbell t_vb=
-augroup highlightIdeographicSpace
+augroup highlightSpace
   autocmd!
-  autocmd Colorscheme * highlight IdeographicSpace term=underline ctermbg=DarkGray guibg=#444444
-  autocmd Colorscheme * highlight HeadNormalSpace term=underline ctermbg=DarkGray guibg=#222244
-  autocmd Colorscheme * highlight TailNormalSpace term=underline ctermbg=DarkGray guibg=#222244
+  autocmd Colorscheme * highlight IdeographicSpace guibg=#444444
+  autocmd Colorscheme * highlight HeadNormalSpace  gui=underline guifg=#663333
+  autocmd Colorscheme * highlight TailNormalSpace  gui=underline guifg=#663333
   autocmd VimEnter,WinEnter * match IdeographicSpace /　/
   autocmd VimEnter,WinEnter * 2match HeadNormalSpace /\v^ +/
   autocmd VimEnter,WinEnter * 3match TailNormalSpace /\v +$/

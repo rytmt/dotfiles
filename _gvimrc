@@ -18,13 +18,13 @@ set guioptions-=l
 set guioptions-=L
 set guioptions-=b
 set guioptions-=e
-highlight NonText guifg=#444444
-highlight SpecialKey guifg=#888888 guibg=#111111
+"highlight NonText guifg=#444444
+highlight SpecialKey guifg=#888888
 highlight CursorLine gui=underline guifg=NONE guibg=NONE
-highlight Visual guibg=#666666
+"highlight Visual guibg=#666666
 "highlight LineNr guibg=#333333 guifg=#777777
 "highlight CursorLineNr guibg=#333333 guifg=#ddddff
-highlight Normal guifg=#e6e6c6
+"highlight Normal guifg=#e6e6c6
 highlight mailQuoted1 guifg=#81a2be
 "highlight mailQuoted1 guifg=#4682b4
 highlight mailQuoted2 guifg=#cd853f
