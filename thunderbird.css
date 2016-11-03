@@ -1,12 +1,12 @@
 body, body body, hbox, vbox, box{
   background-color: #2b2b2f !important;
-  color:#e6e6c6 !important;
+  color:#c5c8c6 !important;
   border: none !important;
 }
 
 /* Hyper link */
 a {
-  color: #9acd32;
+  color: #b5bd68;
   text-decoration: none;
   pointer-events: none;
 }
@@ -21,19 +21,19 @@ span[_moz_quote=true] {
 
 /* Mail quote */
 blockquote[type=cite] {
-  color: #b0c4de !important;
+  color: #81a2be !important;
 }
 blockquote[type=cite] blockquote[type=cite] {
   color: #cd853f !important;
 }
 blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] {
-  color: #8bae43 !important;
+  color: #b5bd68 !important;
 }
 blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] {
-  color: #9370db !important;
+  color: #b294bb !important;
 }
 blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] {
-  color: #cd5c5c !important;
+  color: #cc6666 !important;
 }
 
 /* Folder pane row */
@@ -61,12 +61,12 @@ blockquote[type=cite] blockquote[type=cite] blockquote[type=cite] blockquote[typ
   background-color: #2b2b2f !important;
 }
 treechildren:-moz-tree-cell-text(unread) {
-  color:#e6e6c6 !important;
+  color:#c5c8c6 !important;
 }
 
 /* Mail Header */
 .headerValue {
-  color:#e6e6c6;
+  color:#c5c8c6;
   font-size: 12px;
   font-family: "Migu 1M";
 }
