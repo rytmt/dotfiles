@@ -9,6 +9,7 @@ nnoremap <S-f> :emenu 表示.ツールバー.クイックフィルタバー<CR>
 nnoremap a :buffer! 
 set gui=nomail
 set gui=nomenu
+set gui=notabs
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
 set visualbell=true
 set maxitems=40
