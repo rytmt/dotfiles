@@ -17,7 +17,6 @@ set visualbell=true
 set ignorecase
 set complete=sl
 set hlsearch
-set gui=notabs
 " set gui=noaddons,nobookmarks,nomenu,nonavigation,notabs
 
 map j 7<C-e>
