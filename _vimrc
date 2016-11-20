@@ -71,6 +71,7 @@ set whichwrap=b,s,h,l,<,>,[,]
 set clipboard=unnamed
 set textwidth=0
 set formatoptions=q
+set nrformats=
 nnoremap x "_x
 nnoremap Y v$hy
 nnoremap ya :call YankLineWithoutCR()<CR>
