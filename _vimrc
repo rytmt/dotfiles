@@ -90,7 +90,6 @@ inoremap <C-u> <Esc>ui
 inoremap <C-r> <Esc><C-r>i
 inoremap <C-s> <Esc>:w<CR>
 inoremap <C-q> <Esc>:bw!<CR>
-au BufRead,BufNewFile *.eml nnoremap <C-q> :q<CR>
 
 
 " Display
@@ -203,16 +202,6 @@ let g:clever_f_use_migemo = 1
 let g:clever_f_smart_case = 1
 
 
-" JpFormat.vim
-" ------------
-au BufRead *.eml JpSetAutoFormat!
-au BufRead,BufNewFile *.eml let JpFormatCursorMovedI = 1
-au BufRead,BufNewFile *.eml let b:JpCountChars = 32
-au BufRead,BufNewFile *.eml set colorcolumn=64
-"au BufRead,BufNewFile *.eml let b:JpFormatExclude = '^\(>\|http\).*$'
-au BufRead,BufNewFile *.eml let b:JpFormatExclude = '^\(>.*\|http.*\)$'
-
-
 " MRU
 " ---
 let MRU_Max_Entries = 100
@@ -243,7 +232,7 @@ function! YankLineWithoutCR()
 endfunction
 
 
-" for manage todo
+" for markdown(.md) file
 au BufRead,BufNewFile *.md abbreviate tl - [ ]
 au BufRead,BufNewFile *.md call CheckedList()
 au BufRead,BufNewFile *.md call ColorPriority()
@@ -279,4 +268,66 @@ function! ColorPriority()
     highlight priority_red guifg=#cc6666
 endfunction
 
+
+" for email(.eml) file
+au BufRead,BufNewFile *.eml nnoremap <C-q> :q<CR>
+
+" Depend on JpFormat.vim
+au BufRead *.eml JpSetAutoFormat!
+au BufRead,BufNewFile *.eml let JpFormatCursorMovedI = 1
+au BufRead,BufNewFile *.eml let b:JpCountChars = 32
+au BufRead,BufNewFile *.eml set colorcolumn=64
+"au BufRead,BufNewFile *.eml let b:JpFormatExclude = '^\(>\|http\).*$'
+au BufRead,BufNewFile *.eml let b:JpFormatExclude = '^\(>.*\|http.*\)$'
+
+" for thunderbird addon 'External Editor'
+function! DeleteSignature()
+
+    let l:internal_domain = '@iij.ad.jp'
+    
+    let l:line_to  = split(getline(2), ' ')
+    let l:line_cc  = split(getline(3), ' ')
+    let l:line_bcc = split(getline(4), ' ')
+    
+    let l:addr_to  = split(line_to[len(line_to)-1], ',')
+    let l:addr_cc  = split(line_cc[len(line_cc)-1], ',')
+    let l:addr_bcc = split(line_bcc[len(line_bcc)-1], ',')
+    
+    
+    let l:addr_count = len(addr_to) + len(addr_cc) + len(addr_bcc)
+    
+    let l:internal_domain_count = 0
+    
+    for addr in addr_to
+        if stridx(addr, internal_domain) != -1
+            let l:internal_domain_count += 1
+        endif
+    endfor
+    
+    for addr in addr_cc
+        if stridx(addr, internal_domain) != -1
+            let l:internal_domain_count += 1
+        endif
+    endfor
+    
+    for addr in addr_bcc
+        if stridx(addr, internal_domain) != -1
+            let l:internal_domain_count += 1
+        endif
+    endfor
+    
+    if addr_count == internal_domain_count
+        let l:i = 0
+        let l:start = search('^-- $')
+        let l:end = line('$')
+        while i < end - start + 1
+            execute line('$') . "delete"
+            let l:i += 1
+        endwhile
+    endif
+
+    call cursor(6,1)
+
+endfunction
+au BufRead,BufNewFile *.eml call DeleteSignature()
 
