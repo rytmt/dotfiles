@@ -280,7 +280,7 @@ au BufRead,BufNewFile *.eml set colorcolumn=64
 "au BufRead,BufNewFile *.eml let b:JpFormatExclude = '^\(>\|http\).*$'
 au BufRead,BufNewFile *.eml let b:JpFormatExclude = '^\(>.*\|http.*\)$'
 
-" for thunderbird addon 'External Editor'
+" Delete signature (for thunderbird addon 'External Editor')
 function! DeleteSignature()
 
     let l:internal_domain = '@iij.ad.jp'
@@ -316,9 +316,9 @@ function! DeleteSignature()
         endif
     endfor
     
-    if addr_count == internal_domain_count
+    let l:start = search('^-- $')
+    if (addr_count == internal_domain_count) && (start > 0)
         let l:i = 0
-        let l:start = search('^-- $')
         let l:end = line('$')
         while i < end - start + 1
             execute line('$') . "delete"
