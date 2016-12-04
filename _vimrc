@@ -318,7 +318,7 @@ function! DeleteSignature()
     endfor
     
     let l:start = search('^-- $')
-    if (addr_count == internal_domain_count) && (start > 0)
+    if (addr_count == internal_domain_count) && (start > 0) && (addr_count > 0)
         let l:i = 0
         let l:end = line('$')
         while i < end - start + 1
