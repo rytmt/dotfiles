@@ -32,9 +32,10 @@ filetype plugin indent off
 " ------
 set encoding=UTF-8
 set fileencoding=UTF-8
-set termencoding=UTF-8
 set fileencodings=utf-8,cp932,euc-jp,utf-16le
+set fileformat=unix
 set fileformats=unix,dos
+set termencoding=UTF-8
 
 
 " File
@@ -145,6 +146,7 @@ nnoremap :rds :source C:\applications\vim74-kaoriya-win64\Session.vim<CR>
 " Others
 " ------
 filetype plugin indent on
+set history=200
 set runtimepath+=C:\applications\vim74-kaoriya-win64\vimfiles\\*
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
