@@ -218,6 +218,7 @@ function ipconfig(){
 }
 
 function mklink (){
+# need $(cygpath -w)
   cygstart --action=runas cmd /c mklink $* 2>&1 | iconv -f CP932 -t UTF-8
 }
 
