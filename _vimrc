@@ -90,6 +90,7 @@ inoremap <C-u> <Esc>ui
 inoremap <C-r> <Esc><C-r>i
 inoremap <C-s> <Esc>:w<CR>
 inoremap <C-q> <Esc>:bw!<CR>
+vunmap <C-x>
 
 
 " Display
