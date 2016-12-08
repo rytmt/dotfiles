@@ -18,6 +18,7 @@ set guioptions-=l
 set guioptions-=L
 set guioptions-=b
 set guioptions-=e
+set showtabline=1
 "highlight NonText guifg=#444444
 highlight SpecialKey guifg=#888888
 highlight CursorLine gui=underline guifg=NONE guibg=NONE
