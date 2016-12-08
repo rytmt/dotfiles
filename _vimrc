@@ -139,7 +139,7 @@ augroup END
 
 " Session
 " -------
-set sessionoptions=buffers
+set sessionoptions=buffers,tabpages
 nnoremap :mks :mksession! C:\applications\vim74-kaoriya-win64\Session.vim<CR>
 nnoremap :rds :source C:\applications\vim74-kaoriya-win64\Session.vim<CR>
 
