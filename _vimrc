@@ -80,8 +80,9 @@ nnoremap <S-j> 10j
 nnoremap <S-k> 10k
 nnoremap <S-h> 10h
 nnoremap <S-l> 10l
-nnoremap <C-n> :bn<CR>
-nnoremap <C-p> :bp<CR>
+nnoremap <C-n> :tabnext<CR>
+nnoremap <C-p> :tabprevious<CR>
+nnoremap <C-t> :tabedit %<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :bw!<CR>
 nnoremap :fpath :echo expand("%:p")<CR>
@@ -239,7 +240,7 @@ endfunction
 au BufRead,BufNewFile *.md abbreviate tl - [ ]
 au BufRead,BufNewFile *.md call CheckedList()
 au BufRead,BufNewFile *.md call ColorPriority()
-au BufRead,BufNewFile *.md nnoremap <C-t> :call ToggleCheckbox()<CR>
+au BufRead,BufNewFile *.md nnoremap <C-c> :call ToggleCheckbox()<CR>
 au BufRead,BufNewFile *.md nnoremap <C-Tab> :call AddPriority()<CR>
 au BufRead,BufNewFile *.md nnoremap <C-S-Tab> :call RemovePriority()<CR>
 function! ToggleCheckbox()
