@@ -85,13 +85,16 @@ nnoremap <C-p> :tabprevious<CR>
 nnoremap <C-t> :tabedit %<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :bw!<CR>
-nnoremap :fpath :echo expand("%:p")<CR>
+nnoremap <C-e> :%y<CR>:tabnew<CR>p:%!
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 inoremap <C-u> <Esc>ui
 inoremap <C-r> <Esc><C-r>i
 inoremap <C-s> <Esc>:w<CR>
 inoremap <C-q> <Esc>:bw!<CR>
+cnoremap fpath :echo expand("%:p")<CR>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
 vunmap <C-x>
 
 
@@ -101,6 +104,7 @@ syntax on
 set number
 set title
 set showcmd
+set cmdheight=2
 set ruler
 set showmatch
 set list
@@ -140,8 +144,8 @@ augroup END
 " Session
 " -------
 set sessionoptions=buffers,tabpages
-nnoremap :mks :mksession! C:\applications\vim74-kaoriya-win64\Session.vim<CR>
-nnoremap :rds :source C:\applications\vim74-kaoriya-win64\Session.vim<CR>
+cnoremap mks :mksession! C:\applications\vim74-kaoriya-win64\Session.vim<CR>
+cnoremap rds :source C:\applications\vim74-kaoriya-win64\Session.vim<CR>
 
 
 " Others
@@ -233,6 +237,7 @@ function! YankLineWithoutCR()
     call feedkeys(":let col = col('.')\<CR>")
     call feedkeys("^y$")
     call feedkeys(":call cursor(row, col)\<CR>")
+    call feedkeys(":echo @\"\<CR>")
 endfunction
 
 

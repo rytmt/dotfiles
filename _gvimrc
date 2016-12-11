@@ -77,6 +77,24 @@ else
   if filereadable(g:save_window_file_others)
     execute 'source' g:save_window_file_others
   endif
+
+  " for changing window size
+  if filereadable(g:save_window_file_others)
+    function! Toggle_window_size()
+      let l:initial_window = readfile(g:save_window_file_others)
+      let l:current_column = &columns
+      let l:current_line = &lines
+      let l:initial_column = split(l:initial_window[0], '=')[1]
+      let l:initial_line = split(l:initial_window[1], '=')[1]
+
+      if (l:current_column == l:initial_column && l:current_line == l:initial_line)
+        call feedkeys(":ScreenMode 5\<CR>")
+      else
+        execute 'source' g:save_window_file_others
+      endif
+    endfunction
+  nnoremap <C-Enter> :call Toggle_window_size()<CR>
+  endif
 endif
 
 " <S-j> is overwritten by JpFormat.vim
