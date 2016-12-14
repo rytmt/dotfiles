@@ -119,11 +119,9 @@ set visualbell t_vb=
 augroup highlightSpace
   autocmd!
   autocmd Colorscheme * highlight IdeographicSpace guibg=#444444
-  autocmd Colorscheme * highlight HeadNormalSpace  gui=underline guifg=#663333
-  autocmd Colorscheme * highlight TailNormalSpace  gui=underline guifg=#663333
+  autocmd Colorscheme * highlight NormalSpace  gui=underline guifg=#663333
   autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-  autocmd VimEnter,WinEnter * 2match HeadNormalSpace /\v^ +/
-  autocmd VimEnter,WinEnter * 3match TailNormalSpace /\v +$/
+  autocmd VimEnter,WinEnter * 2match NormalSpace /\v(^\s+|\s+$)/
 augroup END
 
 " Status Line
