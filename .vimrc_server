@@ -1,0 +1,105 @@
+" Not compatible with vi
+set nocompatible
+
+
+" Encode
+" ------
+set encoding=UTF-8
+set fileencoding=UTF-8
+set fileencodings=utf-8,cp932,euc-jp,utf-16le
+set fileformat=unix
+set fileformats=unix,dos
+set termencoding=UTF-8
+
+
+" File
+" ----
+set hidden
+set autoread
+set nobackup
+set noswapfile
+"set noundofile
+"set backupdir=
+"set undodir=
+"set directory=
+set viminfo=
+
+
+" Search
+" ------
+set incsearch
+set hlsearch
+set smartcase
+set ignorecase
+set wrapscan
+
+
+" Input
+" -----
+set cindent
+set shiftwidth=4
+set tabstop=4
+set expandtab
+set softtabstop=4
+set backspace=indent,eol,start
+set whichwrap=b,s,h,l,<,>,[,]
+set clipboard=unnamed
+set textwidth=0
+set formatoptions=q
+set nrformats=
+nnoremap x "_x
+nnoremap Y v$hy
+nnoremap ya :call YankLineWithoutCR()<CR>
+nnoremap <S-j> 10j
+nnoremap <S-k> 10k
+nnoremap <S-h> 10h
+nnoremap <S-l> 10l
+nnoremap <C-n> :tabnext<CR>
+nnoremap <C-p> :tabprevious<CR>
+nnoremap <C-t> :tabedit %<CR>
+nnoremap <C-s> :w<CR>
+nnoremap <C-q> :bw!<CR>
+nnoremap <C-e> :%y<CR>:tabnew<CR>p:%!
+nnoremap <S-u>e :Hexplore "%:h"<CR>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-u> <Esc>ui
+inoremap <C-r> <Esc><C-r>i
+inoremap <C-s> <Esc>:w<CR>
+inoremap <C-q> <Esc>:bw!<CR>
+cnoremap fpath :echo expand("%:p")<CR>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+
+" Display
+" -------
+set background=dark
+colorscheme murphy
+syntax on
+set number
+set title
+set showcmd
+set cmdheight=2
+set ruler
+set showmatch
+set list
+"set listchars=eol:¬,tab:>
+set listchars=eol:¬,tab:»\ 
+set wrap
+set cursorline
+set background=dark
+set matchtime=3
+set laststatus=2
+set visualbell t_vb=
+
+
+" yank current cursor line without \n
+function! YankLineWithoutCR()
+    call feedkeys(":let row = line('.')\<CR>")
+    call feedkeys(":let col = col('.')\<CR>")
+    call feedkeys("^y$")
+    call feedkeys(":call cursor(row, col)\<CR>")
+    call feedkeys(":echo @\"\<CR>")
+endfunction
+

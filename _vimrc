@@ -15,10 +15,10 @@ let g:loaded_vimball           = 1
 let g:loaded_vimballPlugin     = 1
 let g:loaded_getscript         = 1
 let g:loaded_getscriptPlugin   = 1
-let g:loaded_netrw             = 1
-let g:loaded_netrwPlugin       = 1
-let g:loaded_netrwSettings     = 1
-let g:loaded_netrwFileHandlers = 1
+"let g:loaded_netrw             = 1
+"let g:loaded_netrwPlugin       = 1
+"let g:loaded_netrwSettings     = 1
+"let g:loaded_netrwFileHandlers = 1
 
 
 " FileType
@@ -86,6 +86,7 @@ nnoremap <C-t> :tabedit %<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :bw!<CR>
 nnoremap <C-e> :%y<CR>:tabnew<CR>p:%!
+nnoremap <S-u>e :Explore "%:h"<CR>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 inoremap <C-u> <Esc>ui
@@ -116,6 +117,7 @@ set background=dark
 set matchtime=3
 set laststatus=2
 set visualbell t_vb=
+let g:netrw_liststyle = 1
 augroup highlightSpace
   autocmd!
   autocmd Colorscheme * highlight IdeographicSpace guibg=#444444
