@@ -200,7 +200,7 @@
 #export PS1="[\[\e]0;\w\a\]\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\]$ "
 #export PS1='[\u@\h \W]\$ '
 #export PS1='\[\e[38;5;189m\][\s\V \t \W]\$ \[\e[00m\]'
-PS1='\n\e[2m\t \! \j\[\e[00m\] \e[38;5;189m\]\e[40;1m$(dirname "$(pwd)")/\e[38;5;214m\]$(basename "$(pwd)")\e[m\n \e[38;5;189m\]\$ \[\e[00m\]'
+PS1='\n\e[2m\t \! \j\[\e[00m\] \e[38;5;189m\]\e[40;1m$(dirname "$PWD")/\e[38;5;214m\]$(basename "$PWD")\e[m\n \e[38;5;189m\]\$ \[\e[00m\]'
 PATH=$PATH:/cygdrive/c/applications/vim74-kaoriya-win64
 export PATH PS1
 
