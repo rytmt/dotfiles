@@ -151,6 +151,7 @@ cnoremap rds :source C:\applications\vim74-kaoriya-win64\Session.vim<CR>
 " Others
 " ------
 filetype plugin indent on
+set nrformats=""
 set history=200
 set runtimepath+=C:\applications\vim74-kaoriya-win64\vimfiles\\*
 if !exists(":DiffOrig")
