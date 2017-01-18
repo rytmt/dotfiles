@@ -58,3 +58,19 @@
 - Stylish
 - Folder Pane View Switcher
 
+
+
+
+## Windows Registory
+
+### ウインドウ枠
+名前：HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics\PaddedBorderWidth
+値  ：0
+
+### スクロールバー
+名前：HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics\ScrollWidth
+値  ：-100
+
+
+
+
