@@ -244,8 +244,9 @@ function share_history {
 }
 PROMPT_COMMAND='share_history'
 shopt -u histappend
-export HISTSIZE=9999
+HISTSIZE=9999
 HISTTIMEFORMAT='%y/%m/%d %H:%M:%S '
+export HISTSIZE HISTTIMEFORMAT
 
 stty stop undef
 [ -d /var/log/screen ] || mkdir /var/log/screen
