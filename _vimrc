@@ -83,7 +83,6 @@ nnoremap <S-l> 10l
 nnoremap <C-n> :tabnext<CR>
 nnoremap <C-p> :tabprevious<CR>
 nnoremap <C-t> :tabedit %<CR>
-nnoremap <C-m> :tabm<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :bw!<CR>
 nnoremap <C-e> :%y<CR>:tabnew<CR>p:%!

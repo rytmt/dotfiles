@@ -99,3 +99,5 @@ endif
 
 " <S-j> is overwritten by JpFormat.vim
 nnoremap <S-j> 10j
+nnoremap <S-t> :$tabnew<CR>
+
