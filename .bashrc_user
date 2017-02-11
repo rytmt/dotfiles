@@ -1,0 +1,47 @@
+ping() {
+    /cygdrive/c/WINDOWS/system32/ping $* 2>&1 | iconv -f CP932 -t UTF-8 
+}
+ipconfig() {
+    /cygdrive/c/Windows/system32/ipconfig $* 2>&1 | iconv -f CP932 -t UTF-8
+}
+gvim() {
+    /cygdrive/c/applications/vim74-kaoriya-win64/gvim.exe -p --remote-silent +"set tw=0" $(cygpath -aw $*) &
+}
+gview() {
+    /cygdrive/c/applications/vim74-kaoriya-win64/gvim.exe -R -p --remote-silent +"set tw=0" $(cygpath -aw $*) &
+}
+mklink() {
+# need $(cygpath -w)
+  cygstart --action=runas cmd /c mklink $* 2>&1 | iconv -f CP932 -t UTF-8
+}
+share_history() {
+    history -a
+    history -c
+    history -r
+}
+shopt -u histappend
+
+PS1='\n\[\033[2m\t \! \j\[\033[00m\] \[\033[38;5;026m\]\[\033[40;1m\]$(printf "${PWD%/*}")/\[\033[38;5;208m\]$(basename "$PWD")\[\033[00m\]\n \[\033[38;5;026m\]\$ \[\033[00m\]'
+PATH=$PATH:/cygdrive/c/applications/vim74-kaoriya-win64
+PROMPT_COMMAND='share_history'
+HISTSIZE=9999
+HISTTIMEFORMAT='%y/%m/%d %H:%M:%S '
+MAIL=''
+MAILCHECK=''
+export PATH PS1 HISTSIZE HISTTIMEFORMAT MAIL MAILCHECK
+
+alias telnet='/usr/bin/telnet'
+alias c='clear'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+[ -t 0 ] && stty stop undef
+[ -t 0 ] && stty start undef
+
+[ -d /var/log/screen ] || mkdir /var/log/screen
+[ -d ~/.vimtmp ] || mkdir ~/.vimtmp
+
+set -o posix
+
+[ -f ~/.bashrc_options ] && . ~/.bashrc_options
+
