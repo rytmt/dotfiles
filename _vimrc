@@ -162,10 +162,10 @@ endif
 
 " Unite.vim
 " ---------
-nnoremap <S-u>t :Unite tab<CR>
 nnoremap <S-u>r :Unite register<CR>
 nnoremap <S-u>g :Unite -no-quit vimgrep<CR>
 nnoremap <S-q> :Unite buffer -no-quit -keep-focus<CR>:set number<CR>
+nnoremap <S-w> :Unite tab<CR>:set number<CR>
 "nnoremap <S-u>f :Unite file_mru<CR>
 nnoremap <S-u>f :MRU<CR>
 nnoremap <S-u>y :Unite history/yank<CR>
