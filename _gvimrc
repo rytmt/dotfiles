@@ -21,7 +21,8 @@ set guioptions-=e
 set showtabline=1
 "highlight NonText guifg=#444444
 highlight SpecialKey guifg=#888888
-highlight CursorLine gui=underline guifg=NONE guibg=NONE
+"highlight CursorLine gui=underline guifg=NONE guibg=NONE
+highlight CursorLine guibg=#333333
 "highlight Visual guibg=#666666
 "highlight LineNr guibg=#333333 guifg=#777777
 "highlight CursorLineNr guibg=#333333 guifg=#ddddff
