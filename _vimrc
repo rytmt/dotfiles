@@ -282,6 +282,7 @@ endfunction
 " for email(.eml) file
 au BufRead,BufNewFile *.eml nnoremap <C-q> :q<CR>
 
+
 " Depend on JpFormat.vim
 au BufRead *.eml JpSetAutoFormat!
 au BufRead,BufNewFile *.eml let JpFormatCursorMovedI = 1
