@@ -36,6 +36,8 @@ highlight mailQuoted5 guifg=#cc6666
 autocmd GUIEnter * set transparency=255
 "autocmd FocusGained * set transparency=235
 "autocmd FocusLost * set transparency=200
+au BufRead,BufNewFile *.eml syntax match domainPart "@[a-z.-]\+" display containedin=ALL
+au BufRead,BufNewFile *.eml highlight domainPart guifg=#cc6666 gui=bold,underline
 
 ScreenMode 5
 
