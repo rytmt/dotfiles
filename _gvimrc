@@ -1,10 +1,18 @@
+" --------------------------------------------------
+" Following settings depend on local filesystem
+" --------------------------------------------------
+" 
+" save_window_file_eml
+" save_window_file_others
+"
+" --------------------------------------------------
+
+
+" --------------------------------------------------
+" General
+" --------------------------------------------------
 set background=dark
 colorscheme hybrid
-"colorscheme jellybeans
-"set lines=40
-"set columns=120
-"set guifont=MS_Gothic:h10
-"set guifontwide=MS_Gothic:h10
 set nomousefocus
 set mousehide
 set guifont=Migu_1M:h10
@@ -19,30 +27,72 @@ set guioptions-=L
 set guioptions-=b
 set guioptions-=e
 set showtabline=1
-"highlight NonText guifg=#444444
 highlight SpecialKey guifg=#888888
-"highlight CursorLine gui=underline guifg=NONE guibg=NONE
 highlight CursorLine guibg=#333333
-"highlight Visual guibg=#666666
-"highlight LineNr guibg=#333333 guifg=#777777
-"highlight CursorLineNr guibg=#333333 guifg=#ddddff
-"highlight Normal guifg=#e6e6c6
+
+
+
+" --------------------------------------------------
+" Mail
+" --------------------------------------------------
 highlight mailQuoted1 guifg=#81a2be
-"highlight mailQuoted1 guifg=#4682b4
 highlight mailQuoted2 guifg=#cd853f
 highlight mailQuoted3 guifg=#b5bd68
 highlight mailQuoted4 guifg=#b294bb
 highlight mailQuoted5 guifg=#cc6666
 autocmd GUIEnter * set transparency=255
-"autocmd FocusGained * set transparency=235
-"autocmd FocusLost * set transparency=200
 au BufRead,BufNewFile *.eml syntax match domainPart "@[a-z.-]\+" display containedin=ALL
 au BufRead,BufNewFile *.eml highlight domainPart guifg=#cc6666 gui=bold,underline
 
+" for window mode (depends on screenmode.vim in Kaoriya vim)
 ScreenMode 5
 
-" Save gvim window size and position
-" for .eml file
+
+
+" --------------------------------------------------
+" Markdown
+" --------------------------------------------------
+au BufRead,BufNewFile *.md abbreviate tl - [ ]
+au BufRead,BufNewFile *.md call CheckedList()
+au BufRead,BufNewFile *.md call ColorPriority()
+au BufRead,BufNewFile *.md nnoremap <C-c> :call ToggleCheckbox()<CR>
+au BufRead,BufNewFile *.md nnoremap <C-Tab> :call AddPriority()<CR>
+au BufRead,BufNewFile *.md nnoremap <C-S-Tab> :call RemovePriority()<CR>
+function! ToggleCheckbox()
+    let l:line = getline('.')
+    if l:line =~ '\-\s\[\s\]'
+        let l:result = substitute(l:line, '\-\s\[\s\]', '- [x]', '')
+        call setline('.', l:result)
+    elseif l:line =~ '\-\s\[x\]'
+        let l:result = substitute(l:line, '\-\s\[x\]', '- [ ]', '')
+        call setline('.', l:result)
+    end
+endfunction
+function! CheckedList()
+    syntax match checkedlist "\-\s\[x\].\+$" display containedin=ALL
+    highlight checkedlist guifg=#888888
+endfunction
+function! AddPriority()
+    call setline('.', substitute(getline('.'), '\-\s\[\s\]', '- [ ]\t', ''))
+endfunction
+function! RemovePriority()
+    call setline('.', substitute(getline('.'), '\-\s\[\s\]\t', '- [ ]', ''))
+endfunction
+function! ColorPriority()
+    syntax match priority_green "\-\s\[\s\]\t[^\t]\+$" display containedin=ALL
+    highlight priority_green guifg=#b5bd68
+    syntax match priority_yellow "\-\s\[\s\]\t\t[^\t]\+$" display containedin=ALL
+    highlight priority_yellow guifg=#cd853f
+    syntax match priority_red "\-\s\[\s\]\t\t\t.\+$" display containedin=ALL
+    highlight priority_red guifg=#cc6666
+endfunction
+
+
+
+" --------------------------------------------------
+" Window size and position
+" --------------------------------------------------
+" for .eml file (auto save)
 if expand("%:t") =~ ".*\.eml"
   let g:save_window_file_eml = 'C:\applications\vimtmp\.vimwinpos_eml'
   augroup SaveWindow
@@ -61,45 +111,47 @@ if expand("%:t") =~ ".*\.eml"
   if filereadable(g:save_window_file_eml)
     execute 'source' g:save_window_file_eml
   endif
-else
-  " for files except for eml
-  let g:save_window_file_others = 'C:\applications\vimtmp\.vimwinpos_others'
-  augroup SaveWindow
-    autocmd!
-    autocmd VimLeavePre * call s:save_window()
-    function! s:save_window()
-      let options = [
-        \ 'set columns=' . &columns,
-        \ 'set lines=' . &lines,
-        \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
-        \ ]
-      call writefile(options, g:save_window_file_others)
-    endfunction
-  augroup END
-  
-  if filereadable(g:save_window_file_others)
-    execute 'source' g:save_window_file_others
-  endif
-
-  " for changing window size
-  if filereadable(g:save_window_file_others)
-    function! Toggle_window_size()
-      let l:initial_window = readfile(g:save_window_file_others)
-      let l:current_column = &columns
-      let l:current_line = &lines
-      let l:initial_column = split(l:initial_window[0], '=')[1]
-      let l:initial_line = split(l:initial_window[1], '=')[1]
-
-      if (l:current_column == l:initial_column && l:current_line == l:initial_line)
-        call feedkeys(":ScreenMode 5\<CR>")
-      else
-        execute 'source' g:save_window_file_others
-      endif
-    endfunction
-  nnoremap <C-Enter> :call Toggle_window_size()<CR>
-  endif
 endif
 
+" for files except for eml (manual save)
+let g:save_window_file_others = 'C:\applications\vimtmp\.vimwinpos_others'
+if filereadable(g:save_window_file_others)
+  execute 'source' g:save_window_file_others
+endif
+
+function! Save_window_position()
+  let options = [
+    \ 'set columns=' . &columns,
+    \ 'set lines=' . &lines,
+    \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
+    \ ]
+  call writefile(options, g:save_window_file_others)
+endfunction
+cnoremap savewp :call Save_window_position()<CR>
+
+" for changing window size
+if filereadable(g:save_window_file_others)
+  function! Toggle_window_size()
+    let l:initial_window = readfile(g:save_window_file_others)
+    let l:current_column = &columns
+    let l:current_line = &lines
+    let l:initial_column = split(l:initial_window[0], '=')[1]
+    let l:initial_line = split(l:initial_window[1], '=')[1]
+
+    if (l:current_column == l:initial_column && l:current_line == l:initial_line)
+      call feedkeys(":ScreenMode 5\<CR>")
+    else
+      execute 'source' g:save_window_file_others
+    endif
+  endfunction
+nnoremap <C-Enter> :call Toggle_window_size()<CR>
+endif
+
+
+
+" --------------------------------------------------
+" misc
+" --------------------------------------------------
 " <S-j> is overwritten by JpFormat.vim
 nnoremap <S-j> 10j
 nnoremap <S-t> :$tabnew<CR>
