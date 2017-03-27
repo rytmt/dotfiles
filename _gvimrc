@@ -127,7 +127,7 @@ function! Save_window_position()
     \ ]
   call writefile(options, g:save_window_file_others)
 endfunction
-cnoremap savewp :call Save_window_position()<CR>
+command! SaveWinPos :call Save_window_position()
 
 " for changing window size
 if filereadable(g:save_window_file_others)
