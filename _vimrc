@@ -1,9 +1,36 @@
-" Not compatible with vi
+" --------------------------------------------------
+" Following settings depend on local filesystem
+" --------------------------------------------------
+" 
+" File Section
+"   - backupdir
+"   - undodir
+"   - directory
+"   - viminfo
+"
+" Session Section
+"   - mapping 'mks'
+"   - mapping 'rds'
+"
+" Misc Section
+"   - runtimepath
+"
+" External cooperation Section
+"   - shell
+"
+" --------------------------------------------------
+
+
+" --------------------------------------------------
+" Uncompatible with vi
+" --------------------------------------------------
 set nocompatible
 
 
+
+" --------------------------------------------------
 " Disable default plugins
-" -----------------------
+" --------------------------------------------------
 let g:loaded_gzip              = 1
 let g:loaded_tar               = 1
 let g:loaded_tarPlugin         = 1
@@ -21,15 +48,19 @@ let g:loaded_getscriptPlugin   = 1
 "let g:loaded_netrwFileHandlers = 1
 
 
+
+" --------------------------------------------------
 " FileType
-" --------
+" --------------------------------------------------
 "  NOTE: Need 'let g:no_vimrc_example = 1' in vimrc file and 'plugin indent on' in _vimrc file.
 filetype off
 filetype plugin indent off
 
 
+
+" --------------------------------------------------
 " Encode
-" ------
+" --------------------------------------------------
 set encoding=UTF-8
 set fileencoding=UTF-8
 set fileencodings=utf-8,cp932,euc-jp,utf-16le
@@ -38,8 +69,10 @@ set fileformats=unix,dos
 set termencoding=UTF-8
 
 
+
+" --------------------------------------------------
 " File
-" ----
+" --------------------------------------------------
 set hidden
 set autoread
 set backup
@@ -51,8 +84,10 @@ set directory=C:\applications\vimtmp\swp
 set viminfo+=nC:/applications/vimtmp/_viminfo
 
 
+
+" --------------------------------------------------
 " Search
-" ------
+" --------------------------------------------------
 set incsearch
 set hlsearch
 set smartcase
@@ -60,8 +95,10 @@ set ignorecase
 set wrapscan
 
 
+
+" --------------------------------------------------
 " Input
-" -----
+" --------------------------------------------------
 set cindent
 set shiftwidth=4
 set tabstop=4
@@ -93,14 +130,36 @@ inoremap <C-u> <Esc>ui
 inoremap <C-r> <Esc><C-r>i
 inoremap <C-s> <Esc>:w<CR>
 inoremap <C-q> <Esc>:bw!<CR>
-cnoremap fpath :echo expand("%:p")<CR>
+"cnoremap fpath :echo expand("%:p")<CR>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 vunmap <C-x>
 
+" yank current cursor line without \n
+function! YankLineWithoutCR()
+    call feedkeys(":let row = line('.')\<CR>")
+    call feedkeys(":let col = col('.')\<CR>")
+    call feedkeys("^y$")
+    call feedkeys(":call cursor(row, col)\<CR>")
+    call feedkeys(":echo @\"\<CR>")
+endfunction
 
+" for email(.eml) file
+au BufRead,BufNewFile *.eml nnoremap <C-q> :q<CR>
+
+
+
+" --------------------------------------------------
+" Command
+" --------------------------------------------------
+command! Fpath :echo expand("%:p")
+command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
+
+
+
+" --------------------------------------------------
 " Display
-" -------
+" --------------------------------------------------
 syntax on
 set number
 set title
@@ -126,39 +185,33 @@ augroup highlightSpace
   autocmd VimEnter,WinEnter * 2match NormalSpace /\v(^\s+|\s+$)/
 augroup END
 
-" Status Line
-" -----------
-" let ff_table = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
-" let &statusline='%<%f %h%m%r%w%=[%{(&fenc!=""?&fenc:&enc)}:%{ff_table[&ff]}]%y%= %-14.(%l,%c%V%) %P'
-" augroup InsertHook
-" autocmd!
-" autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
-" autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
-" augroup END
-
-
 " Check colors
 " :so $VIMRUNTIME/syntax/colortest.vim
 
 
+
+" --------------------------------------------------
 " Session
-" -------
+" --------------------------------------------------
 set sessionoptions=buffers,tabpages
 cnoremap mks :mksession! C:\applications\vim74-kaoriya-win64\Session.vim<CR>
 cnoremap rds :source C:\applications\vim74-kaoriya-win64\Session.vim<CR>
 
 
-" Others
-" ------
+
+" --------------------------------------------------
+" Misc
+" --------------------------------------------------
 filetype plugin indent on
 set nrformats=""
 set history=200
 set runtimepath+=C:\applications\vim74-kaoriya-win64\vimfiles\\*
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
-endif
 
+
+
+" --------------------------------------------------
+" Plugin
+" --------------------------------------------------
 
 " Unite.vim
 " ---------
@@ -174,7 +227,7 @@ nnoremap <S-u>y :Unite history/yank<CR>
 " lightline.vim
 " -------------
 let g:lightline = {
-\  'colorscheme': 'jellybeans',
+\  'colorscheme': 'wombat',
 \  'separator': { 'left': "", 'right': "" }
 \}
 
@@ -218,72 +271,8 @@ let MRU_Exclude_Files = ".*\.eml$"
 let MRU_Window_Height = 30
 
 
-" Startify
-" --------
-"let g:startify_files_number = 100
-"let g:startify_custom_header = ['> Startify']
-"let g:startify_list_order = [['> Most Recently Used'],'files']
-
-
-" Use cygwin bash
-" ---------------
-set shell=C:\cygwin64\bin\bash
-set shellcmdflag=--login\ -c
-set shellxquote=\" 
-
-
-" yank current cursor line without \n
-function! YankLineWithoutCR()
-    call feedkeys(":let row = line('.')\<CR>")
-    call feedkeys(":let col = col('.')\<CR>")
-    call feedkeys("^y$")
-    call feedkeys(":call cursor(row, col)\<CR>")
-    call feedkeys(":echo @\"\<CR>")
-endfunction
-
-
-" for markdown(.md) file
-au BufRead,BufNewFile *.md abbreviate tl - [ ]
-au BufRead,BufNewFile *.md call CheckedList()
-au BufRead,BufNewFile *.md call ColorPriority()
-au BufRead,BufNewFile *.md nnoremap <C-c> :call ToggleCheckbox()<CR>
-au BufRead,BufNewFile *.md nnoremap <C-Tab> :call AddPriority()<CR>
-au BufRead,BufNewFile *.md nnoremap <C-S-Tab> :call RemovePriority()<CR>
-function! ToggleCheckbox()
-    let l:line = getline('.')
-    if l:line =~ '\-\s\[\s\]'
-        let l:result = substitute(l:line, '\-\s\[\s\]', '- [x]', '')
-        call setline('.', l:result)
-    elseif l:line =~ '\-\s\[x\]'
-        let l:result = substitute(l:line, '\-\s\[x\]', '- [ ]', '')
-        call setline('.', l:result)
-    end
-endfunction
-function! CheckedList()
-    syntax match checkedlist "\-\s\[x\].\+$" display containedin=ALL
-    highlight checkedlist guifg=#888888
-endfunction
-function! AddPriority()
-    call setline('.', substitute(getline('.'), '\-\s\[\s\]', '- [ ]\t', ''))
-endfunction
-function! RemovePriority()
-    call setline('.', substitute(getline('.'), '\-\s\[\s\]\t', '- [ ]', ''))
-endfunction
-function! ColorPriority()
-    syntax match priority_green "\-\s\[\s\]\t[^\t]\+$" display containedin=ALL
-    highlight priority_green guifg=#b5bd68
-    syntax match priority_yellow "\-\s\[\s\]\t\t[^\t]\+$" display containedin=ALL
-    highlight priority_yellow guifg=#cd853f
-    syntax match priority_red "\-\s\[\s\]\t\t\t.\+$" display containedin=ALL
-    highlight priority_red guifg=#cc6666
-endfunction
-
-
-" for email(.eml) file
-au BufRead,BufNewFile *.eml nnoremap <C-q> :q<CR>
-
-
-" Depend on JpFormat.vim
+" JpFormat.vim
+" ------------
 au BufRead *.eml JpSetAutoFormat!
 au BufRead,BufNewFile *.eml let JpFormatCursorMovedI = 1
 au BufRead,BufNewFile *.eml let b:JpCountChars = 32
@@ -291,7 +280,21 @@ au BufRead,BufNewFile *.eml set colorcolumn=64
 "au BufRead,BufNewFile *.eml let b:JpFormatExclude = '^\(>\|http\).*$'
 au BufRead,BufNewFile *.eml let b:JpFormatExclude = '^\(>.*\|http.*\)$'
 
-" Delete signature (for thunderbird addon 'External Editor')
+
+
+" --------------------------------------------------
+" External cooperation
+" --------------------------------------------------
+
+" cygwin bash
+" -----------
+set shell=C:\cygwin64\bin\bash
+set shellcmdflag=--login\ -c
+set shellxquote=\" 
+
+
+" External Editor (a thunderbird addon)
+" -------------------------------------
 function! DeleteSignature()
 
     let l:internal_domain = '@iij.ad.jp'
