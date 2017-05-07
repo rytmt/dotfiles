@@ -23,6 +23,8 @@ map j 7<C-e>
 map k 7<C-y>
 map <S-j> 35<C-e>
 map <S-k> 35<C-y>
+map <A-j> 35<C-e>
+map <A-k> 35<C-y>
 map a <NOP>
 map <S-b> :tabopen about:mybookmarks<CR>
 map a :set<Space>maxitems=40<CR>::b!

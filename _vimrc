@@ -117,6 +117,10 @@ nnoremap <S-j> 10j
 nnoremap <S-k> 10k
 nnoremap <S-h> 10h
 nnoremap <S-l> 10l
+nnoremap <A-j> 10j
+nnoremap <A-k> 10k
+nnoremap <A-h> 10h
+nnoremap <A-l> 10l
 nnoremap <C-n> :tabnext<CR>
 nnoremap <C-p> :tabprevious<CR>
 nnoremap <C-t> :tabedit %<CR>
