@@ -1,0 +1,51 @@
+"3.9 (created: 2015/02/15 15:49:05)
+
+colorscheme indigo
+
+set tabnumbers
+set focuscontent
+set popups=resized
+set titlestring="Firefox"
+set visualbell=true
+set ignorecase
+set complete=sl
+set hlsearch
+" set gui=noaddons,nobookmarks,nomenu,nonavigation,notabs
+
+map j 7<C-e>
+map k 7<C-y>
+map <A-j> 35<C-e>
+map <A-k> 35<C-y>
+map a <NOP>
+map <S-b> :tabopen about:mybookmarks<CR>
+"map a :set<Space>maxitems=40<CR>::b!
+"map b :set<Space>maxitems=40<CR>::bmarks!
+map <C-d> :set<Space>maxitems=40<CR>::bd!
+map <C-r> :set<Space>maxitems=40<CR>::history!
+cmap <C-d> <Home><Right><Right><Right><S-End><Del>
+
+nnoremap a :b!
+nnoremap b :bmarks!
+
+" IME off (for fcitx)
+noremap f :!fcitx-remote -c<CR>qf
+noremap F :!fcitx-remote -c<CR>qF
+noremap t :!fcitx-remote -c<CR>qt
+noremap o :!fcitx-remote -c<CR>qo
+
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+"hi Hint z-index:5000; font-size:12px; color:white; background-color:gray; border-color:lightgray; border-width:2px; border-style:solid; padding:0px 2px 0px 2px; position:absolute; font-family: Menlo, Consolas, Monaco, monospace; text-transform: uppercase;
+
+:style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+
+" Overwrite colorscheme
+hi URL color: #b5bd68;
+hi Normal color: #d0d0d0; background: rgba(0, 0, 0, 0.7); font-size: 12px;
+
+" Overwrite Hint by solarized_dark colorscheme
+hi Hint font-family: monospace; font-size: 16px; font-weight: normal; color: #dc322f; background-color: #002b36; border-color: #839496; border-width: 0px; border-style: solid; padding: 0px 5px 0px 5px;
+hi HintElem background-color: #073642; color: #b58900;
+hi HintActive background-color: #dc322f; color: #073642;
+hi -append Hint         background-color: rgba(253, 246, 227, 0.7); border: 1px solid #fdf6e3; -moz-border-radius: 4px; -moz-box-shadow: 0px 0px 1px black;
+hi -append HintElem     text-decoration: none; -moz-border-radius: 4px; -moz-box-shadow: 0 0 2px #002b36;
+hi -append HintActive   text-decoration: none; -moz-border-radius: 4px; -moz-box-shadow: 0 0 2px #002b36;
