@@ -1,0 +1,8 @@
+#Layout
+set fgcolor orange
+set bgcolor black
+set border 6
+
+# Command
+bind f exec firefox
+
