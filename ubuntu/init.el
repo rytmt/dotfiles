@@ -10,7 +10,8 @@
 ;; General
 ;; --------------------------------------------------
 ;;(load-theme 'misterioso t)
-(load-theme 'solarized-dark t)
+;;(load-theme 'solarized-dark t)
+(load-theme 'madhat2r t)
 (setq inhibit-startup-message t)
 
 (setq make-backup-files nil)
@@ -55,7 +56,7 @@
 
 (show-paren-mode 1)
 
-(global-whitespace-mode 1)
+;;(global-whitespace-mode 1)
 
 
 ;; --------------------------------------------------
@@ -125,7 +126,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (markdown-mode solarized-theme jbeans-theme))))
+ '(package-selected-packages
+   (quote
+    (railscasts-theme madhat2r-theme markdown-mode solarized-theme jbeans-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

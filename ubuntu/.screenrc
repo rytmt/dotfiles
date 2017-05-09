@@ -1,7 +1,7 @@
 startup_message 'off'
 escape ^Oo
 hardstatus alwayslastline  "%{=d kW}%-w%{=u kM}%n %t%{=d kW}%+w %=%{= W}%H %{= W}%m-%d %c"
-caption always '%?%F%{=r wm}%:%{=u wm}%?%n %f %t%='
+caption always '%?%F%{=r wb}%:%{=u wb}%?%n %f %t%='
 defbce 'on'
 term xterm-256color
 altscreen 'on'
