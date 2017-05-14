@@ -25,6 +25,9 @@ cmap <C-d> <Home><Right><Right><Right><S-End><Del>
 nnoremap a :b!
 nnoremap b :bmarks!
 
+nnoremap e :set gui=tabs<CR>
+nnoremap <S-e> :set gui=notabs<CR>
+
 " IME off (for fcitx)
 noremap f :!fcitx-remote -c<CR>qf
 noremap F :!fcitx-remote -c<CR>qF
