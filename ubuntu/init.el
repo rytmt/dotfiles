@@ -9,13 +9,8 @@
 ;; --------------------------------------------------
 ;; General
 ;; --------------------------------------------------
-;;(load-theme 'misterioso t)
-;;(load-theme 'solarized-dark t)
 (load-theme 'madhat2r t)
 (setq inhibit-startup-message t)
-
-(setq make-backup-files nil)
-(setq delete-auto-save-files nil)
 
 (setq-default tab-width 4 indent-tabs-mode nil)
 
@@ -25,7 +20,7 @@
 (setq eol-mnemonic-mac "(CR)")
 (setq eol-mnemonic-unix "(LF)")
 
-(set-face-attribute 'default nil :family "Migu 1M" :height 100)
+(setq c-tab-always-indent t)
 
 
 ;; --------------------------------------------------
@@ -42,8 +37,21 @@
 
 
 ;; --------------------------------------------------
-;; Layout
+;; Backup
 ;; --------------------------------------------------
+(setq make-backup-files t)
+(setq delete-auto-save-files t)
+(add-to-list 'backup-directory-alist
+             (cons "." "~/.emacs.d/backup/"))
+(setq auto-save-file-name-transforms
+        `((".*" ,(expand-file-name "~/.emacs.d/backup/") t)))
+
+
+;; --------------------------------------------------
+;; Visual
+;; --------------------------------------------------
+(set-face-attribute 'default nil :family "Migu 1M" :height 100)
+
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode 0)
@@ -95,10 +103,14 @@
 (define-key global-map (kbd "C-o C-y") (kbd "C-a C-SPC C-e M-w C-a"))
 (define-key global-map (kbd "C-o C-d") (kbd "C-a C-SPC C-e C-d C-a"))
 
+(define-key global-map (kbd "C-<return>")
+  (lambda () (interactive) (move-end-of-line nil) (newline)))
+
+
 ;; --------------------------------------------------
 ;; Japanese Input
 ;; --------------------------------------------------
-(require 'mozc)
+(require 'mozc nil t)
 (set-language-environment "Japanese")
 (setq default-input-method "japanese-mozc")
 
