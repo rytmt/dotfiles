@@ -13,7 +13,9 @@ bind -c resize k eval 'resize -1' 'command -c resize'
 bindkey -m ' ' eval 'stuff \040' 'writebuf' 'exec sh -c "/usr/local/bin/putclip < /tmp/screen-exchange"'
 bindkey -m Y   eval 'stuff Y'    'writebuf' 'exec sh -c "/usr/local/bin/putclip < /tmp/screen-exchange"'
 bindkey -m W   eval 'stuff W'    'writebuf' 'exec sh -c "/usr/local/bin/putclip < /tmp/screen-exchange"'
-bindkey -m J stuff 10j
-bindkey -m K stuff 10k
+bindkey -m "^[j" stuff 10j
+bindkey -m "^[k" stuff 10k
+bindkey -m "^[h" stuff 10h
+bindkey -m "^[l" stuff 10l
 logfile "/var/log/screen/screen-%Y%m%d-%n.log"
 deflog 'on'

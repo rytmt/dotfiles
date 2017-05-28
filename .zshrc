@@ -82,12 +82,15 @@ bindkey "^G" clear-screen
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias history='history -f 1'
+alias telnet='/usr/bin/telnet'
 
 
 # --------------------------------------------------
 # Others
 # --------------------------------------------------
 export NO_AT_BRIDGE=1
+[ -t 0 ] && stty stop undef
+[ -t 0 ] && stty start undef
 
 
 # --------------------------------------------------
@@ -96,9 +99,11 @@ export NO_AT_BRIDGE=1
 
 # zsh-syntax-highlighting
 if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor line)
     ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
 fi
 
-
+if [ -f ~/.zsh_options ]; then
+    . ~/.zsh_options
+fi
