@@ -12,7 +12,7 @@ Term=xterm-256color
 
 # https://github.com/oumu/mintty-color-schemes
 # base16-monokai-mod.minttyrc
-ForegroundColour=208,208,202
+ForegroundColour=208,208,208
 BackgroundColour=39,40,34
 CursorColour=253,157,79
 Black=39,40,34
