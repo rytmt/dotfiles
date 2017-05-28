@@ -18,14 +18,15 @@ map <A-j> 35<C-e>
 map <A-k> 35<C-y>
 map a <NOP>
 map <S-b> :tabopen about:mybookmarks<CR>
-"map a :set<Space>maxitems=40<CR>::b!
-"map b :set<Space>maxitems=40<CR>::bmarks!
-map <C-d> :set<Space>maxitems=40<CR>::bd!
-map <C-r> :set<Space>maxitems=40<CR>::history!
+map <C-d> :bd!
+map <C-r> :history!
 cmap <C-d> <Home><Right><Right><Right><S-End><Del>
 
 nnoremap a :b!
 nnoremap b :bmarks!
+
+nnoremap e :set gui=tabs<CR>
+nnoremap <S-e> :set gui=notabs<CR>
 
 " IME off (for fcitx)
 noremap f :!fcitx-remote -c<CR>qf

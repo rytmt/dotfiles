@@ -93,6 +93,12 @@ export XMODIFIERS=@im=none emacs emacsclient
 
 
 # --------------------------------------------------
+# Others
+# --------------------------------------------------
+export NO_AT_BRIDGE=1
+
+
+# --------------------------------------------------
 # Plugin
 # --------------------------------------------------
 
@@ -102,3 +108,5 @@ if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor line)
     ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
 fi
+
+
