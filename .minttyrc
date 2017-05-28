@@ -1,5 +1,5 @@
 BoldAsFont=no
-Transparency=high
+Transparency=low
 OpaqueWhenFocused=no
 Scrollbar=none
 BellType=0
@@ -11,23 +11,23 @@ FontHeight=10
 Term=xterm-256color
 
 # https://github.com/oumu/mintty-color-schemes
-# base16-monokai-mod.minttyrc
-ForegroundColour=208,208,208
-BackgroundColour=39,40,34
+# base16-solarized-mod.minttyrc
+ForegroundColour=147,161,161
+BackgroundColour=0,43,54
 CursorColour=253,157,79
-Black=39,40,34
-BoldBlack=117,113,94
-Red=249,38,114
-BoldRed=204,6,78
-Green=166,226,46
-BoldGreen=122,172,24
-Yellow=244,191,117
-BoldYellow=240,169,69
-Blue=102,217,239
-BoldBlue=33,199,233
-Magenta=174,129,255
-BoldMagenta=126,51,255
-Cyan=161,239,228
-BoldCyan=95,227,210
-White=248,248,242
-BoldWhite=249,248,245
+Black=0,43,54
+BoldBlack=101,123,131
+Red=220,50,47
+BoldRed=232,115,113
+Green=133,153,0
+BoldGreen=199,228,0
+Yellow=181,137,0
+BoldYellow=255,193,2
+Blue=38,139,210
+BoldBlue=99,173,227
+Magenta=108,113,196
+BoldMagenta=162,165,217
+Cyan=42,161,152
+BoldCyan=71,207,197
+White=147,161,161
+BoldWhite=253,246,227
