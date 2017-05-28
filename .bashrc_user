@@ -45,3 +45,4 @@ set -o posix
 
 [ -f ~/.bashrc_options ] && . ~/.bashrc_options
 
+#export DISPLAY=:0.0
