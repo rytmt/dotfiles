@@ -108,3 +108,5 @@ if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor line)
     ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
 fi
+
+
