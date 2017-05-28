@@ -9,6 +9,9 @@
 ### アンチエイリアス
 - gfx.font_rendering.cleartype_params.rendering_mode = 5
 
+### フルスクリーン
+- browser.fullscreen.autohide = false
+
 ### アドオン
 - Adblock Plus
 - Dark Background and Light Text

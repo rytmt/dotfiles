@@ -21,6 +21,8 @@ nnoremap a :set<Space><CR>::b!
 nnoremap b :set<Space><CR>::bmarks!
 nnoremap <C-d> :set<Space><CR>::bd!
 nnoremap <C-r> :set<Space><CR>::history!
+nnoremap e :set gui=tabs<CR>
+nnoremap <S-e> :set gui=notabs<CR>
 cmap <C-d> <Home><Right><Right><Right><S-End><Del>
 
 
