@@ -11,23 +11,23 @@ FontHeight=10
 Term=xterm-256color
 
 # https://github.com/oumu/mintty-color-schemes
-# base16-tomorrow-mod.minttyrc
-ForegroundColour=197,200,198
-BackgroundColour=29,31,33
+# base16-solarized-mod.minttyrc
+ForegroundColour=147,161,161
+BackgroundColour=0,43,54
 CursorColour=253,157,79
-Black=29,31,33
-BoldBlack=150,152,150
-Red=204,102,102
-BoldRed=173,57,57
-Green=181,189,104
-BoldGreen=142,150,66
-Yellow=240,198,116
-BoldYellow=234,171,47
-Blue=129,162,190
-BoldBlue=82,125,159
-Magenta=178,148,187
-BoldMagenta=145,100,157
-Cyan=138,190,183
-BoldCyan=90,162,152
-White=197,200,198
-BoldWhite=255,255,255
+Black=0,43,54
+BoldBlack=101,123,131
+Red=220,50,47
+BoldRed=232,115,113
+Green=133,153,0
+BoldGreen=199,228,0
+Yellow=181,137,0
+BoldYellow=255,193,2
+Blue=38,139,210
+BoldBlue=99,173,227
+Magenta=108,113,196
+BoldMagenta=162,165,217
+Cyan=42,161,152
+BoldCyan=71,207,197
+White=147,161,161
+BoldWhite=253,246,227
