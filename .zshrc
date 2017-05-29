@@ -107,3 +107,4 @@ fi
 if [ -f ~/.zsh_options ]; then
     . ~/.zsh_options
 fi
+
