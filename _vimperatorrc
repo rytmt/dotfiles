@@ -17,10 +17,10 @@ nnoremap j 7<C-e>
 nnoremap k 7<C-y>
 nnoremap <A-j> 35<C-e>
 nnoremap <A-k> 35<C-y>
-nnoremap a :set<Space><CR>::b!
-nnoremap b :set<Space><CR>::bmarks!
-nnoremap <C-d> :set<Space><CR>::bd!
-nnoremap <C-r> :set<Space><CR>::history!
+nnoremap a :b!
+nnoremap b :bmarks!
+nnoremap <C-d> :bd!
+nnoremap <C-r> :history!
 nnoremap e :set gui=tabs<CR>
 nnoremap <S-e> :set gui=notabs<CR>
 cmap <C-d> <Home><Right><Right><Right><S-End><Del>
