@@ -27,7 +27,6 @@ cmap <C-d> <Home><Right><Right><Right><S-End><Del>
 
 
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
-"hi Hint z-index:5000; font-size:12px; color:white; background-color:gray; border-color:lightgray; border-width:2px; border-style:solid; padding:0px 2px 0px 2px; position:absolute; font-family: Menlo, Consolas, Monaco, monospace; text-transform: uppercase;
 
 :style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 
