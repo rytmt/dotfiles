@@ -12,6 +12,10 @@
 ### フルスクリーン
 - browser.fullscreen.autohide = false
 
+### アニメーション
+browser.tabs.animate = false
+browser.fullscreen.animate = false
+
 ### アドオン
 - Adblock Plus
 - Dark Background and Light Text
