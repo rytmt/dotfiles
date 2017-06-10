@@ -2,7 +2,7 @@
 
 colorscheme indigo
 
-set tabnumbers
+"set tabnumbers
 set focuscontent
 set popups=resized
 set titlestring="Firefox"
