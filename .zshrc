@@ -72,8 +72,8 @@ setopt COMPLETE_IN_WORD
 # Keybind
 # --------------------------------------------------
 bindkey -e
-bindkey "^U" backward-kill-line
-bindkey "^G" clear-screen
+bindkey '^U' backward-kill-line
+bindkey '^G' clear-screen
 
 
 # --------------------------------------------------
@@ -97,14 +97,29 @@ export NO_AT_BRIDGE=1
 # --------------------------------------------------
 # Plugin
 # --------------------------------------------------
+PLUGIN_BASE=~/.zsh
 
 # zsh-syntax-highlighting
-if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_SYNTAX_HIGHLIGHTING_PATH="${PLUGIN_BASE}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [ -f "${ZSH_SYNTAX_HIGHLIGHTING_PATH}" ]; then
+    . "${ZSH_SYNTAX_HIGHLIGHTING_PATH}"
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor line)
     ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
 fi
 
+# zaw
+ZAW_PATH="${PLUGIN_BASE}/zaw/zaw.zsh"
+if [ -f "${ZAW_PATH}" ]; then
+    . "${ZAW_PATH}"
+    bindkey '^R' zaw-history
+    bindkey '^@' zaw-cdr
+    bindkey -M filterselect '^M' accept-search
+    zstyle ':filter-select' case-insensitive yes
+    zstyle ':filter-select' hist-find-no-dups yes
+    zstyle ':filter-select:highlight' matched fg=blue,underline
+fi
+
+# user options
 if [ -f ~/.zsh_options ]; then
     . ~/.zsh_options
 fi
