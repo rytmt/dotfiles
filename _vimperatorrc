@@ -3,6 +3,8 @@
 colorscheme indigo
 
 "set tabnumbers
+set fullscreen
+set statuslinevisibility=visible
 set focuscontent
 set popups=resized
 set titlestring="Firefox"
