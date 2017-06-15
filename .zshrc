@@ -93,6 +93,8 @@ export NO_AT_BRIDGE=1
 [ -t 0 ] && stty stop undef
 [ -t 0 ] && stty start undef
 
+# remove '/', and add '|' from default
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>|'
 
 # --------------------------------------------------
 # Plugin
