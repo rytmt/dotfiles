@@ -32,7 +32,7 @@ HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
 # --------------------------------------------------
 # Prompt
 # --------------------------------------------------
-PROMPT="%F{green}%(!.#.$)%f "
+PROMPT="%F{green}c%(!.#.$)%f "
 RPROMPT='[%B%F{blue}%~%f%b] (%?)'
 
 
@@ -84,6 +84,7 @@ alias grep='grep --color=auto'
 alias history='history -f 1'
 alias ssh='TERM=xterm-256color ssh'
 alias telnet='/usr/bin/telnet'
+alias e='emacs'
 
 
 # --------------------------------------------------
