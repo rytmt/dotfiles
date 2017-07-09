@@ -1,0 +1,26 @@
+MAILDIR = "$HOME/mail"
+DEFAULT = "$MAILDIR/"
+FOLDER1 = "$MAILDIR/folder1/"
+FOLDER2 = "$MAILDIR/folder2/"
+JUNK = "$MAILDIR/junk/"
+
+if (/^From:.*@folder1.com/)
+{
+    to $FOLDER1
+    exit
+}
+
+if (/^From:.*@folder2.com/)
+{
+    to $FOLDER2
+    exit
+}
+
+if (/^From:.*@junk.com/)
+{
+    cc $JUNK
+    `for m in ${JUNK}new/*; do mv $m ${JUNK}cur/${m##*/new/}:2,S; done`
+    exit
+}
+
+to $DEFAULT

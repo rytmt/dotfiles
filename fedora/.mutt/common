@@ -1,0 +1,71 @@
+# --------------------------------------------------
+# General
+# --------------------------------------------------
+set use_from = 'yes'
+set envelope_from = 'yes'
+set charset = "utf-8"
+set ssl_force_tls = yes
+set editor = "emacs"
+set date_format = "%y-%m-%d %T"
+set index_format = "%2C | %Z [%d] %-40.40a (%-4.4c) %s"
+set pager_index_lines = 10
+set pager_stop = yes
+set tilde
+set fast_reply=yes
+set include=yes
+set smart_wrap
+
+
+# --------------------------------------------------
+# Bind
+# --------------------------------------------------
+bind attach,index,pager \CF next-page
+bind attach,index,pager \CB previous-page
+bind attach,index,browser g first-entry
+bind attach,index,browser G last-entry
+bind browser l enter-mask
+bind index,pager,browser L buffy-list
+bind index Q quit
+bind index q noop
+bind browser a exit
+
+
+# --------------------------------------------------
+# Macro
+# --------------------------------------------------
+macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+
+macro index,pager a "<change-folder>?<toggle-mailboxes>" "show incoming mailboxes list"
+
+macro index T ":set sort=threads<enter>"
+macro index D ":set sort=date<enter>"
+macro index,browser,pager \ek kkkkkkkkkk
+macro index,browser,pager \ej jjjjjjjjjj
+
+macro browser l <enter-mask>\CU
+macro index  l <limit>\CU
+
+macro index,pager R <group-reply>
+
+macro pager g <exit><first-entry><display-message>
+macro pager G <exit><last-entry><display-message>
+
+
+# --------------------------------------------------
+# Hook
+# --------------------------------------------------
+folder-hook . push <last-entry>
+
+
+# --------------------------------------------------
+# Sidebar
+# --------------------------------------------------
+set sidebar_visible = no
+set sidebar_short_path = yes
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
+set sidebar_new_mail_only = yes
+bind index,pager \Cp sidebar-prev
+bind index,pager \Cn sidebar-next
+bind index,pager \Co sidebar-open
+bind index,pager b sidebar-toggle-visible

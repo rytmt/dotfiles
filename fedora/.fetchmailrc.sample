@@ -1,0 +1,9 @@
+poll IMAP_SERVER
+  protocol imap
+  port 993
+  username USERNAME@DOMAIN
+  password PASSWORD
+  ssl
+  keep
+  no mimedecode
+  mda "maildrop /PATH/TO/MAILFILTER_FILE"

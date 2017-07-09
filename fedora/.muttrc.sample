@@ -1,0 +1,13 @@
+# Common Settings
+source "~/.mutt/common"
+
+# Color Scheme
+source "~/.mutt/colors/jellybeans"
+
+# Account 2
+source "~/.mutt/account2"
+folder-hook $folder 'source ~/.mutt/account2'
+
+# Account 1
+source "~/.mutt/account1"
+folder-hook $folder 'source ~/.mutt/account1'
