@@ -1,0 +1,17 @@
+set mbox_type =   Maildir
+set record    = +_Sent
+
+set folder    = ~/mail/account1
+set spoolfile = ~/mail/account1
+
+set realname = 'Ryoto Tomita'
+set from = FROM_ADDRESS
+
+my_hdr Return-Path: RETURN_ADDRESS (= FROM_ADDRESS)
+
+set smtp_url=smtps://USERNAME@SMTPSERVER:PORT
+
+send-hook . set signature="~/.mutt/signature_default"
+send-hook "~t @internal.local" set signature=~/.mutt/signature_internal
+
+mailboxes `echo -n "+ "; find ~/mail/account1 -maxdepth 1 -type d -name cur -prune -o -type d -name new -prune -o -type d -name tmp -prune -o -type d -printf "+'%f' "`
