@@ -172,8 +172,6 @@
 (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
 
 
-(defun send-text-to-host (text)
-  (let ((proc (open-network-stream "send-text-to-host" nil "192.168.0.3" 33333)))
-    (process-send-string proc text)
-    (delete-process proc)))
-(setq interprogram-cut-function 'send-text-to-host)
+(setq load-path (append '("~/.emacs.d/conf") load-path))
+(load "clipboard")
+
