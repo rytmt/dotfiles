@@ -82,7 +82,7 @@ bindkey '^G' clear-screen
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias history='history -f 1'
-alias e='emacs'
+alias e='emacsclient -a ""'
 
 # --------------------------------------------------
 # Others

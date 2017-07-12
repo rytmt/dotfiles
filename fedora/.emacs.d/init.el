@@ -171,6 +171,8 @@
 
 (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
 
+;;(server-start)
+;;(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
 
 (setq load-path (append '("~/.emacs.d/conf") load-path))
 (load "clipboard")
