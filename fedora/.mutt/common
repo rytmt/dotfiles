@@ -5,7 +5,7 @@ set use_from = 'yes'
 set envelope_from = 'yes'
 set charset = "utf-8"
 set ssl_force_tls = yes
-set editor = "emacs"
+set editor = "emacsclient"
 set date_format = "%y-%m-%d %T"
 set index_format = "%2C | %Z [%d] %-40.40a (%-4.4c) %s"
 set pager_index_lines = 10
@@ -14,6 +14,7 @@ set tilde
 set fast_reply=yes
 set include=yes
 set smart_wrap
+set sort_browser = reverse-date
 
 
 # --------------------------------------------------
@@ -50,6 +51,9 @@ macro index,pager R <group-reply>
 
 macro pager g <exit><first-entry><display-message>
 macro pager G <exit><last-entry><display-message>
+
+macro browser d Od
+macro browser n oa
 
 
 # --------------------------------------------------
