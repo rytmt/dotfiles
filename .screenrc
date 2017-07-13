@@ -17,5 +17,10 @@ bindkey -m "^[j" stuff 10j
 bindkey -m "^[k" stuff 10k
 bindkey -m "^[h" stuff 10h
 bindkey -m "^[l" stuff 10l
+bindkey -m ^Y stuff ^B/http^M
+markkeys 0=^a:$=^e
+bindkey -m ^[b stuff B
+bindkey -m ^[f stuff E
+bindkey -m ^g stuff !
 logfile "/var/log/screen/screen-%Y%m%d-%n.log"
 deflog 'on'
