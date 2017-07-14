@@ -96,11 +96,13 @@ export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>|'
 
 LS_COLORS=
 
+gecho() { printf "\e[1;32m$*\e[m\n" }
+
 # user options
-[ -f ~/.zsh/options.zsh ] && . ~/.zsh/options.zsh
+[ -f ~/.zsh/options.zsh ] && . ~/.zsh/options.zsh && gecho '~/.zsh/options.zsh loaded'
 
 # peco
-[ -f /usr/local/bin/peco ] && [ -f ~/.zsh/peco.zsh ] && . ~/.zsh/peco.zsh
+[ -f /usr/local/bin/peco ] && [ -f ~/.zsh/peco.zsh ] && . ~/.zsh/peco.zsh && gecho '~/.zsh/peco.zsh loaded'
 
 
 # --------------------------------------------------
@@ -114,6 +116,7 @@ if [ -f "${ZSH_SYNTAX_HIGHLIGHTING_PATH}" ]; then
     . "${ZSH_SYNTAX_HIGHLIGHTING_PATH}"
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor line)
     ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
+    gecho 'zsh-syntax-highlighting loaded'
 fi
 
 
