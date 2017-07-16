@@ -14,7 +14,7 @@ peco-file-recursive() {
 zle -N peco-file
 zle -N peco-file-recursive
 bindkey '^f' peco-file
-bindkey '^[f' peco-file-recursive
+bindkey '^[s' peco-file-recursive
 
 
 # select command history
