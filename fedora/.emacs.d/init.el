@@ -144,6 +144,18 @@
 
 
 ;; --------------------------------------------------
+;; Others
+;; --------------------------------------------------
+
+;; for mutt
+(setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
+
+;; clipboard
+(setq load-path (append '("~/.emacs.d/conf") load-path))
+(load "clipboard")
+
+
+;; --------------------------------------------------
 ;; Plugin
 ;; --------------------------------------------------
 
@@ -152,6 +164,21 @@
 (require 'anything-startup)
 (require 'anything-config)
 (define-key global-map (kbd "C-o C-b") 'anything-buffers-list)
+
+
+;; migemo
+(require 'migemo)
+(setq migemo-command "cmigemo")
+(setq migemo-options '("-q" "--emacs"))
+
+(setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
+
+(setq migemo-user-dictionary nil)
+(setq migemo-regex-dictionary nil)
+(setq migemo-coding-system 'utf-8-unix)
+(load-library "migemo")
+(migemo-init)
+
 
 ;; mew
 ;;(autoload 'mew "mew" nil t)
@@ -167,13 +194,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages (quote (migemo solarized-theme madhat2r-theme anything))))
-
-
-(setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
-
-;;(server-start)
-;;(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
-
-(setq load-path (append '("~/.emacs.d/conf") load-path))
-(load "clipboard")
 
