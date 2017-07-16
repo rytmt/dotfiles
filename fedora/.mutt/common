@@ -5,7 +5,7 @@ set use_from = 'yes'
 set envelope_from = 'yes'
 set charset = "utf-8"
 set ssl_force_tls = yes
-set editor = "emacsclient"
+set editor = "emacsclient -nw -a ''"
 set date_format = "%y-%m-%d %T"
 set index_format = "%2C | %Z [%d] %-40.40a (%-4.4c) %s"
 set pager_index_lines = 10
@@ -55,6 +55,7 @@ macro pager G <exit><last-entry><display-message>
 macro browser d Od
 macro browser n oa
 
+macro browser A <change-dir>^U~/.mutt/attachment<enter>
 
 # --------------------------------------------------
 # Hook
