@@ -166,7 +166,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (solarized-theme madhat2r-theme anything))))
+ '(package-selected-packages (quote (migemo solarized-theme madhat2r-theme anything))))
 
 
 (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
