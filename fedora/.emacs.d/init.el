@@ -126,6 +126,7 @@
 (define-key global-map (kbd "C-o C-d") (kbd "C-a C-SPC C-e C-d <DEL> <right>"))
 (define-key global-map (kbd "C-v") 'cua-set-rectangle-mark)
 
+(define-key global-map (kbd "C-o r") 'replace-string)
 (define-key global-map (kbd "C-o C-r") 'replace-regexp)
 
 ;;(define-key global-map (kbd "C-<return>")
@@ -144,11 +145,38 @@
 
 
 ;; --------------------------------------------------
+;; Org-mode
+;; --------------------------------------------------
+(require 'org)
+
+;; key bind
+(define-key org-mode-map (kbd "TAB") 'org-shiftright)
+(define-key org-mode-map (kbd "<backtab>") 'org-shiftleft)
+(define-key org-mode-map (kbd "C-o TAB") 'org-cycle)
+(define-key org-mode-map (kbd "C-o t") (kbd "#+TITLE: SPC"))
+(define-key org-mode-map (kbd "M-j") (kbd "C-u 10 <down>"))
+(define-key org-mode-map (kbd "M-k") (kbd "C-u 10 <up>"))
+(define-key org-mode-map (kbd "M-h") (kbd "C-u 10 <left>"))
+(define-key org-mode-map (kbd "M-l") (kbd "C-u 10 <right>"))
+(define-key org-mode-map (kbd "C-y") 'kill-ring-save)
+(define-key org-mode-map (kbd "C-p") 'yank)
+(define-key org-mode-map (kbd "C-d") 'kill-region)
+(define-key org-mode-map (kbd "M-n") 'org-shiftdown)
+(define-key org-mode-map (kbd "M-p") 'org-shiftup)
+
+;; config
+(setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
+(setq org-log-done 'time)
+(setq org-startup-folded 'all)
+
+
+;; --------------------------------------------------
 ;; Others
 ;; --------------------------------------------------
 
 ;; for mutt
 (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
+;;(font-lock-add-keywords 'mail-mode '(("@[a-zA-Z0-9_.-]+ " . 'hi-pink)))
 
 ;; clipboard
 (setq load-path (append '("~/.emacs.d/conf") load-path))
