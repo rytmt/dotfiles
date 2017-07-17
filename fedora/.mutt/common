@@ -11,10 +11,16 @@ set index_format = "%2C | %Z [%d] %-40.40a (%-4.4c) %s"
 set pager_index_lines = 10
 set pager_stop = yes
 set tilde
-set fast_reply=yes
-set include=yes
+set fast_reply = yes
+set include = yes
+set askcc = yes
+set edit_headers = yes
+set abort_nosubject = no
+set abort_unmodified = no
 set smart_wrap
+set beep = no
 set sort_browser = reverse-date
+set sleep_time = 0
 
 
 # --------------------------------------------------
