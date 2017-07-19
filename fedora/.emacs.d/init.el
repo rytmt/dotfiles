@@ -15,8 +15,6 @@
 (load-theme 'solarized-dark t)
 (custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
 (custom-set-faces (if (not window-system) '(linum ((t (:background "color-23" :foreground "green"))))))
-;;(custom-set-faces '(linum ((t (:inherit (shadow default) :background "color-29")))))
-;;(custom-set-faces '(linum ((t (:inherit (shadow default) :foreground "green")))))
 (custom-set-faces '(hl-line ((t (:background "color-235")))))
 
 (setq inhibit-startup-message t)
