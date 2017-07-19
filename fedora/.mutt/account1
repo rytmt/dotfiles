@@ -6,6 +6,7 @@ set spoolfile = ~/mail/account1
 
 set realname = 'Ryoto Tomita'
 set from = FROM_ADDRESS
+set header_cache ~/.mutt/.header_cache_account1
 
 my_hdr Return-Path: RETURN_ADDRESS (= FROM_ADDRESS)
 

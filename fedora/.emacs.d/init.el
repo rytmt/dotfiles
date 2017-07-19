@@ -2,15 +2,22 @@
 ;; Initialization
 ;; --------------------------------------------------
 (when (require 'package nil t)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
   (package-initialize))
                 
 
 ;; --------------------------------------------------
 ;; General
 ;; --------------------------------------------------
-(load-theme 'madhat2r t)
-(set-face-foreground 'default "#93a1a1")
+;;(load-theme 'madhat2r t)
+;;(set-face-foreground 'default "#93a1a1")
+(load-theme 'solarized-dark t)
+(custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
+(custom-set-faces (if (not window-system) '(linum ((t (:background "color-23" :foreground "green"))))))
+;;(custom-set-faces '(linum ((t (:inherit (shadow default) :background "color-29")))))
+;;(custom-set-faces '(linum ((t (:inherit (shadow default) :foreground "green")))))
+(custom-set-faces '(hl-line ((t (:background "color-235")))))
 
 (setq inhibit-startup-message t)
 
@@ -73,12 +80,6 @@
 (setq linum-format "%4d ")
 
 (global-hl-line-mode t)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(hl-line ((t (:background "color-236")))))
 
 (show-paren-mode 1)
 
@@ -89,7 +90,7 @@
 ;;(global-whitespace-mode 1)
 
 
-;; --------------------------------------------------
+;;--------------------------------------------------
 ;; Keybind
 ;; --------------------------------------------------
 (global-set-key "\C-o" ctl-x-map)
@@ -221,5 +222,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (migemo solarized-theme madhat2r-theme anything))))
+ '(package-selected-packages (quote (solarized-theme migemo madhat2r-theme anything))))
 
