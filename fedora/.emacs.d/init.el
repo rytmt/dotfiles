@@ -91,6 +91,8 @@
 ;;--------------------------------------------------
 ;; Keybind
 ;; --------------------------------------------------
+(defun delete-word (arg) (interactive "p") (delete-region (point) (progn (forward-word arg) (point))))
+(defun backward-delete-word (arg) (interactive "p") (delete-word (- arg)))
 (global-set-key "\C-o" ctl-x-map)
 
 (define-key global-map (kbd "C-j") 'next-line)
@@ -111,10 +113,11 @@
 (define-key global-map (kbd "C-o <down>") 'end-of-buffer)
 
 (define-key global-map (kbd "C-o C-q") 'save-buffers-kill-terminal)
+(define-key global-map (kbd "C-o k") 'kill-this-buffer)
 
 (define-key global-map (kbd "C-o C-u") 'undo)
 
-(define-key global-map (kbd "C-w") 'backward-kill-word)
+(define-key global-map (kbd "C-w") 'backward-delete-word)
 
 (define-key global-map (kbd "C-f") 'scroll-up)
 (define-key global-map (kbd "C-b") 'scroll-down)
