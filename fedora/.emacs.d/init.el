@@ -135,7 +135,7 @@
 ;; --------------------------------------------------
 ;; Input
 ;; --------------------------------------------------
-(setq fill-column 70)
+(setq fill-column 64)
 (setq mail-mode-hook 'turn-on-auto-fill)
 (setq text-mode-hook 'turn-off-auto-fill)
 ;;(setq use-hard-newlines t)
