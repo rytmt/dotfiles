@@ -9,6 +9,7 @@ set editor = "emacsclient -nw -a ''"
 set date_format = "%y-%m-%d %T"
 set index_format = "%2C | %Z [%d] %-40.40a (%-4.4c) %s"
 set folder_format = "%2C %N %-60.60f (%5n/%5m) | %d"
+set attribution = "On %d, %a wrote:"
 set pager_index_lines = 10
 set pager_stop = yes
 set tilde
