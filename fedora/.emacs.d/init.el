@@ -5,7 +5,7 @@
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
   (package-initialize))
-                
+
 
 ;; --------------------------------------------------
 ;; General
@@ -14,8 +14,8 @@
 ;;(set-face-foreground 'default "#93a1a1")
 (load-theme 'solarized-dark t)
 (custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
-(custom-set-faces (if (not window-system) '(linum ((t (:background "color-23" :foreground "green"))))))
-(custom-set-faces '(hl-line ((t (:background "color-17")))))
+(custom-set-faces (if (not window-system) '(linum ((t (:background "color-23" :foreground "color-137"))))))
+(custom-set-faces '(hl-line ((t (:background "color-23")))))
 
 (setq inhibit-startup-message t)
 
@@ -85,7 +85,34 @@
 
 (setq split-width-threshold nil)
 
-;;(global-whitespace-mode 1)
+(progn
+  (require 'whitespace)
+  (setq whitespace-style
+        '(
+          face
+          trailing
+          ;tabs
+          spaces
+          space-mark
+          tab-mark
+          ))
+  (setq whitespace-display-mappings
+        '(
+          (space-mark ?\x3000 [?\＿])
+          (tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t])
+          ))
+  (setq whitespace-trailing-regexp  "\\([ \u00A0]+\\)$")
+  (setq whitespace-space-regexp "\\(\u3000+\\)")
+  (set-face-attribute 'whitespace-trailing nil
+                      :foreground "RoyalBlue4"
+                      :background "RoyalBlue4"
+                      :underline nil)
+  (set-face-attribute 'whitespace-space nil
+                      :foreground "gray40"
+                      :background "gray20"
+                      :underline nil)
+  (global-whitespace-mode t)
+)
 
 
 ;;--------------------------------------------------
@@ -194,6 +221,7 @@
 (require 'anything-startup)
 (require 'anything-config)
 (define-key global-map (kbd "C-o C-b") 'anything-buffers-list)
+(define-key global-map (kbd "C-o C-f") 'anything-recentf)
 
 
 ;; migemo
@@ -224,4 +252,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages (quote (solarized-theme migemo madhat2r-theme anything))))
+
 
