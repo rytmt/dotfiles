@@ -25,12 +25,19 @@
 ^l::Send {Right}
 
 ^1::#1
-^2::#2
+;^2::#2
+^2::mutt()
+;$^2::
+;  mintty()
+;  Send ^t
+;  Send 0
+;  Send #3
 ^3::#3
-^4::#4
+;^4::#4
+^4::emacs()
 ;^5::#5
-^6::#6
-^7::#7
+;^6::#6
+;^7::#7
 ;^8::#8
 ;^9::#9
 
@@ -45,6 +52,34 @@ ppcw() {
         WinActivate,ahk_pid %ErrorLevel%
     else
         Run,PPCW.EXE
+}
+
+mintty() {
+    Process,Exist,mintty.exe
+    If ErrorLevel<>0
+        WinActivate,ahk_pid %ErrorLevel%
+    else
+        Run,mintty.exe
+}
+
+mutt() {
+    Process,Exist,mintty.exe
+    If ErrorLevel<>0
+        WinActivate,ahk_pid %ErrorLevel%
+    else
+        Run,mintty.exe
+        Send ^t
+        Send 1
+}
+
+emacs() {
+    Process,Exist,mintty.exe
+    If ErrorLevel<>0
+        WinActivate,ahk_pid %ErrorLevel%
+    else
+        Run,mintty.exe
+        Send ^t
+        Send 2
 }
 
 ^5::ppcw()
