@@ -206,7 +206,14 @@
 
 ;; for mutt
 (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
-;;(font-lock-add-keywords 'mail-mode '(("@[a-zA-Z0-9_.-]+ " . 'hi-pink)))
+(defun list-mail-domain ()
+  (interactive)
+  (shell-command-on-region
+   1 (1+ (buffer-size))
+   "grep -e ^To -e Cc -e Bcc | grep -E -o '@[a-zA-Z0-9.-]+' | sort | uniq -c | sort -nr")
+)
+(define-key global-map (kbd "C-o C-c") 'list-mail-domain)
+
 
 ;; clipboard
 (setq load-path (append '("~/.emacs.d/conf") load-path))
@@ -257,5 +264,4 @@
  '(package-selected-packages
    (quote
     (undo-tree solarized-theme migemo madhat2r-theme anything))))
-
 
