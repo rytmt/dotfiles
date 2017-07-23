@@ -2,9 +2,9 @@
 ;; Initialization
 ;; --------------------------------------------------
 (when (require 'package nil t)
-
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-  (package-initialize))
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+  (package-initialize)
+)
 
 
 ;; --------------------------------------------------
@@ -12,10 +12,12 @@
 ;; --------------------------------------------------
 ;;(load-theme 'madhat2r t)
 ;;(set-face-foreground 'default "#93a1a1")
-(load-theme 'solarized-dark t)
-(custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
-(custom-set-faces (if (not window-system) '(linum ((t (:background "color-23" :foreground "color-137"))))))
-(custom-set-faces '(hl-line ((t (:background "color-23")))))
+(when (require 'solarized-theme nil t) (load-theme 'solarized-dark t))
+(custom-set-faces
+  '(default ((t (:background "nil"))))
+  '(hl-line ((t (:background "color-23"))))
+  '(linum ((t (:background "color-23" :foreground "color-137"))))
+)
 
 (setq inhibit-startup-message t)
 
@@ -142,7 +144,7 @@
 (define-key global-map (kbd "C-o C-q") 'save-buffers-kill-terminal)
 (define-key global-map (kbd "C-o k") 'kill-this-buffer)
 
-(define-key global-map (kbd "C-o C-u") 'undo)
+;;(define-key global-map (kbd "C-o C-u") 'undo)
 
 (define-key global-map (kbd "C-w") 'backward-delete-word)
 
@@ -176,27 +178,26 @@
 ;; --------------------------------------------------
 ;; Org-mode
 ;; --------------------------------------------------
-(require 'org)
-
-;; key bind
-(define-key org-mode-map (kbd "TAB") 'org-shiftright)
-(define-key org-mode-map (kbd "<backtab>") 'org-shiftleft)
-(define-key org-mode-map (kbd "C-o TAB") 'org-cycle)
-(define-key org-mode-map (kbd "C-o t") (kbd "#+TITLE: SPC"))
-(define-key org-mode-map (kbd "M-j") (kbd "C-u 10 <down>"))
-(define-key org-mode-map (kbd "M-k") (kbd "C-u 10 <up>"))
-(define-key org-mode-map (kbd "M-h") (kbd "C-u 10 <left>"))
-(define-key org-mode-map (kbd "M-l") (kbd "C-u 10 <right>"))
-(define-key org-mode-map (kbd "C-y") 'kill-ring-save)
-(define-key org-mode-map (kbd "C-p") 'yank)
-(define-key org-mode-map (kbd "C-d") 'kill-region)
-(define-key org-mode-map (kbd "M-n") 'org-shiftdown)
-(define-key org-mode-map (kbd "M-p") 'org-shiftup)
-
-;; config
-(setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
-(setq org-log-done 'time)
-(setq org-startup-folded 'all)
+(when (require 'org nil t)
+  ;; key bind
+  (define-key org-mode-map (kbd "TAB") 'org-shiftright)
+  (define-key org-mode-map (kbd "<backtab>") 'org-shiftleft)
+  (define-key org-mode-map (kbd "C-o TAB") 'org-cycle)
+  (define-key org-mode-map (kbd "C-o t") (kbd "#+TITLE: SPC"))
+  (define-key org-mode-map (kbd "M-j") (kbd "C-u 10 <down>"))
+  (define-key org-mode-map (kbd "M-k") (kbd "C-u 10 <up>"))
+  (define-key org-mode-map (kbd "M-h") (kbd "C-u 10 <left>"))
+  (define-key org-mode-map (kbd "M-l") (kbd "C-u 10 <right>"))
+  (define-key org-mode-map (kbd "C-y") 'kill-ring-save)
+  (define-key org-mode-map (kbd "C-p") 'yank)
+  (define-key org-mode-map (kbd "C-d") 'kill-region)
+  (define-key org-mode-map (kbd "M-n") 'org-shiftdown)
+  (define-key org-mode-map (kbd "M-p") 'org-shiftup)
+  ;; config
+  (setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
+  (setq org-log-done 'time)
+  (setq org-startup-folded 'all)
+)
 
 
 ;; --------------------------------------------------
@@ -217,26 +218,28 @@
 ;; --------------------------------------------------
 
 ;; anything
-(require 'anything)
-(require 'anything-startup)
-(require 'anything-config)
-(define-key global-map (kbd "C-o C-b") 'anything-buffers-list)
-(define-key global-map (kbd "C-o C-f") 'anything-recentf)
-
+(when (and (require 'anything nil t) (require 'anything-startup nil t) (require 'anything-config nil t))
+  (define-key global-map (kbd "C-o C-b") 'anything-buffers-list)
+  (define-key global-map (kbd "C-o C-f") 'anything-recentf)
+)
 
 ;; migemo
-(require 'migemo)
-(setq migemo-command "cmigemo")
-(setq migemo-options '("-q" "--emacs"))
+(when (require 'migemo nil t)
+  (setq migemo-command "cmigemo")
+  (setq migemo-options '("-q" "--emacs"))
+  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix)
+  (load-library "migemo")
+  (migemo-init)
+)
 
-(setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-
-(setq migemo-user-dictionary nil)
-(setq migemo-regex-dictionary nil)
-(setq migemo-coding-system 'utf-8-unix)
-(load-library "migemo")
-(migemo-init)
-
+;; undo-tree
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode)
+  (define-key global-map (kbd "C-o C-u") 'undo-tree-visualize)
+)
 
 ;; mew
 ;;(autoload 'mew "mew" nil t)
@@ -251,6 +254,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (solarized-theme migemo madhat2r-theme anything))))
+ '(package-selected-packages
+   (quote
+    (undo-tree solarized-theme migemo madhat2r-theme anything))))
 
 
