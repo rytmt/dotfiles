@@ -84,6 +84,7 @@ alias grep='grep --color=auto'
 alias history='history -f 1'
 alias e='emacsclient -nw -a ""'
 alias ekill='emacsclient -e "(kill-emacs)"'
+alias todo='emacsclient -nw -a "" ~/todo.org'
 [ -d ~/.mutt/attachment ] && alias mutt='cd ~/.mutt/attachment; mutt'
 
 
