@@ -3,14 +3,21 @@
 ;; --------------------------------------------------
 (when (require 'package nil t)
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-  (package-initialize))
-                
+  (package-initialize)
+)
+
 
 ;; --------------------------------------------------
 ;; General
 ;; --------------------------------------------------
-(load-theme 'madhat2r t)
-(set-face-foreground 'default "#93a1a1")
+;;(load-theme 'madhat2r t)
+;;(set-face-foreground 'default "#93a1a1")
+(when (require 'solarized-theme nil t) (load-theme 'solarized-dark t))
+(custom-set-faces
+  '(default ((t (:background "nil"))))
+  '(hl-line ((t (:background "color-23"))))
+  '(linum ((t (:background "color-23" :foreground "color-137"))))
+)
 
 (setq inhibit-startup-message t)
 
@@ -73,12 +80,6 @@
 (setq linum-format "%4d ")
 
 (global-hl-line-mode t)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(hl-line ((t (:background "color-236")))))
 
 (show-paren-mode 1)
 
@@ -86,12 +87,41 @@
 
 (setq split-width-threshold nil)
 
-;;(global-whitespace-mode 1)
+(progn
+  (require 'whitespace)
+  (setq whitespace-style
+        '(
+          face
+          trailing
+          ;tabs
+          spaces
+          space-mark
+          tab-mark
+          ))
+  (setq whitespace-display-mappings
+        '(
+          (space-mark ?\x3000 [?\＿])
+          (tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t])
+          ))
+  (setq whitespace-trailing-regexp  "\\([ \u00A0]+\\)$")
+  (setq whitespace-space-regexp "\\(\u3000+\\)")
+  (set-face-attribute 'whitespace-trailing nil
+                      :foreground "RoyalBlue4"
+                      :background "RoyalBlue4"
+                      :underline nil)
+  (set-face-attribute 'whitespace-space nil
+                      :foreground "gray40"
+                      :background "gray20"
+                      :underline nil)
+  (global-whitespace-mode t)
+)
 
 
-;; --------------------------------------------------
+;;--------------------------------------------------
 ;; Keybind
 ;; --------------------------------------------------
+(defun delete-word (arg) (interactive "p") (delete-region (point) (progn (forward-word arg) (point))))
+(defun backward-delete-word (arg) (interactive "p") (delete-word (- arg)))
 (global-set-key "\C-o" ctl-x-map)
 
 (define-key global-map (kbd "C-j") 'next-line)
@@ -112,10 +142,11 @@
 (define-key global-map (kbd "C-o <down>") 'end-of-buffer)
 
 (define-key global-map (kbd "C-o C-q") 'save-buffers-kill-terminal)
+(define-key global-map (kbd "C-o k") 'kill-this-buffer)
 
-(define-key global-map (kbd "C-o C-u") 'undo)
+;;(define-key global-map (kbd "C-o C-u") 'undo)
 
-(define-key global-map (kbd "C-w") 'backward-kill-word)
+(define-key global-map (kbd "C-w") 'backward-delete-word)
 
 (define-key global-map (kbd "C-f") 'scroll-up)
 (define-key global-map (kbd "C-b") 'scroll-down)
@@ -126,6 +157,7 @@
 (define-key global-map (kbd "C-o C-d") (kbd "C-a C-SPC C-e C-d <DEL> <right>"))
 (define-key global-map (kbd "C-v") 'cua-set-rectangle-mark)
 
+(define-key global-map (kbd "C-o r") 'replace-string)
 (define-key global-map (kbd "C-o C-r") 'replace-regexp)
 
 ;;(define-key global-map (kbd "C-<return>")
@@ -135,7 +167,7 @@
 ;; --------------------------------------------------
 ;; Input
 ;; --------------------------------------------------
-(setq fill-column 70)
+(setq fill-column 64)
 (setq mail-mode-hook 'turn-on-auto-fill)
 (setq text-mode-hook 'turn-off-auto-fill)
 ;;(setq use-hard-newlines t)
@@ -144,11 +176,44 @@
 
 
 ;; --------------------------------------------------
+;; Org-mode
+;; --------------------------------------------------
+(when (require 'org nil t)
+  ;; key bind
+  (define-key org-mode-map (kbd "TAB") 'org-shiftright)
+  (define-key org-mode-map (kbd "<backtab>") 'org-shiftleft)
+  (define-key org-mode-map (kbd "C-o TAB") 'org-cycle)
+  (define-key org-mode-map (kbd "C-o t") (kbd "#+TITLE: SPC"))
+  (define-key org-mode-map (kbd "M-j") (kbd "C-u 10 <down>"))
+  (define-key org-mode-map (kbd "M-k") (kbd "C-u 10 <up>"))
+  (define-key org-mode-map (kbd "M-h") (kbd "C-u 10 <left>"))
+  (define-key org-mode-map (kbd "M-l") (kbd "C-u 10 <right>"))
+  (define-key org-mode-map (kbd "C-y") 'kill-ring-save)
+  (define-key org-mode-map (kbd "C-p") 'yank)
+  (define-key org-mode-map (kbd "C-d") 'kill-region)
+  (define-key org-mode-map (kbd "M-n") 'org-shiftdown)
+  (define-key org-mode-map (kbd "M-p") 'org-shiftup)
+  ;; config
+  (setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
+  (setq org-log-done 'time)
+  (setq org-startup-folded 'all)
+)
+
+
+;; --------------------------------------------------
 ;; Others
 ;; --------------------------------------------------
 
 ;; for mutt
 (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
+(defun list-mail-domain ()
+  (interactive)
+  (shell-command-on-region
+   1 (1+ (buffer-size))
+   "grep -e ^To -e Cc -e Bcc | grep -E -o '@[a-zA-Z0-9.-]+' | sort | uniq -c | sort -nr")
+)
+(define-key global-map (kbd "C-o C-c") 'list-mail-domain)
+
 
 ;; clipboard
 (setq load-path (append '("~/.emacs.d/conf") load-path))
@@ -160,25 +225,28 @@
 ;; --------------------------------------------------
 
 ;; anything
-(require 'anything)
-(require 'anything-startup)
-(require 'anything-config)
-(define-key global-map (kbd "C-o C-b") 'anything-buffers-list)
-
+(when (and (require 'anything nil t) (require 'anything-startup nil t) (require 'anything-config nil t))
+  (define-key global-map (kbd "C-o C-b") 'anything-buffers-list)
+  (define-key global-map (kbd "C-o C-f") 'anything-recentf)
+)
 
 ;; migemo
-(require 'migemo)
-(setq migemo-command "cmigemo")
-(setq migemo-options '("-q" "--emacs"))
+(when (require 'migemo nil t)
+  (setq migemo-command "cmigemo")
+  (setq migemo-options '("-q" "--emacs"))
+  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix)
+  (load-library "migemo")
+  (migemo-init)
+)
 
-(setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-
-(setq migemo-user-dictionary nil)
-(setq migemo-regex-dictionary nil)
-(setq migemo-coding-system 'utf-8-unix)
-(load-library "migemo")
-(migemo-init)
-
+;; undo-tree
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode)
+  (define-key global-map (kbd "C-o C-u") 'undo-tree-visualize)
+)
 
 ;; mew
 ;;(autoload 'mew "mew" nil t)
@@ -193,5 +261,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (migemo solarized-theme madhat2r-theme anything))))
+ '(package-selected-packages
+   (quote
+    (undo-tree solarized-theme migemo madhat2r-theme anything))))
 
