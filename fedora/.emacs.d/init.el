@@ -19,8 +19,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:background "nil"))))
- '(hl-line ((t (:background "color-17"))))
- '(linum ((t (:background "color-23" :foreground "green")))))
+ '(hl-line ((t (:background "color-23"))))
+ '(linum ((t (:background "color-23" :foreground "color-137")))))
 
 (setq inhibit-startup-message t)
 
