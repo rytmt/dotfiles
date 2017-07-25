@@ -12,15 +12,12 @@
 ;; --------------------------------------------------
 ;;(load-theme 'madhat2r t)
 ;;(set-face-foreground 'default "#93a1a1")
-(when (require 'solarized-theme nil t) (load-theme 'solarized-dark t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:background "nil"))))
- '(hl-line ((t (:background "color-23"))))
- '(linum ((t (:background "color-23" :foreground "color-137")))))
+(when (require 'gruvbox-theme nil t) (load-theme 'gruvbox-dark-soft t))
+;(custom-set-faces
+; '(default ((t (:foreground "brightwhite"))))
+;; '(hl-line ((t (:background "color-23"))))
+;; '(linum ((t (:background "color-23" :foreground "color-137"))))
+;)
 
 (setq inhibit-startup-message t)
 
@@ -109,8 +106,8 @@
   (setq whitespace-trailing-regexp  "\\([ \u00A0]+\\)$")
   (setq whitespace-space-regexp "\\(\u3000+\\)")
   (set-face-attribute 'whitespace-trailing nil
-                      :foreground "RoyalBlue4"
-                      :background "RoyalBlue4"
+                      :foreground "white"
+                      :background "white"
                       :underline nil)
   (set-face-attribute 'whitespace-space nil
                       :foreground "gray40"
@@ -264,7 +261,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("5673c365c8679addfb44f3d91d6b880c3266766b605c99f2d9b00745202e75f6" "8d3c5e9ba9dcd05020ccebb3cc615e40e7623b267b69314bdb70fe473dd9c7a8" "f23a961abba42fc5d75bf94c46b5688c52683c02b3a81313dd0738b4d48afd1d" default)))
  '(package-selected-packages
    (quote
-    (undo-tree solarized-theme migemo madhat2r-theme anything))))
+    (gruvbox-theme undo-tree solarized-theme migemo madhat2r-theme anything))))
 
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:foreground "brightwhite")))))
