@@ -13,7 +13,7 @@ Term=xterm-256color
 # https://github.com/morhetz/gruvbox-contrib/blob/master/mintty/gruvbox.minttyrc
 ForegroundColour=235,219,178
 # BackgroundColour is customized
-BackgroundColour=60,56,54
+BackgroundColour=40,40,40
 CursorColour=253,157,79
 Black=40,40,40
 BoldBlack=146,131,116
