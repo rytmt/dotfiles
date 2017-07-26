@@ -43,7 +43,7 @@ set expandtab
 set softtabstop=4
 set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,]
-set clipboard=unnamed
+"set clipboard=unnamed
 set textwidth=0
 set formatoptions=q
 set nrformats=
@@ -58,12 +58,12 @@ nnoremap <Esc>j 10j
 nnoremap <Esc>k 10k
 nnoremap <Esc>h 10h
 nnoremap <Esc>l 10l
-nnoremap <C-n> :tabnext<CR>
-nnoremap <C-p> :tabprevious<CR>
-nnoremap <C-t> :tabedit %<CR>
+"nnoremap <C-n> :tabnext<CR>
+"nnoremap <C-p> :tabprevious<CR>
+"nnoremap <C-t> :tabedit %<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :q<CR>
-nnoremap <C-e> :%y<CR>:tabnew<CR>p:%!
+"nnoremap <C-e> :%y<CR>:tabnew<CR>p:%!
 nnoremap <S-u>e :Hexplore "%:h"<CR>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
@@ -89,7 +89,6 @@ set ruler
 set showmatch
 set list
 "set listchars=eol:¬,tab:>
-set listchars=eol:¬,tab:»\ 
 set wrap
 set cursorline
 set background=dark

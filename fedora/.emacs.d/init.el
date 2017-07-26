@@ -14,7 +14,7 @@
 (custom-set-faces
  '(default ((t (:foreground "brightwhite"))))
 ;; '(hl-line ((t (:background "color-23"))))
-;; '(linum ((t (:background "color-23" :foreground "color-137"))))
+ '(linum ((t (:background "color-235" :foreground "color-245"))))
 )
 
 (setq inhibit-startup-message t)
@@ -208,7 +208,7 @@
   (interactive)
   (shell-command-on-region
    1 (1+ (buffer-size))
-   "grep -e ^To -e Cc -e Bcc | grep -E -o '@[a-zA-Z0-9.-]+' | sort | uniq -c | sort -nr")
+   "grep -e ^To -e ^Cc -e ^Bcc -A 10 | grep -E -o '@[a-zA-Z0-9.-]+' | sort | uniq -c | sort -nr")
 )
 (define-key global-map (kbd "C-o C-c") 'list-mail-domain)
 
