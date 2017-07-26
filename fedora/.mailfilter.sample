@@ -18,9 +18,8 @@ if (/^From:.*@folder2.com.*/:h)
 
 if (/^From:.*@junk.com.*/:h)
 {
-    cc $JUNK
-    `for m in ${JUNK}new/*; do mv $m ${JUNK}cur/${m##*/new/}:2,S; done`
-    exit
+    FLAGS=S
+    to $JUNK
 }
 
 to $DEFAULT
