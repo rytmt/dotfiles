@@ -208,7 +208,7 @@
   (interactive)
   (shell-command-on-region
    1 (1+ (buffer-size))
-   "grep -e ^To -e Cc -e Bcc | grep -E -o '@[a-zA-Z0-9.-]+' | sort | uniq -c | sort -nr")
+   "grep -e ^To -e ^Cc -e ^Bcc | grep -E -o '@[a-zA-Z0-9.-]+' | sort | uniq -c | sort -nr")
 )
 (define-key global-map (kbd "C-o C-c") 'list-mail-domain)
 
