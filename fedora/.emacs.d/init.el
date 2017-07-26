@@ -14,7 +14,7 @@
 (custom-set-faces
  '(default ((t (:foreground "brightwhite"))))
 ;; '(hl-line ((t (:background "color-23"))))
- '(linum ((t (:background "color-235"))))
+ '(linum ((t (:background "color-235" :foreground "color-245"))))
 )
 
 (setq inhibit-startup-message t)
