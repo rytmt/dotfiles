@@ -4,19 +4,19 @@ FOLDER1 = "$MAILDIR/folder1/"
 FOLDER2 = "$MAILDIR/folder2/"
 JUNK = "$MAILDIR/junk/"
 
-if (/^From:.*@folder1.com/)
+### variable can not use - (hyphen) ###
+
+if (/^From:.*@folder1.com.*/:h)
 {
     to $FOLDER1
-    exit
 }
 
-if (/^From:.*@folder2.com/)
+if (/^From:.*@folder2.com.*/:h)
 {
     to $FOLDER2
-    exit
 }
 
-if (/^From:.*@junk.com/)
+if (/^From:.*@junk.com.*/:h)
 {
     cc $JUNK
     `for m in ${JUNK}new/*; do mv $m ${JUNK}cur/${m##*/new/}:2,S; done`
