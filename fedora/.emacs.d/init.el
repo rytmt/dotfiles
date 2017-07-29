@@ -12,10 +12,12 @@
 ;; --------------------------------------------------
 (when (require 'gruvbox-theme nil t) (load-theme 'gruvbox-dark-soft t))
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(default ((t (:foreground "brightwhite"))))
-;; '(hl-line ((t (:background "color-23"))))
- '(linum ((t (:background "color-235" :foreground "color-245"))))
-)
+ '(linum ((t (:background "color-235" :foreground "color-245")))))
 
 (setq inhibit-startup-message t)
 
@@ -261,5 +263,5 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (gruvbox-theme undo-tree solarized-theme migemo madhat2r-theme anything))))
+    (undohist gruvbox-theme undo-tree solarized-theme migemo madhat2r-theme anything))))
 
