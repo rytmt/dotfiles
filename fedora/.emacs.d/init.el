@@ -3,21 +3,22 @@
 ;; --------------------------------------------------
 (when (require 'package nil t)
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-  (package-initialize)
-)
+  (package-initialize))
+
+
+;; --------------------------------------------------
+;; Variable
+;; --------------------------------------------------
+(setq custom-file "~/.emacs.d/custom.el")
+(setq backup-dir "~/.emacs.d/backup/")
+(setq clipboard "~/.emacs.d/clipboard.el")
 
 
 ;; --------------------------------------------------
 ;; General
 ;; --------------------------------------------------
 (when (require 'gruvbox-theme nil t) (load-theme 'gruvbox-dark-soft t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:foreground "brightwhite"))))
- '(linum ((t (:background "color-235" :foreground "color-245")))))
+(load custom-file)
 
 (setq inhibit-startup-message t)
 
@@ -60,9 +61,9 @@
 (setq make-backup-files t)
 (setq delete-auto-save-files t)
 (add-to-list 'backup-directory-alist
-             (cons "." "~/.emacs.d/backup/"))
+             (cons "." backup-dir))
 (setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "~/.emacs.d/backup/") t)))
+      `((".*" ,(expand-file-name backup-dir) t)))
 
 
 ;; --------------------------------------------------
@@ -210,14 +211,12 @@
   (interactive)
   (shell-command-on-region
    1 (1+ (buffer-size))
-   "grep -e ^To -e ^Cc -e ^Bcc -A 10 | grep -E -o '@[a-zA-Z0-9.-]+' | sort | uniq -c | sort -nr")
-)
+   "grep -e ^To -e ^Cc -e ^Bcc -A 10 | grep -E -o '@[a-zA-Z0-9.-]+' | sort | uniq -c | sort -nr"))
 (define-key global-map (kbd "C-o C-c") 'list-mail-domain)
 
 
 ;; clipboard
-(setq load-path (append '("~/.emacs.d/conf") load-path))
-(load "clipboard")
+(load clipboard)
 
 
 ;; --------------------------------------------------
@@ -227,8 +226,7 @@
 ;; anything
 (when (and (require 'anything nil t) (require 'anything-startup nil t) (require 'anything-config nil t))
   (define-key global-map (kbd "C-o C-b") 'anything-buffers-list)
-  (define-key global-map (kbd "C-o C-f") 'anything-recentf)
-)
+  (define-key global-map (kbd "C-o C-f") 'anything-recentf))
 
 ;; migemo
 (when (require 'migemo nil t)
@@ -239,14 +237,15 @@
   (setq migemo-regex-dictionary nil)
   (setq migemo-coding-system 'utf-8-unix)
   (load-library "migemo")
-  (migemo-init)
-)
+  (migemo-init))
 
 ;; undo-tree
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode)
-  (define-key global-map (kbd "C-o C-u") 'undo-tree-visualize)
-)
+  (define-key global-map (kbd "C-o C-u") 'undo-tree-visualize))
+
+(when (require 'undohist nil t)
+  (undohist-initialize))
 
 ;; mew
 ;;(autoload 'mew "mew" nil t)
@@ -256,12 +255,4 @@
 ;;(define-key mew-summary-mode-map "j" (kbd "<down>"))
 ;;(define-key mew-summary-mode-map "k" (kbd "<up>"))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (undohist gruvbox-theme undo-tree solarized-theme migemo madhat2r-theme anything))))
 
