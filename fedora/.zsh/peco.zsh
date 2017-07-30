@@ -1,5 +1,6 @@
 # select file
 peco-file() {
+    [ -z "$LBUFFER" ] && return
     local bufferpath="$(printf $LBUFFER | awk '{print $NF}' | sed 's/\/$//g')"
     if [[ "${bufferpath}" =~ "^/.*" ]]; then
         local fullpath="${bufferpath}"
@@ -7,9 +8,9 @@ peco-file() {
         local fullpath="${PWD}/${bufferpath}"
     fi
     if [ -d "${fullpath}" ]; then
-        local filepath="$(ls -1a "$fullpath" 2>/dev/null | peco --prompt 'FILE>')"
+        local filepath="$(ls -1a --file-type "$fullpath" 2>/dev/null | peco --prompt 'FILE>')"
     else
-        local filepath="$(ls -1a 2>/dev/null | peco --prompt 'FILE>')"
+        local filepath="$(ls -1a --file-type 2>/dev/null | peco --prompt 'FILE>')"
     fi
     [ -z "$filepath" ] && return
     BUFFER="$LBUFFER$filepath"

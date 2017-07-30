@@ -18,7 +18,7 @@
 ;; General
 ;; --------------------------------------------------
 (when (require 'gruvbox-theme nil t) (load-theme 'gruvbox-dark-soft t))
-(load custom-file)
+(when (file-readable-p custom-file) (load custom-file))
 
 (setq inhibit-startup-message t)
 
@@ -58,12 +58,13 @@
 ;; --------------------------------------------------
 ;; Backup
 ;; --------------------------------------------------
-(setq make-backup-files t)
-(setq delete-auto-save-files t)
-(add-to-list 'backup-directory-alist
-             (cons "." backup-dir))
-(setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name backup-dir) t)))
+(when (file-directory-p backup-dir)
+  (setq make-backup-files t)
+  (setq delete-auto-save-files t)
+  (add-to-list 'backup-directory-alist
+               (cons "." backup-dir))
+  (setq auto-save-file-name-transforms
+        `((".*" ,(expand-file-name backup-dir) t))))
 
 
 ;; --------------------------------------------------
@@ -123,7 +124,8 @@
 ;; --------------------------------------------------
 (defun delete-word (arg) (interactive "p") (delete-region (point) (progn (forward-word arg) (point))))
 (defun backward-delete-word (arg) (interactive "p") (delete-word (- arg)))
-(global-set-key "\C-o" ctl-x-map)
+
+(define-key global-map "\C-o" ctl-x-map)
 
 (define-key global-map (kbd "C-j") 'next-line)
 (define-key global-map (kbd "C-k") 'previos-line)
@@ -202,6 +204,25 @@
 
 
 ;; --------------------------------------------------
+;; dired
+;; --------------------------------------------------
+(when (require 'dired nil t)
+  ;; key bind
+  (define-key dired-mode-map "\C-o" ctl-x-map)
+  (define-key dired-mode-map (kbd "h") (lambda () (interactive) (find-alternate-file "..")))
+  (define-key dired-mode-map (kbd "j") 'dired-next-line)
+  (define-key dired-mode-map (kbd "k") 'dired-previous-line)
+  (define-key dired-mode-map (kbd "l") 'dired-find-alternate-file)
+  (define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
+  (define-key dired-mode-map (kbd "q") 'kill-this-buffer)
+  (define-key dired-mode-map (kbd "N") 'dired-create-directory)
+  ;; config
+  (put 'dired-find-alternate-file 'disabled nil)
+  (setq dired-recursive-copies 'always)
+  )
+
+
+;; --------------------------------------------------
 ;; Others
 ;; --------------------------------------------------
 
@@ -216,7 +237,7 @@
 
 
 ;; clipboard
-(load clipboard)
+(when (file-readable-p clipboard) (load clipboard))
 
 
 ;; --------------------------------------------------
@@ -243,7 +264,7 @@
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode)
   (define-key global-map (kbd "C-o C-u") 'undo-tree-visualize))
-
+;; undohist
 (when (require 'undohist nil t)
   (undohist-initialize))
 
