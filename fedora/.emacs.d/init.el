@@ -219,6 +219,7 @@
   ;; config
   (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-recursive-copies 'always)
+  (setq dired-dwim-target t)
   )
 
 
