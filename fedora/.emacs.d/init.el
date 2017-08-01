@@ -12,6 +12,7 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (setq backup-dir "~/.emacs.d/backup/")
 (setq clipboard "~/.emacs.d/clipboard.el")
+(setq bookmark-dir "~/.emacs.d/bookmark/")
 
 
 ;; --------------------------------------------------
@@ -124,6 +125,11 @@
 ;; --------------------------------------------------
 (defun delete-word (arg) (interactive "p") (delete-region (point) (progn (forward-word arg) (point))))
 (defun backward-delete-word (arg) (interactive "p") (delete-word (- arg)))
+(defun split-and-clone ()
+  (interactive)
+  (split-window-below nil)
+  (clone-indirect-buffer "cloned" t)
+  )
 
 (define-key global-map "\C-o" ctl-x-map)
 
@@ -146,6 +152,7 @@
 
 (define-key global-map (kbd "C-o C-q") 'save-buffers-kill-terminal)
 (define-key global-map (kbd "C-o k") 'kill-this-buffer)
+(define-key global-map (kbd "C-o K") 'kill-buffer-and-window)
 
 ;;(define-key global-map (kbd "C-o C-u") 'undo)
 
@@ -163,7 +170,14 @@
 (define-key global-map (kbd "C-o r") 'replace-string)
 (define-key global-map (kbd "C-o C-r") 'replace-regexp)
 
-;;(define-key global-map (kbd "C-<return>")
+(define-key global-map (kbd "C-o M-h") 'windmove-left)
+(define-key global-map (kbd "C-o M-j") 'windmove-down)
+(define-key global-map (kbd "C-o M-k") 'windmove-up)
+(define-key global-map (kbd "C-o M-l") 'windmove-right)
+
+(define-key global-map (kbd "C-o s") 'split-and-clone)
+
+;;(Define-key global-map (kbd "C-<return>")
 ;;   (lambda () (interactive) (move-end-of-line nil) (newline)))
 
 
@@ -207,15 +221,30 @@
 ;; dired
 ;; --------------------------------------------------
 (when (require 'dired nil t)
+  ;; function
+  (defun dired-view-file-other-window ()
+    (interactive)
+    (let ((file (dired-get-file-for-visit)))
+      (if (file-directory-p file)
+        (or (and (cdr dired-subdir-alist) (dired-goto-subdir file)) (dired file))
+        (view-file-other-window file)
+        )))
   ;; key bind
   (define-key dired-mode-map "\C-o" ctl-x-map)
   (define-key dired-mode-map (kbd "h") (lambda () (interactive) (find-alternate-file "..")))
   (define-key dired-mode-map (kbd "j") 'dired-next-line)
   (define-key dired-mode-map (kbd "k") 'dired-previous-line)
   (define-key dired-mode-map (kbd "l") 'dired-find-alternate-file)
+  (define-key dired-mode-map (kbd "RET") 'dired-find-file-other-window)
   (define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
   (define-key dired-mode-map (kbd "q") 'kill-this-buffer)
   (define-key dired-mode-map (kbd "N") 'dired-create-directory)
+  (define-key dired-mode-map (kbd "y") (kbd "C-u 0-w"))
+  (define-key dired-mode-map (kbd "v") 'dired-view-file-other-window)
+  (when (file-directory-p bookmark-dir)
+    (define-key dired-mode-map (kbd "C-o b")
+      (lambda () (interactive) (find-alternate-file bookmark-dir))
+      ))
   ;; config
   (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-recursive-copies 'always)
