@@ -175,7 +175,13 @@
 (define-key global-map (kbd "C-o M-k") 'windmove-up)
 (define-key global-map (kbd "C-o M-l") 'windmove-right)
 
+(define-key global-map (kbd "M-;") 'enlarge-window-horizontally)
+(define-key global-map (kbd "M--") 'shrink-window-horizontally)
+
 (define-key global-map (kbd "C-o s") 'split-and-clone)
+
+(define-key occur-mode-map "\C-o" ctl-x-map)
+(define-key occur-mode-map (kbd "C-o k") 'kill-this-buffer)
 
 ;;(Define-key global-map (kbd "C-<return>")
 ;;   (lambda () (interactive) (move-end-of-line nil) (newline)))
@@ -249,6 +255,7 @@
   (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-recursive-copies 'always)
   (setq dired-dwim-target t)
+  (setq dired-listing-switches (purecopy "-lah"))
   )
 
 
