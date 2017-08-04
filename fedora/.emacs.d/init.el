@@ -178,6 +178,8 @@
 (define-key global-map (kbd "M-;") 'enlarge-window-horizontally)
 (define-key global-map (kbd "M--") 'shrink-window-horizontally)
 
+(define-key global-map (kbd "C-o <right>") 'emacs-lock-mode)
+
 (define-key global-map (kbd "C-o s") 'split-and-clone)
 
 (define-key occur-mode-map "\C-o" ctl-x-map)
