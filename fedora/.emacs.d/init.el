@@ -37,6 +37,8 @@
 (setq scroll-margin 0)
 (setq scroll-step 1)
 
+(setq require-final-newline nil)
+
 (setq scroll-preserve-screen-position t)
 
 (cua-mode t)
@@ -88,7 +90,7 @@
 
 (size-indication-mode t)
 
-(setq split-width-threshold nil)
+;;(setq split-height-threshold 0)
 
 (progn
   (require 'whitespace)
@@ -125,11 +127,10 @@
 ;; --------------------------------------------------
 (defun delete-word (arg) (interactive "p") (delete-region (point) (progn (forward-word arg) (point))))
 (defun backward-delete-word (arg) (interactive "p") (delete-word (- arg)))
-(defun split-and-clone ()
-  (interactive)
-  (split-window-below nil)
-  (clone-indirect-buffer "cloned" t)
-  )
+(defadvice clone-buffer (around clone-buffer-split-horizontal activate)
+  (let ((split-height-threshold 0)
+        (split-width-threshold nil))
+        ad-do-it))
 
 (define-key global-map "\C-o" ctl-x-map)
 
@@ -161,7 +162,7 @@
 (define-key global-map (kbd "C-f") 'scroll-up)
 (define-key global-map (kbd "C-b") 'scroll-down)
 
-(define-key global-map (kbd "C-o C-o") 'other-window)
+;;(define-key global-map (kbd "C-o C-o") 'other-window)
 
 (define-key global-map (kbd "C-o C-y") (kbd "C-a C-SPC C-e M-w C-a"))
 (define-key global-map (kbd "C-o C-d") (kbd "C-a C-SPC C-e C-d <DEL> <right>"))
@@ -180,7 +181,7 @@
 
 (define-key global-map (kbd "C-o <right>") 'emacs-lock-mode)
 
-(define-key global-map (kbd "C-o s") 'split-and-clone)
+(define-key global-map (kbd "C-o s") 'clone-buffer)
 
 (define-key occur-mode-map "\C-o" ctl-x-map)
 (define-key occur-mode-map (kbd "C-o k") 'kill-this-buffer)
@@ -249,6 +250,8 @@
   (define-key dired-mode-map (kbd "N") 'dired-create-directory)
   (define-key dired-mode-map (kbd "y") (kbd "C-u 0-w"))
   (define-key dired-mode-map (kbd "v") 'dired-view-file-other-window)
+  (define-key dired-mode-map (kbd "g") 'beginning-of-buffer)
+  (define-key dired-mode-map (kbd "G") 'end-of-buffer)
   (when (file-directory-p bookmark-dir)
     (define-key dired-mode-map (kbd "C-o b")
       (lambda () (interactive) (find-alternate-file bookmark-dir))
@@ -280,13 +283,34 @@
 
 
 ;; --------------------------------------------------
-;; Plugin
+;; Package
 ;; --------------------------------------------------
 
-;; anything
-(when (and (require 'anything nil t) (require 'anything-startup nil t) (require 'anything-config nil t))
-  (define-key global-map (kbd "C-o C-b") 'anything-buffers-list)
-  (define-key global-map (kbd "C-o C-f") 'anything-recentf))
+;;;; anything
+;;(when (and (require 'anything nil t) (require 'anything-startup nil t) (require 'anything-config nil t))
+;;  (define-key global-map (kbd "C-o C-b") 'anything-buffers-list)
+;;  (define-key global-map (kbd "C-o C-f") 'anything-recentf))
+
+;; helm
+(when (and (require 'helm nil t) (require 'helm-config nil t))
+  ;; keybind
+  (define-key global-map (kbd "C-o h") 'helm-command-prefix)
+  (global-unset-key (kbd "C-x c"))
+  (define-key global-map (kbd "C-o C-o") 'helm-mini)
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+  (define-key helm-map (kbd "C-z")  'helm-select-action)
+  (define-key helm-map (kbd "C-d") 'helm-buffer-run-kill-persistent)
+  (define-key helm-map (kbd "C-w") 'backward-delete-word)
+  ;; config
+;  (setq helm-autoresize-max-height 0)
+;  (setq helm-autoresize-min-height 20)
+  (setq helm-buffers-fuzzy-matching t
+        helm-recentf-fuzzy-match    t)
+  (setq helm-split-window-in-side-p t)
+;  (helm-autoresize-mode 1)
+  (helm-mode 1)
+  )
 
 ;; migemo
 (when (require 'migemo nil t)
@@ -302,10 +326,28 @@
 ;; undo-tree
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode)
-  (define-key global-map (kbd "C-o C-u") 'undo-tree-visualize))
+  (define-key global-map (kbd "C-o C-u") 'undo-tree-visualize)
+  (defadvice undo-tree-visualize (around undo-tree-split-horizontal activate)
+    (let ((split-height-threshold 0)
+          (split-width-threshold nil))
+      ad-do-it))
+  )
+
 ;; undohist
-(when (require 'undohist nil t)
-  (undohist-initialize))
+(when (require 'undohist nil t) (undohist-initialize))
+
+;; recentf-ext
+(when (require 'recentf-ext nil t))
+
+;; elscreen
+(when (require 'elscreen nil t)
+  (global-unset-key (kbd "C-q"))
+  (elscreen-set-prefix-key (kbd "C-q"))
+  (elscreen-start)
+  (setq elscreen-tab-display-kill-screen nil)
+  (setq elscreen-tab-display-control nil)
+  (define-key global-map (kbd "C-z") 'suspend-frame)
+  )
 
 ;; mew
 ;;(autoload 'mew "mew" nil t)
@@ -314,5 +356,4 @@
 
 ;;(define-key mew-summary-mode-map "j" (kbd "<down>"))
 ;;(define-key mew-summary-mode-map "k" (kbd "<up>"))
-
 

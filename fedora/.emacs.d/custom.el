@@ -15,4 +15,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (helm undohist gruvbox-theme undo-tree solarized-theme migemo madhat2r-theme anything))))
+    (elscreen recentf-ext helm undohist gruvbox-theme undo-tree solarized-theme migemo madhat2r-theme))))
