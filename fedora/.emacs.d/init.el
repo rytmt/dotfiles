@@ -41,6 +41,8 @@
 
 (setq scroll-preserve-screen-position t)
 
+(setq recentf-max-saved-items 10000)
+
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
 
@@ -347,6 +349,14 @@
   (setq elscreen-tab-display-kill-screen nil)
   (setq elscreen-tab-display-control nil)
   (define-key global-map (kbd "C-z") 'suspend-frame)
+  (defadvice dired-find-file-other-window (around elscreen-dired-find-file-other-window activate)
+    (let ((window-configuration (current-window-configuration))
+          (buffer nil))
+      ad-do-it
+      (unless (eq major-mode 'dired-mode)
+        (setq buffer (current-buffer))
+        (set-window-configuration window-configuration)
+        (elscreen-find-and-goto-by-buffer buffer t))))
   )
 
 ;; mew
