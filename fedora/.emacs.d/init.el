@@ -254,6 +254,7 @@
   (define-key dired-mode-map (kbd "v") 'dired-view-file-other-window)
   (define-key dired-mode-map (kbd "g") 'beginning-of-buffer)
   (define-key dired-mode-map (kbd "G") 'end-of-buffer)
+  (define-key dired-mode-map (kbd "C-g") 'revert-buffer)
   (when (file-directory-p bookmark-dir)
     (define-key dired-mode-map (kbd "C-o b")
       (lambda () (interactive) (find-alternate-file bookmark-dir))
