@@ -240,6 +240,11 @@
         (or (and (cdr dired-subdir-alist) (dired-goto-subdir file)) (dired file))
         (view-file-other-window file)
         )))
+  (defun dired-create-file ()
+    (interactive)
+    (shell-command (concat "touch " (read-shell-command "File name: ")))
+    (revert-buffer)
+    )
   ;; key bind
   (define-key dired-mode-map "\C-o" ctl-x-map)
   (define-key dired-mode-map (kbd "h") (lambda () (interactive) (find-alternate-file "..")))
@@ -249,6 +254,7 @@
   (define-key dired-mode-map (kbd "RET") 'dired-find-file-other-window)
   (define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
   (define-key dired-mode-map (kbd "q") 'kill-this-buffer)
+  (define-key dired-mode-map (kbd "n") 'dired-create-file)
   (define-key dired-mode-map (kbd "N") 'dired-create-directory)
   (define-key dired-mode-map (kbd "y") (kbd "C-u 0-w"))
   (define-key dired-mode-map (kbd "v") 'dired-view-file-other-window)
@@ -350,6 +356,8 @@
   (setq elscreen-tab-display-kill-screen nil)
   (setq elscreen-tab-display-control nil)
   (define-key global-map (kbd "C-z") 'suspend-frame)
+  (define-key global-map (kbd "C-q C-q") 'elscreen-toggle)
+  (define-key global-map (kbd "C-q K") 'elscreen-kill-screen-and-buffers)
   (defadvice dired-find-file-other-window (around elscreen-dired-find-file-other-window activate)
     (let ((window-configuration (current-window-configuration))
           (buffer nil))
@@ -359,6 +367,7 @@
         (set-window-configuration window-configuration)
         (elscreen-find-and-goto-by-buffer buffer t))))
   )
+
 
 ;; mew
 ;;(autoload 'mew "mew" nil t)
