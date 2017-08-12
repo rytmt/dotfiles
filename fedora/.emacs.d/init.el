@@ -266,6 +266,7 @@
   (define-key dired-mode-map (kbd "g") 'beginning-of-buffer)
   (define-key dired-mode-map (kbd "G") 'end-of-buffer)
   (define-key dired-mode-map (kbd "C-g") 'revert-buffer)
+  (define-key dired-mode-map (kbd "TAB") 'other-window)
   (when (file-directory-p bookmark-dir)
     (define-key dired-mode-map (kbd "C-o b")
       (lambda () (interactive) (find-alternate-file bookmark-dir))
