@@ -155,7 +155,7 @@
 
 (define-key global-map (kbd "C-o C-q") 'save-buffers-kill-terminal)
 (define-key global-map (kbd "C-o k") 'kill-this-buffer)
-(define-key global-map (kbd "C-o K") 'kill-buffer-and-window)
+(define-key global-map (kbd "C-o M-k") 'kill-buffer-and-window)
 
 ;;(define-key global-map (kbd "C-o C-u") 'undo)
 
@@ -173,10 +173,15 @@
 (define-key global-map (kbd "C-o r") 'replace-string)
 (define-key global-map (kbd "C-o C-r") 'replace-regexp)
 
-(define-key global-map (kbd "C-o M-h") 'windmove-left)
-(define-key global-map (kbd "C-o M-j") 'windmove-down)
-(define-key global-map (kbd "C-o M-k") 'windmove-up)
-(define-key global-map (kbd "C-o M-l") 'windmove-right)
+;(define-key global-map (kbd "C-o M-h") 'windmove-left)
+;(define-key global-map (kbd "C-o M-j") 'windmove-down)
+;(define-key global-map (kbd "C-o M-k") 'windmove-up)
+;(define-key global-map (kbd "C-o M-l") 'windmove-right)
+
+(define-key global-map (kbd "C-M-h") 'windmove-left)
+(define-key global-map (kbd "C-M-j") 'windmove-down)
+(define-key global-map (kbd "C-M-k") 'windmove-up)
+(define-key global-map (kbd "C-M-l") 'windmove-right)
 
 (define-key global-map (kbd "M-;") 'enlarge-window-horizontally)
 (define-key global-map (kbd "M--") 'shrink-window-horizontally)
@@ -242,7 +247,7 @@
         )))
   (defun dired-create-file ()
     (interactive)
-    (shell-command (concat "touch " (read-shell-command "File name: ")))
+    (shell-command (concat "touch " (read-shell-command "Create file: ")))
     (revert-buffer)
     )
   ;; key bind
@@ -357,7 +362,6 @@
   (setq elscreen-tab-display-control nil)
   (define-key global-map (kbd "C-z") 'suspend-frame)
   (define-key global-map (kbd "C-q C-q") 'elscreen-toggle)
-  (define-key global-map (kbd "C-q K") 'elscreen-kill-screen-and-buffers)
   (defadvice dired-find-file-other-window (around elscreen-dired-find-file-other-window activate)
     (let ((window-configuration (current-window-configuration))
           (buffer nil))
