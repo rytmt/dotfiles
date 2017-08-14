@@ -320,6 +320,7 @@
   ;; config
 ;  (setq helm-autoresize-max-height 0)
 ;  (setq helm-autoresize-min-height 20)
+  (helm-migemo-mode 1)
   (setq helm-buffers-fuzzy-matching t
         helm-recentf-fuzzy-match    t)
   (setq helm-split-window-in-side-p t)
