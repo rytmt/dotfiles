@@ -21,27 +21,20 @@
 (when (require 'gruvbox-theme nil t) (load-theme 'gruvbox-dark-soft t))
 (when (file-readable-p custom-file) (load custom-file))
 
-(setq inhibit-startup-message t)
-
 (setq-default tab-width 4 indent-tabs-mode nil)
-
+(setq inhibit-startup-message t)
 (setq x-select-enable-clipboard t)
-
 (setq eol-mnemonic-dos "(CRLF)")
 (setq eol-mnemonic-mac "(CR)")
 (setq eol-mnemonic-unix "(LF)")
-
 (setq c-tab-always-indent t)
-
 (setq scroll-conservatively 35)
 (setq scroll-margin 0)
 (setq scroll-step 1)
-
 (setq require-final-newline nil)
-
 (setq scroll-preserve-screen-position t)
-
 (setq recentf-max-saved-items 10000)
+(setq fill-column 64)
 
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
@@ -76,35 +69,18 @@
 ;; Visual
 ;; --------------------------------------------------
 (set-face-attribute 'default nil :family "Migu 1M" :height 100)
-
 (menu-bar-mode -1)
-;;(tool-bar-mode -1)
-;;(scroll-bar-mode 0)
-
 (column-number-mode t)
-
 (global-linum-mode t)
 (setq linum-format "%4d ")
-
 (global-hl-line-mode t)
-
 (show-paren-mode 1)
-
 (size-indication-mode t)
-
-;;(setq split-height-threshold 0)
 
 (progn
   (require 'whitespace)
   (setq whitespace-style
-        '(
-          face
-          trailing
-          ;tabs
-          spaces
-          space-mark
-          tab-mark
-          ))
+        '(face trailing spaces space-mark tab-mark))
   (setq whitespace-display-mappings
         '(
           (space-mark ?\x3000 [?\＿])
@@ -140,109 +116,104 @@
 (define-key global-map (kbd "C-k") 'previos-line)
 (define-key global-map (kbd "C-h") 'backward-char)
 (define-key global-map (kbd "C-l") 'forward-char)
-
-(define-key global-map (kbd "M-j") (kbd "C-u 10 <down>"))
-(define-key global-map (kbd "M-k") (kbd "C-u 10 <up>"))
-(define-key global-map (kbd "M-h") (kbd "C-u 10 <left>"))
-(define-key global-map (kbd "M-l") (kbd "C-u 10 <right>"))
-
+(define-key global-map (kbd "M-j") (lambda () (interactive) (next-line 10)))
+(define-key global-map (kbd "M-k") (lambda () (interactive) (previous-line 10)))
+(define-key global-map (kbd "M-h") (lambda () (interactive) (backward-char 10)))
+(define-key global-map (kbd "M-l") (lambda () (interactive) (forward-char 10)))
 (define-key global-map (kbd "C-y") 'kill-ring-save)
 (define-key global-map (kbd "C-p") 'yank)
 (define-key global-map (kbd "C-d") 'kill-region)
-
 (define-key global-map (kbd "C-o <up>") 'beginning-of-buffer)
 (define-key global-map (kbd "C-o <down>") 'end-of-buffer)
-
 (define-key global-map (kbd "C-o C-q") 'save-buffers-kill-terminal)
 (define-key global-map (kbd "C-o k") 'kill-this-buffer)
 (define-key global-map (kbd "C-o M-k") 'kill-buffer-and-window)
-
-;;(define-key global-map (kbd "C-o C-u") 'undo)
-
 (define-key global-map (kbd "C-w") 'backward-delete-word)
-
 (define-key global-map (kbd "C-f") 'scroll-up)
 (define-key global-map (kbd "C-b") 'scroll-down)
-
-;;(define-key global-map (kbd "C-o C-o") 'other-window)
-
 (define-key global-map (kbd "C-o C-y") (kbd "C-a C-SPC C-e M-w C-a"))
 (define-key global-map (kbd "C-o C-d") (kbd "C-a C-SPC C-e C-d <DEL> <right>"))
 (define-key global-map (kbd "C-v") 'cua-set-rectangle-mark)
-
 (define-key global-map (kbd "C-o r") 'replace-string)
 (define-key global-map (kbd "C-o C-r") 'replace-regexp)
-
-;(define-key global-map (kbd "C-o M-h") 'windmove-left)
-;(define-key global-map (kbd "C-o M-j") 'windmove-down)
-;(define-key global-map (kbd "C-o M-k") 'windmove-up)
-;(define-key global-map (kbd "C-o M-l") 'windmove-right)
-
 (define-key global-map (kbd "C-M-h") 'windmove-left)
 (define-key global-map (kbd "C-M-j") 'windmove-down)
 (define-key global-map (kbd "C-M-k") 'windmove-up)
 (define-key global-map (kbd "C-M-l") 'windmove-right)
-
 (define-key global-map (kbd "M-;") 'enlarge-window-horizontally)
 (define-key global-map (kbd "M--") 'shrink-window-horizontally)
-
 (define-key global-map (kbd "C-o <right>") 'emacs-lock-mode)
-
 (define-key global-map (kbd "C-o s") 'clone-buffer)
 
 (define-key occur-mode-map "\C-o" ctl-x-map)
 (define-key occur-mode-map (kbd "C-o k") 'kill-this-buffer)
-
-;;(Define-key global-map (kbd "C-<return>")
-;;   (lambda () (interactive) (move-end-of-line nil) (newline)))
-
-
-;; --------------------------------------------------
-;; Input
-;; --------------------------------------------------
-(setq fill-column 64)
-(setq mail-mode-hook 'turn-on-auto-fill)
-(setq text-mode-hook 'turn-off-auto-fill)
-;;(setq use-hard-newlines t)
-;;(setq truncate-lines nil)
-;;(setq word-wrap t)
 
 
 ;; --------------------------------------------------
 ;; Org-mode
 ;; --------------------------------------------------
 (when (require 'org nil t)
-  ;; key bind
-  (define-key org-mode-map (kbd "TAB") 'org-shiftright)
-  (define-key org-mode-map (kbd "<backtab>") 'org-shiftleft)
-  (define-key org-mode-map (kbd "C-o TAB") 'org-cycle)
-  (define-key org-mode-map (kbd "C-o t") (kbd "#+TITLE: SPC"))
-  (define-key org-mode-map (kbd "M-j") (kbd "C-u 10 <down>"))
-  (define-key org-mode-map (kbd "M-k") (kbd "C-u 10 <up>"))
-  (define-key org-mode-map (kbd "M-h") (kbd "C-u 10 <left>"))
-  (define-key org-mode-map (kbd "M-l") (kbd "C-u 10 <right>"))
-  (define-key org-mode-map (kbd "C-y") 'kill-ring-save)
-  (define-key org-mode-map (kbd "C-p") 'yank)
-  (define-key org-mode-map (kbd "C-d") 'kill-region)
-  (define-key org-mode-map (kbd "M-n") 'org-shiftdown)
-  (define-key org-mode-map (kbd "M-p") 'org-shiftup)
-  ;; config
+
+  ;; function
+  (defun org-mode-keybind ()
+    (define-key org-mode-map (kbd "TAB") 'org-shiftright)
+    (define-key org-mode-map (kbd "<backtab>") 'org-shiftleft)
+    (define-key org-mode-map (kbd "C-o TAB") 'org-cycle)
+    (define-key org-mode-map (kbd "C-o t") (kbd "#+TITLE: SPC"))
+    (define-key org-mode-map (kbd "M-j") (kbd "C-u 10 <down>"))
+    (define-key org-mode-map (kbd "M-k") (kbd "C-u 10 <up>"))
+    (define-key org-mode-map (kbd "M-h") (kbd "C-u 10 <left>"))
+    (define-key org-mode-map (kbd "M-l") (kbd "C-u 10 <right>"))
+    (define-key org-mode-map (kbd "C-y") 'kill-ring-save)
+    (define-key org-mode-map (kbd "C-p") 'yank)
+    (define-key org-mode-map (kbd "C-d") 'kill-region)
+    (define-key org-mode-map (kbd "M-n") 'org-shiftdown)
+    (define-key org-mode-map (kbd "M-p") 'org-shiftup)
+    )
+
+  ;; variable
   (setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
   (setq org-log-done 'time)
   (setq org-startup-folded 'all)
-)
+
+  ;; hook
+  (add-hook 'org-mode-hook 'org-mode-keybind)
+  )
 
 
 ;; --------------------------------------------------
 ;; dired
 ;; --------------------------------------------------
 (when (require 'dired nil t)
+
   ;; function
+  (defun dired-mode-keybind ()
+    (define-key dired-mode-map "\C-o" ctl-x-map)
+    (define-key dired-mode-map (kbd "h") (lambda () (interactive) (find-alternate-file "..")))
+    (define-key dired-mode-map (kbd "j") 'dired-next-line)
+    (define-key dired-mode-map (kbd "k") 'dired-previous-line)
+    (define-key dired-mode-map (kbd "l") 'dired-find-alternate-file)
+    (define-key dired-mode-map (kbd "RET") 'dired-find-file-other-window)
+    (define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
+    (define-key dired-mode-map (kbd "q") 'kill-this-buffer)
+    (define-key dired-mode-map (kbd "n") 'dired-create-file)
+    (define-key dired-mode-map (kbd "N") 'dired-create-directory)
+    (define-key dired-mode-map (kbd "y") (kbd "C-u 0-w"))
+    (define-key dired-mode-map (kbd "v") 'dired-view-file-other-window)
+    (define-key dired-mode-map (kbd "g") (lambda () (interactive) (beginning-of-buffer) (dired-next-line 2)))
+    (define-key dired-mode-map (kbd "G") (lambda () (interactive) (end-of-buffer) (dired-previous-line 1)))
+    (define-key dired-mode-map (kbd "C-g") 'revert-buffer)
+    (define-key dired-mode-map (kbd "TAB") 'other-window)
+    (when (file-directory-p bookmark-dir)
+      (define-key dired-mode-map (kbd "C-o b")
+        (lambda () (interactive) (find-alternate-file bookmark-dir))
+        ))
+    )
   (defun dired-view-file-other-window ()
     (interactive)
     (let ((file (dired-get-file-for-visit)))
       (if (file-directory-p file)
-        (or (and (cdr dired-subdir-alist) (dired-goto-subdir file)) (dired file))
+          (or (and (cdr dired-subdir-alist) (dired-goto-subdir file)) (dired file))
         (view-file-other-window file)
         )))
   (defun dired-create-file ()
@@ -250,40 +221,22 @@
     (shell-command (concat "touch " (read-shell-command "Create file: ")))
     (revert-buffer)
     )
-  ;; key bind
-  (define-key dired-mode-map "\C-o" ctl-x-map)
-  (define-key dired-mode-map (kbd "h") (lambda () (interactive) (find-alternate-file "..")))
-  (define-key dired-mode-map (kbd "j") 'dired-next-line)
-  (define-key dired-mode-map (kbd "k") 'dired-previous-line)
-  (define-key dired-mode-map (kbd "l") 'dired-find-alternate-file)
-  (define-key dired-mode-map (kbd "RET") 'dired-find-file-other-window)
-  (define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
-  (define-key dired-mode-map (kbd "q") 'kill-this-buffer)
-  (define-key dired-mode-map (kbd "n") 'dired-create-file)
-  (define-key dired-mode-map (kbd "N") 'dired-create-directory)
-  (define-key dired-mode-map (kbd "y") (kbd "C-u 0-w"))
-  (define-key dired-mode-map (kbd "v") 'dired-view-file-other-window)
-  (define-key dired-mode-map (kbd "g") 'beginning-of-buffer)
-  (define-key dired-mode-map (kbd "G") 'end-of-buffer)
-  (define-key dired-mode-map (kbd "C-g") 'revert-buffer)
-  (define-key dired-mode-map (kbd "TAB") 'other-window)
-  (when (file-directory-p bookmark-dir)
-    (define-key dired-mode-map (kbd "C-o b")
-      (lambda () (interactive) (find-alternate-file bookmark-dir))
-      ))
-  ;; config
+
+  ;; variable
   (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-recursive-copies 'always)
   (setq dired-dwim-target t)
   (setq dired-listing-switches (purecopy "-lah"))
+
+  ;; hook
+  (add-hook 'dired-mode-hook 'dired-mode-keybind)
   )
 
 
 ;; --------------------------------------------------
-;; Others
+;; Mail
 ;; --------------------------------------------------
-
-;; for mutt
+(add-hook 'mail-mode-hook 'turn-on-auto-fill)
 (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
 (defun list-mail-domain ()
   (interactive)
@@ -293,6 +246,10 @@
 (define-key global-map (kbd "C-o C-c") 'list-mail-domain)
 
 
+;; --------------------------------------------------
+;; Others
+;; --------------------------------------------------
+
 ;; clipboard
 (when (file-readable-p clipboard) (load clipboard))
 
@@ -300,11 +257,6 @@
 ;; --------------------------------------------------
 ;; Package
 ;; --------------------------------------------------
-
-;;;; anything
-;;(when (and (require 'anything nil t) (require 'anything-startup nil t) (require 'anything-config nil t))
-;;  (define-key global-map (kbd "C-o C-b") 'anything-buffers-list)
-;;  (define-key global-map (kbd "C-o C-f") 'anything-recentf))
 
 ;; helm
 (when (and (require 'helm nil t) (require 'helm-config nil t))
@@ -320,7 +272,7 @@
   ;; config
 ;  (setq helm-autoresize-max-height 0)
 ;  (setq helm-autoresize-min-height 20)
-  (helm-migemo-mode 1)
+;  (helm-migemo-mode 1)
   (setq helm-buffers-fuzzy-matching t
         helm-recentf-fuzzy-match    t)
   (setq helm-split-window-in-side-p t)

@@ -54,6 +54,7 @@ macro index,browser,pager \ej jjjjjjjjjj
 
 macro browser l <enter-mask>\CU
 macro index  l <limit>\CU
+macro pager l <exit>l
 
 macro index,pager R <group-reply>
 
