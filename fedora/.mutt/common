@@ -23,6 +23,7 @@ set smart_wrap
 set beep = no
 set sort_browser = "reverse-date"
 set sleep_time = 0
+unignore Content-Type
 
 
 # --------------------------------------------------
