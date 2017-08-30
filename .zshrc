@@ -97,6 +97,14 @@ export NO_AT_BRIDGE=1
 # remove '/', and add '|' from default
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>|'
 
+# for gnu screen to share clipboard
+if [ ! -f '/usr/local/bin/putclip' ]; then
+    printf '#!/bin/bash\n' >>/usr/local/bin/putclip
+    printf 'cat /dev/stdin > /dev/clipboard\n' >>/usr/local/bin/putclip
+    chmod 744 /usr/local/bin/putclip
+fi
+
+
 # --------------------------------------------------
 # Plugin
 # --------------------------------------------------
