@@ -35,6 +35,7 @@
 (setq scroll-preserve-screen-position t)
 (setq recentf-max-saved-items 10000)
 (setq fill-column 64)
+(setq truncate-lines nil)
 
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
@@ -172,7 +173,7 @@
     )
 
   ;; variable
-  (setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)")))
   (setq org-log-done 'time)
   (setq org-startup-folded 'all)
 
@@ -252,6 +253,9 @@
 
 ;; clipboard
 (when (file-readable-p clipboard) (load clipboard))
+
+;; tramp
+(when (require 'tramp nil t)
 
 
 ;; --------------------------------------------------
