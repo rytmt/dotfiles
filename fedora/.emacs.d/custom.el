@@ -5,6 +5,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:foreground "brightwhite"))))
+ '(hl-line ((t (:background "color-239"))))
  '(linum ((t (:background "color-235" :foreground "color-245")))))
 
 ;; packages
