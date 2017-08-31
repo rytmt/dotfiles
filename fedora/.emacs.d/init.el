@@ -255,7 +255,7 @@
 (when (file-readable-p clipboard) (load clipboard))
 
 ;; tramp
-(when (require 'tramp nil t)
+(when (require 'tramp nil t))
 
 
 ;; --------------------------------------------------
