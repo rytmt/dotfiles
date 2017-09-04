@@ -170,7 +170,7 @@
     (define-key org-mode-map (kbd "C-d") 'kill-region)
     (define-key org-mode-map (kbd "M-n") 'org-shiftdown)
     (define-key org-mode-map (kbd "M-p") 'org-shiftup)
-    (define-key org-mode-map (kbd "C-o a") 'org-agenda)    
+    (define-key org-mode-map (kbd "C-o a") 'org-agenda)
     )
 
   ;; variable
@@ -332,6 +332,11 @@
         (elscreen-find-and-goto-by-buffer buffer t))))
   )
 
+;; hiwin
+(when (require 'hiwin nil t)
+  (hiwin-activate)
+  (set-face-background 'hiwin-face "color-238")
+  )
 
 ;; mew
 ;;(autoload 'mew "mew" nil t)

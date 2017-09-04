@@ -6,8 +6,8 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:foreground "brightwhite"))))
  '(hl-line ((t (:background "color-239"))))
- '(region ((t (:background "color-172"))))
- '(linum ((t (:background "color-235" :foreground "color-245")))))
+ '(linum ((t (:background "color-235" :foreground "color-245"))))
+ '(region ((t (:background "yellow")))))
 
 ;; packages
 (custom-set-variables
@@ -17,4 +17,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (recentf-ext helm elscreen undohist gruvbox-theme undo-tree solarized-theme migemo madhat2r-theme anything))))
+    (hiwin recentf-ext helm elscreen undohist gruvbox-theme undo-tree solarized-theme migemo madhat2r-theme anything))))
