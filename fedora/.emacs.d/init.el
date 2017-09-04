@@ -278,7 +278,7 @@
   ;; config
 ;  (setq helm-autoresize-max-height 0)
 ;  (setq helm-autoresize-min-height 20)
-;  (helm-migemo-mode 1)
+  (helm-migemo-mode 1)
   (setq helm-buffers-fuzzy-matching t
         helm-recentf-fuzzy-match    t)
   (setq helm-split-window-in-side-p t)
@@ -332,11 +332,6 @@
         (elscreen-find-and-goto-by-buffer buffer t))))
   )
 
-;; hiwin
-(when (require 'hiwin nil t)
-  (hiwin-activate)
-  (set-face-background 'hiwin-face "color-238")
-  )
 
 ;; mew
 ;;(autoload 'mew "mew" nil t)
