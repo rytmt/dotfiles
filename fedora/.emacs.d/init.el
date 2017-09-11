@@ -259,6 +259,10 @@
 ;; tramp
 (when (require 'tramp nil t))
 
+;; for EasyPG
+;; require gnupg and pinentry-emacs rpm packages (in fedora)
+(setq epa-pinentry-mode 'loopback)
+
 
 ;; --------------------------------------------------
 ;; Package
