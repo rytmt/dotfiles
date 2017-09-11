@@ -261,6 +261,7 @@
 
 ;; for EasyPG
 ;; require gnupg and pinentry-emacs rpm packages (in fedora)
+;; hint: gpg --cipher-algo AES256 -c -v __FILENAME__
 (setq epa-pinentry-mode 'loopback)
 
 
