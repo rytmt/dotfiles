@@ -34,6 +34,7 @@
 (setq require-final-newline nil)
 (setq scroll-preserve-screen-position t)
 (setq recentf-max-saved-items 10000)
+(setq recentf-exclude '("/tmp/mutt.*"))
 (setq fill-column 64)
 (setq truncate-lines nil)
 
