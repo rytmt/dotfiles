@@ -179,6 +179,7 @@
   (setq org-log-done 'time)
   (setq org-startup-folded 'all)
   (setq org-agenda-files '("~/todo.org"))
+  (setq org-todo-keyword-faces '(("WAIT" . (:foreground "magenta" :weight bold))))
 
   ;; hook
   (add-hook 'org-mode-hook 'org-mode-keybind)
@@ -258,6 +259,7 @@
 (when (file-readable-p clipboard) (load clipboard))
 
 ;; tramp
+;; sample: C-x C-f /ssh:USERNAME@HOSTNAME:
 (when (require 'tramp nil t))
 
 ;; for EasyPG
@@ -269,6 +271,17 @@
 ;; --------------------------------------------------
 ;; Package
 ;; --------------------------------------------------
+
+;; migemo
+(when (require 'migemo nil t)
+  (setq migemo-command "cmigemo")
+  (setq migemo-options '("-q" "--emacs"))
+  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix)
+  (load-library "migemo")
+  (migemo-init))
 
 ;; helm
 (when (and (require 'helm nil t) (require 'helm-config nil t))
@@ -291,17 +304,6 @@
 ;  (helm-autoresize-mode 1)
   (helm-mode 1)
   )
-
-;; migemo
-(when (require 'migemo nil t)
-  (setq migemo-command "cmigemo")
-  (setq migemo-options '("-q" "--emacs"))
-  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-  (setq migemo-user-dictionary nil)
-  (setq migemo-regex-dictionary nil)
-  (setq migemo-coding-system 'utf-8-unix)
-  (load-library "migemo")
-  (migemo-init))
 
 ;; undo-tree
 (when (require 'undo-tree nil t)
