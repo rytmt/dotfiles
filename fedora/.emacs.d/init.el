@@ -266,6 +266,7 @@
 ;; require gnupg and pinentry-emacs rpm packages (in fedora)
 ;; hint: gpg --cipher-algo AES256 -c -v __FILENAME__
 (setq epa-pinentry-mode 'loopback)
+(setq epa-file-cache-passphrase-for-symmetric-encryption t)
 
 
 ;; --------------------------------------------------
