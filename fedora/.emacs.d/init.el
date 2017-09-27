@@ -158,8 +158,8 @@
 
   ;; function
   (defun org-mode-keybind ()
-    (define-key org-mode-map (kbd "TAB") 'org-shiftright)
-    (define-key org-mode-map (kbd "<backtab>") 'org-shiftleft)
+    (define-key org-mode-map (kbd "C-^") 'org-shiftright)
+;    (define-key org-mode-map (kbd "<backtab>") 'org-shiftleft)
     (define-key org-mode-map (kbd "C-o TAB") 'org-cycle)
     (define-key org-mode-map (kbd "C-o t") (kbd "#+TITLE: SPC"))
     (define-key org-mode-map (kbd "M-j") (kbd "C-u 10 <down>"))
