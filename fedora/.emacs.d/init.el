@@ -146,6 +146,7 @@
 (define-key global-map (kbd "M--") 'shrink-window-horizontally)
 (define-key global-map (kbd "C-o <right>") 'emacs-lock-mode)
 (define-key global-map (kbd "C-o s") 'clone-buffer)
+(define-key global-map (kbd "C-x C-x") 'eval-print-last-sexp)
 
 (define-key occur-mode-map "\C-o" ctl-x-map)
 (define-key occur-mode-map (kbd "C-o k") 'kill-this-buffer)
