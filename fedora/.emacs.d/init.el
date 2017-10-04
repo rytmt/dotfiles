@@ -291,6 +291,7 @@
   (define-key global-map (kbd "C-o h") 'helm-command-prefix)
   (global-unset-key (kbd "C-x c"))
   (define-key global-map (kbd "C-o C-o") 'helm-mini)
+  (define-key global-map (kbd "C-o C-g") 'helm-occur)
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-z")  'helm-select-action)
