@@ -70,6 +70,8 @@ macro browser n oa
 
 macro browser A <change-dir>^U~/.mutt/attachment<enter>
 
+macro browser m "<exit>m"
+
 
 # --------------------------------------------------
 # Hook
