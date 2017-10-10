@@ -108,6 +108,9 @@ gecho() { printf "\e[1;32m$*\e[m\n" }
 # peco
 [ -f /usr/local/bin/peco ] && [ -f ~/.zsh/peco.zsh ] && . ~/.zsh/peco.zsh && gecho '~/.zsh/peco.zsh loaded'
 
+# default browser
+export BROWSER='lynx'
+
 
 # --------------------------------------------------
 # Plugin
