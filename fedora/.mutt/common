@@ -27,6 +27,8 @@ set rfc2047_parameters = yes
 unignore Content-Type
 set mime_forward = yes
 set mime_forward_rest = yes
+auto_view text/html
+set mailcap_path="~/.mutt/mailcap"
 
 
 # --------------------------------------------------
