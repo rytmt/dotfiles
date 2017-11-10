@@ -176,11 +176,15 @@
     )
 
   ;; variable
-  (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "MEMO(m)" "|" "DONE(d)")))
   (setq org-log-done 'time)
   (setq org-startup-folded 'all)
   (setq org-agenda-files '("~/todo.org"))
-  (setq org-todo-keyword-faces '(("WAIT" . (:foreground "magenta" :weight bold))))
+  (setq org-todo-keyword-faces
+        '(
+          ("WAIT" . (:foreground "magenta" :weight bold))
+          ("MEMO" . (:foreground "magenta" :weight bold))
+          ))
 
   ;; hook
   (add-hook 'org-mode-hook 'org-mode-keybind)
@@ -345,9 +349,10 @@
 
 
 ;; mew
-;;(autoload 'mew "mew" nil t)
-;;(autoload 'mew-send "mew" nil t)
-;;(setq load-path (append '("/usr/local/share/emacs/site-lisp/mew") load-path))
+(autoload 'mew "mew" nil t)
+(autoload 'mew-send "mew" nil t)
+(setq read-mail-command 'mew)
+;(setq load-path (append '("/usr/local/share/emacs/site-lisp/mew") load-path))
 
 ;;(define-key mew-summary-mode-map "j" (kbd "<down>"))
 ;;(define-key mew-summary-mode-map "k" (kbd "<up>"))
