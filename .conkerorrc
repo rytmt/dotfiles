@@ -105,3 +105,7 @@ interactive("scrollUpFive", "cmd_scrollLineUp five times", function(I){
 define_key(default_global_keymap, "M-j", "scrollDownFive");
 define_key(default_global_keymap, "M-k", "scrollUpFive");
 
+
+
+require("block-content-focus-change.js");
+block_content_focus_change_duration = 40;
