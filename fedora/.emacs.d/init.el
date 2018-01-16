@@ -33,7 +33,7 @@
 (setq scroll-step 1)
 (setq require-final-newline nil)
 (setq scroll-preserve-screen-position t)
-(setq recentf-max-saved-items 10000)
+(setq recentf-max-saved-items 1000)
 (setq recentf-exclude '("/tmp/mutt.*"))
 (setq fill-column 64)
 (setq truncate-lines nil)
@@ -147,6 +147,8 @@
 (define-key global-map (kbd "C-o <right>") 'emacs-lock-mode)
 (define-key global-map (kbd "C-o s") 'clone-buffer)
 (define-key global-map (kbd "C-x C-x") 'eval-print-last-sexp)
+(define-key global-map (kbd "C-o C-o") 'recentf-open-files)
+(define-key global-map (kbd "C-o C-b") 'switch-to-buffer)
 
 (define-key occur-mode-map "\C-o" ctl-x-map)
 (define-key occur-mode-map (kbd "C-o k") 'kill-this-buffer)
@@ -294,7 +296,7 @@
   ;; keybind
   (define-key global-map (kbd "C-o h") 'helm-command-prefix)
   (global-unset-key (kbd "C-x c"))
-  (define-key global-map (kbd "C-o C-o") 'helm-mini)
+;  (define-key global-map (kbd "C-o C-o") 'helm-mini)
   (define-key global-map (kbd "C-o C-g") 'helm-occur)
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
