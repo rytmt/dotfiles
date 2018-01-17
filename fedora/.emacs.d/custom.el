@@ -17,4 +17,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (recentf-ext helm elscreen undohist gruvbox-theme undo-tree solarized-theme migemo madhat2r-theme anything))))
+    (helm-swoop recentf-ext helm elscreen undohist gruvbox-theme undo-tree solarized-theme migemo madhat2r-theme anything))))

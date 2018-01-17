@@ -314,12 +314,16 @@
   (setq helm-split-window-in-side-p t)
 ;  (helm-autoresize-mode 1)
   (helm-mode 1)
+  (when (require 'helm-swoop nil t)
+    (define-key global-map (kbd "C-s") 'helm-swoop)
+    )
   )
 
 ;; undo-tree
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode)
   (define-key global-map (kbd "C-o C-u") 'undo-tree-visualize)
+  (define-key global-map (kbd "C-u") 'undo-tree-undo)
   (defadvice undo-tree-visualize (around undo-tree-split-horizontal activate)
     (let ((split-height-threshold 0)
           (split-width-threshold nil))
