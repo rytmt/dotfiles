@@ -148,7 +148,7 @@
 (define-key global-map (kbd "C-o s") 'clone-buffer)
 (define-key global-map (kbd "C-x C-x") 'eval-print-last-sexp)
 (define-key global-map (kbd "C-o C-o") 'recentf-open-files)
-(define-key global-map (kbd "C-o C-b") 'switch-to-buffer)
+;(define-key global-map (kbd "C-o C-b") 'switch-to-buffer)
 
 (define-key occur-mode-map "\C-o" ctl-x-map)
 (define-key occur-mode-map (kbd "C-o k") 'kill-this-buffer)
@@ -298,6 +298,8 @@
   (global-unset-key (kbd "C-x c"))
 ;  (define-key global-map (kbd "C-o C-o") 'helm-mini)
   (define-key global-map (kbd "C-o C-g") 'helm-occur)
+  (define-key global-map (kbd "C-o C-b") 'helm-buffers-list)
+  (define-key global-map (kbd "C-o C-f") 'helm-find-files)
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-z")  'helm-select-action)
