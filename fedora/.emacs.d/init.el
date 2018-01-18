@@ -320,6 +320,7 @@
   (helm-mode 1)
   (when (require 'helm-swoop nil t)
     (define-key global-map (kbd "C-s") 'helm-swoop)
+    (setq helm-swoop-pre-input-function (lambda () ""))
     )
   )
 
@@ -328,6 +329,7 @@
   (global-undo-tree-mode)
   (define-key global-map (kbd "C-o C-u") 'undo-tree-visualize)
   (define-key global-map (kbd "C-u") 'undo-tree-undo)
+  (define-key global-map (kbd "C-r") 'undo-tree-redo)
   (defadvice undo-tree-visualize (around undo-tree-split-horizontal activate)
     (let ((split-height-threshold 0)
           (split-width-threshold nil))
