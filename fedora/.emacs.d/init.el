@@ -321,6 +321,8 @@
   (when (require 'helm-swoop nil t)
     (define-key global-map (kbd "C-s") 'helm-swoop)
     (setq helm-swoop-pre-input-function (lambda () ""))
+    (setq helm-swoop-split-direction 'split-window-horizontally)
+    (setq helm-swoop-split-with-multiple-windows t)
     )
   )
 
