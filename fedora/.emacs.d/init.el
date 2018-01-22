@@ -364,6 +364,11 @@
         (elscreen-find-and-goto-by-buffer buffer t))))
   )
 
+;; pwgen
+(defun pwgen ()
+  (interactive)
+  (insert (shell-command-to-string "pwgen -sync1 16"))
+  )
 
 ;; mew
 (autoload 'mew "mew" nil t)
