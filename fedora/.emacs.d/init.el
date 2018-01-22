@@ -367,7 +367,8 @@
 ;; pwgen
 (defun pwgen ()
   (interactive)
-  (insert (shell-command-to-string "pwgen -sync1 16"))
+  (insert (shell-command-to-string "printf \"$(pwgen -sync1 16)\""))
+  (kill-line 0)
   )
 
 ;; mew

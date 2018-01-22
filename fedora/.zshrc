@@ -99,32 +99,46 @@ export NO_AT_BRIDGE=1
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>|'
 
 LS_COLORS=
+ZSH_HOME=~/.zsh
 
+# common func
 gecho() { printf "\e[1;32m$*\e[m\n" }
+recho() { printf "\e[1;31m$*\e[m\n" }
+fload() {
+    if [ -f "$1" ]; then
+        . "$1"
+        gecho "'$1' loaded"
+        return 0
+    else
+        recho "'$1' doesn't exist"
+        return 1
+    fi
+}
+fcheck() {
+    if [ -f "$1" ]; then
+        gecho "'$1' exists"
+        return 0
+    else
+        recho "'$1' doesn't exist"
+        return 1
+    fi
+}
 
 # user options
-[ -f ~/.zsh/options.zsh ] && . ~/.zsh/options.zsh && gecho '~/.zsh/options.zsh loaded'
+fload "${ZSH_HOME}/options.zsh"
 
 # peco
-[ -f /usr/local/bin/peco ] && [ -f ~/.zsh/peco.zsh ] && . ~/.zsh/peco.zsh && gecho '~/.zsh/peco.zsh loaded'
+fcheck "/usr/local/bin/peco"
+[ $? ] && fload "${ZSH_HOME}/peco.zsh"
+
+# zsh-syntax-highlighting
+fload "${ZSH_HOME}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [ $? ] ; then
+    ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor line)
+    ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
+fi
 
 # default browser
 export BROWSER='lynx'
-
-
-# --------------------------------------------------
-# Plugin
-# --------------------------------------------------
-PLUGIN_BASE=~/.zsh
-
-# zsh-syntax-highlighting
-ZSH_SYNTAX_HIGHLIGHTING_PATH="${PLUGIN_BASE}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-if [ -f "${ZSH_SYNTAX_HIGHLIGHTING_PATH}" ]; then
-    . "${ZSH_SYNTAX_HIGHLIGHTING_PATH}"
-    ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor line)
-    ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
-    gecho 'zsh-syntax-highlighting loaded'
-fi
-
 
 
