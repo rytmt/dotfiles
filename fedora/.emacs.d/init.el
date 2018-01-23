@@ -325,6 +325,9 @@
     (setq helm-swoop-split-direction 'split-window-vertically)
     (setq helm-swoop-split-with-multiple-windows t)
     )
+  (when (require 'helm-elscreen nil t)
+  (define-key global-map (kbd "C-o C-e") 'helm-elscreen)
+    )
   )
 
 ;; undo-tree
@@ -367,7 +370,7 @@
 ;; pwgen
 (defun pwgen ()
   (interactive)
-  (insert (shell-command-to-string "printf \"$(pwgen -sync1 16)\""))
+  (insert (shell-command-to-string "echo -n $(pwgen -sync1 16)"))
   (kill-line 0)
   )
 
