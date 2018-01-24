@@ -116,6 +116,10 @@
 (defun previous-line-10 () (interactive) (previous-line 10))
 (defun backward-char-10 () (interactive) (backward-char 10))
 (defun forward-char-10 () (interactive) (forward-char 10))
+(defun cua-decr-rectangle (decriment)
+  "Decrement each line of CUA rectangle by prefix amount."
+  (interactive "p")
+  (cua-incr-rectangle (- decriment)))
 
 (define-key global-map "\C-o" ctl-x-map)
 
@@ -152,12 +156,13 @@
 (define-key global-map (kbd "C-o <right>") 'emacs-lock-mode)
 (define-key global-map (kbd "C-o s") 'clone-buffer)
 (define-key global-map (kbd "C-x C-x") 'eval-print-last-sexp)
-(define-key global-map (kbd "C-o C-o") 'recentf-open-files)
+(define-key global-map (kbd "C-o C-r") 'recentf-open-files)
 ;(define-key global-map (kbd "C-o C-b") 'switch-to-buffer)
 
 (define-key occur-mode-map "\C-o" ctl-x-map)
 (define-key occur-mode-map (kbd "C-o k") 'kill-this-buffer)
 
+(define-key cua--rectangle-keymap (kbd "M-d") 'cua-decr-rectangle)
 
 ;; --------------------------------------------------
 ;; Org-mode
@@ -326,7 +331,7 @@
     (setq helm-swoop-split-with-multiple-windows t)
     )
   (when (require 'helm-elscreen nil t)
-  (define-key global-map (kbd "C-o C-e") 'helm-elscreen)
+  (define-key global-map (kbd "C-o C-o") 'helm-elscreen)
     )
   )
 
