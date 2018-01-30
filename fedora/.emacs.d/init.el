@@ -266,7 +266,7 @@
    1 (1+ (buffer-size))
    "grep -e ^To -e ^Cc -e ^Bcc -A 10 | grep -E -o '@[a-zA-Z0-9.-]+' | sort | uniq -c | sort -nr"))
 (define-key global-map (kbd "C-o C-c") 'list-mail-domain)
-
+(define-key mail-mode-map (kbd "C-o C-s") (lambda () (interactive) (save-buffer) (list-mail-domain)))
 
 ;; --------------------------------------------------
 ;; Others
