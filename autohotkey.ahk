@@ -1,4 +1,4 @@
-; IMPORTANT INFO ABOUT GETTING STARTED: Lines that start with a
+﻿; IMPORTANT INFO ABOUT GETTING STARTED: Lines that start with a
 ; semicolon, such as this one, are comments.  They are not executed.
 
 ; This script has a special filename and path because it is automatically
@@ -117,6 +117,32 @@ else
 return
 
 
+^a::Send {Home}
+^e::Send {End}
+^+a::Send +{Home}
+^+e::Send +{End}
+!h::Send {Left 10}
+!j::Send {Down 10}
+!k::Send {Up 10}
+!l::Send {right 10}
+
+#IfWinActive, ahk_class mintty
+$^a::Send ^a
+$^e::Send ^e
+$!h::Send !h
+$!j::Send !j
+$!k::Send !k
+$!l::Send !l
+#IfWinActive
+
+#IfWinActive, ahk_class PaperPlaneCombo
+$^a::Send ^a
+$^e::Send ^e
+$!h::Send !h
+$!j::Send !j
+$!k::Send !k
+$!l::Send !l
+#IfWinActive
 
 
 ; IME.ahk
