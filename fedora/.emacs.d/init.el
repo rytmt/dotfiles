@@ -156,7 +156,6 @@
 (define-key global-map (kbd "C-o <right>") 'emacs-lock-mode)
 (define-key global-map (kbd "C-o s") 'clone-buffer)
 (define-key global-map (kbd "C-x C-x") 'eval-print-last-sexp)
-(define-key global-map (kbd "C-o C-r") 'recentf-open-files)
 ;(define-key global-map (kbd "C-o C-b") 'switch-to-buffer)
 
 (define-key occur-mode-map "\C-o" ctl-x-map)
@@ -266,7 +265,8 @@
    1 (1+ (buffer-size))
    "grep -e ^To -e ^Cc -e ^Bcc -A 10 | grep -E -o '@[a-zA-Z0-9.-]+' | sort | uniq -c | sort -nr"))
 (define-key global-map (kbd "C-o C-c") 'list-mail-domain)
-(define-key mail-mode-map (kbd "C-o C-s") (lambda () (interactive) (save-buffer) (list-mail-domain)))
+(define-key global-map (kbd "C-o C-s") (lambda () (interactive) (save-buffer) (list-mail-domain)))
+
 
 ;; --------------------------------------------------
 ;; Others
@@ -351,7 +351,9 @@
 (when (require 'undohist nil t) (undohist-initialize))
 
 ;; recentf-ext
-(when (require 'recentf-ext nil t))
+(when (require 'recentf-ext nil t)
+  (define-key global-map (kbd "C-o C-r") 'recentf-open-files)
+  )
 
 ;; elscreen
 (when (require 'elscreen nil t)
