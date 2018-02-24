@@ -374,6 +374,13 @@
         (elscreen-find-and-goto-by-buffer buffer t))))
   )
 
+;; highlight-indentation
+(when (require 'highlight-indentation nil t)
+  (set-face-background 'highlight-indentation-face "#4e4e4e")
+  (set-face-background 'highlight-indentation-current-column-face "#4e4e4e")
+  (defun hii () (interactive) (highlight-indentation-current-column-mode))
+  )
+
 ;; pwgen
 (defun pwgen ()
   (interactive)
