@@ -333,6 +333,14 @@
   (when (require 'helm-elscreen nil t)
   (define-key global-map (kbd "C-o C-o") 'helm-elscreen)
     )
+  ;; helm-gtags
+  (when (require 'helm-gtags nil t)
+    (define-key global-map (kbd "M-g t") 'helm-gtags-find-tag)
+    (define-key global-map (kbd "M-g r") 'helm-gtags-find-rtag)
+    (define-key global-map (kbd "M-g s") 'helm-gtags-find-symbol)
+    (define-key global-map (kbd "M-g h") 'helm-gtags-select)
+    (define-key global-map (kbd "M-g ^") 'helm-gtags-pop-stack)
+    )
   )
 
 ;; undo-tree
