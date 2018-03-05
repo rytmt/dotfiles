@@ -315,6 +315,7 @@
   (define-key helm-map (kbd "C-z")  'helm-select-action)
   (define-key helm-map (kbd "C-d") 'helm-buffer-run-kill-persistent)
   (define-key helm-map (kbd "C-w") 'backward-delete-word)
+
   ;; config
 ;  (setq helm-autoresize-max-height 0)
 ;  (setq helm-autoresize-min-height 20)
@@ -324,15 +325,20 @@
   (setq helm-split-window-in-side-p t)
 ;  (helm-autoresize-mode 1)
   (helm-mode 1)
+
+  ;; helm-swoop
   (when (require 'helm-swoop nil t)
     (define-key global-map (kbd "C-s") 'helm-swoop)
     (setq helm-swoop-pre-input-function (lambda () ""))
     (setq helm-swoop-split-direction 'split-window-vertically)
     (setq helm-swoop-split-with-multiple-windows t)
     )
+
+  ;; helm-elscreen
   (when (require 'helm-elscreen nil t)
   (define-key global-map (kbd "C-o C-o") 'helm-elscreen)
     )
+
   ;; helm-gtags
   (when (require 'helm-gtags nil t)
     (define-key global-map (kbd "M-g t") 'helm-gtags-find-tag)
@@ -340,6 +346,7 @@
     (define-key global-map (kbd "M-g s") 'helm-gtags-find-symbol)
     (define-key global-map (kbd "M-g h") 'helm-gtags-select)
     (define-key global-map (kbd "M-g ^") 'helm-gtags-pop-stack)
+    (define-key global-map (kbd "M-g M-g") 'helm-gtags-dwim)
     )
   )
 
