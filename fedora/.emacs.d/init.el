@@ -36,7 +36,7 @@
 (setq recentf-max-saved-items 3000)
 (setq recentf-auto-cleanup 'never)
 (setq recentf-exclude '("/tmp/mutt.*"))
-(setq fill-column 64)
+(setq fill-column 56)
 (setq truncate-lines nil)
 
 (cua-mode t)
@@ -169,6 +169,11 @@
 (when (require 'org nil t)
 
   ;; function
+  (defun org-insert-todo-with-ts ()
+    (interactive)
+    (org-insert-todo-heading "TODO")
+    (org-insert-time-stamp (current-time))
+    )
   (defun org-mode-keybind ()
     (define-key org-mode-map (kbd "C-^") 'org-shiftright)
 ;    (define-key org-mode-map (kbd "<backtab>") 'org-shiftleft)
@@ -184,6 +189,7 @@
     (define-key org-mode-map (kbd "M-n") 'org-shiftdown)
     (define-key org-mode-map (kbd "M-p") 'org-shiftup)
     (define-key org-mode-map (kbd "C-o a") 'org-agenda)
+    (define-key org-mode-map (kbd "C-c .") 'org-insert-todo-with-ts)
     )
 
   ;; variable
@@ -191,6 +197,8 @@
   (setq org-log-done 'time)
   (setq org-startup-folded 'all)
   (setq org-agenda-files '("~/todo.org"))
+  (setq-default org-display-custom-times t)
+  (setq org-time-stamp-custom-formats '("<%Y/%m/%d>" . "<%Y/%m/%d %H:%M>"))
   (setq org-todo-keyword-faces
         '(
           ("WAIT" . (:foreground "magenta" :weight bold))
