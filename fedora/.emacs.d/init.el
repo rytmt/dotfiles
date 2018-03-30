@@ -193,7 +193,7 @@
     )
 
   ;; variable
-  (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "MEMO(m)" "|" "DONE(d)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)")))
   (setq org-log-done 'time)
   (setq org-startup-folded 'all)
   (setq org-agenda-files '("~/todo.org"))
