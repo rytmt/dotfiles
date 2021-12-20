@@ -49,7 +49,6 @@ set formatoptions=q
 set nrformats=
 nnoremap x "_x
 nnoremap Y v$hy
-nnoremap ya :call YankLineWithoutCR()<CR>
 nnoremap <S-j> 10j
 nnoremap <S-k> 10k
 nnoremap <S-h> 10h
@@ -96,13 +95,4 @@ set matchtime=3
 set laststatus=2
 set visualbell t_vb=
 
-
-" yank current cursor line without \n
-function! YankLineWithoutCR()
-    call feedkeys(":let row = line('.')\<CR>")
-    call feedkeys(":let col = col('.')\<CR>")
-    call feedkeys("^y$")
-    call feedkeys(":call cursor(row, col)\<CR>")
-    call feedkeys(":echo @\"\<CR>")
-endfunction
 
