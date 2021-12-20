@@ -1,0 +1,32 @@
+startup_message 'off'
+escape ^Tt
+hardstatus alwayslastline  "%{=d kW}%-w%{=u kY}%n %t%{=d kW}%+w %=%{= W}%H %{= W}%m-%d %c"
+caption always '%?%F%{=r kb}%:%{=u kb}%?%n %f %t%='
+defbce 'on'
+term xterm
+altscreen 'on'
+defscrollback 10000
+bind r eval 'echo "Resize window"' 'command -c resize'
+bind -c resize ^] command
+bind -c resize j eval 'resize +1' 'command -c resize'
+bind -c resize k eval 'resize -1' 'command -c resize'
+bindkey -m "^[j" stuff 10j
+bindkey -m "^[k" stuff 10k
+bindkey -m "^[h" stuff 10h
+bindkey -m "^[l" stuff 10l
+bindkey -m ^Y stuff ^B/http^M
+markkeys 0=^a:$=^e
+bindkey -m ^[b stuff B
+bindkey -m ^[f stuff E
+bindkey -m ^g stuff !
+bindkey -m "^[[1~" stuff 0
+bindkey -m "^[[4~" stuff $
+bindkey -m "^[OH" stuff 0
+bindkey -m "^[OF" stuff $
+bindkey -m "^[[H" stuff 0
+bindkey -m "^[[F" stuff $
+bindkey -m ' ' eval 'stuff \040' 'writebuf' 'exec sh -c "cat /tmp/screen-exchange | clip.exe"'
+bindkey -m Y   eval 'stuff Y'    'writebuf' 'exec sh -c "cat /tmp/screen-exchange | clip.exe"'
+bindkey -m W   eval 'stuff W'    'writebuf' 'exec sh -c "cat /tmp/screen-exchange | clip.exe"'
+logfile "/var/log/screen/screen-%Y%m%d-%n.log"
+deflog 'on'
