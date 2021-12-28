@@ -3,7 +3,7 @@ escape ^Tt
 hardstatus alwayslastline  "%{=d kW}%-w%{=u kY}%n %t%{=d kW}%+w %=%{= W}%H %{= W}%m-%d %c"
 caption always '%?%F%{=r kb}%:%{=u kb}%?%n %f %t%='
 defbce 'on'
-term xterm
+term xterm-256color
 altscreen 'on'
 defscrollback 10000
 bind r eval 'echo "Resize window"' 'command -c resize'

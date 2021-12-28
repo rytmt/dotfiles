@@ -5,7 +5,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # - 引数
 #   - 第一引数(必須)：セットアップ対象のユーザアカウント
-#   - 第二引数(任意)：プロキシサーバのURL
+#   - 第二引数(任意)：プロキシサーバのURL (例: http://proxy.local:8080)
 # - スクリプト構成
 #   - Global Variables : スクリプトのグローバル変数定義
 #   - Static Functions : スクリプトの静的関数定義
@@ -40,6 +40,7 @@ GIT_REPO_DIRCOLOR='https://github.com/seebi/dircolors-solarized.git'
 GIT_REPO_ZSH_HIGHLIGHT='https://github.com/zsh-users/zsh-syntax-highlighting.git'
 GIT_REPO_VIM_SOLARIZED='https://github.com/altercation/vim-colors-solarized.git'
 GIT_REPO_VIM_LOGHIGHLIGHT='https://github.com/mtdl9/vim-log-highlighting'
+GIT_REPO_NEOMUTT_SOLARIZED='https://github.com/altercation/mutt-colors-solarized'
 GIT_UNAME='rytmt' # gitユーザ名
 GIT_PUBKEY='id_rsa_github.pub'
 GIT_SECKEY='id_rsa_github'
@@ -56,6 +57,7 @@ skip_flg=1 # タスクスキップ用フラグ
 cnt_ok=0 # 成功タスクカウント用
 cnt_ng=0 # 失敗タスクカウント用
 cnt_na=0 # 省略タスクカウント用
+cnt_tsk=0 # タスク数カウント用
 env_chk=0 # 環境チェック失敗カウント用
 env_err='' # 環境チェックエラー文言表示用
 curl_ops='' # 疎通確認用curlのオプション
@@ -165,6 +167,7 @@ cdir='' # git clone 先のディレクトリ
 zdir="${hdir}/.zsh" # zsh設定ファイル配置先ディレクトリ
 mdir="${hdir}/.mutt" # neomutt設定ファイル配置先ディレクトリ
 vdir="${hdir}/.vim" # vim設定ファイル配置先ディレクトリ
+bdir="${hdir}/bin" # バイナリ配置先ディレクトリ
 lfile="${hdir}/log/${SCRIPT_NAME}_${DATETIME}.log" # ログファイルフルパス
 
 # セットアップ対象ユーザとしてログファイルを作成しておく
@@ -176,28 +179,35 @@ sudo -u "${usrname}" touch "${lfile}"
 # Dynamic Functions
 # ==================================================
 # タスク実行関数
+# オプション    ：-u (セットアップ対象のユーザとしてタスクを実行する)
 # 第一引数(必須)：タスク名称
 # 第二引数(必須)：コマンド文字列 (タスク内容)
 # 第三引数(任意)：タスクスキップフラグ (0ならタスクをスキップする)
 try_task (){
+    # タスクのカウントをインクリメント
+    cnt_tsk=$((cnt_tsk+1))
+
+    # 第一引数が -u の場合、$usrname ユーザとしてタスクを実行する
+    if echo "$1" | grep -qE '^-u$'; then
+        task_sudo="sudo -u ${usrname} -i "
+        task_usr=" (user: ${usrname})"
+        shift
+    else
+        task_sudo=''
+        task_usr=" (user: root)"
+    fi
+
     # 第三引数の skip_flg が存在し true の場合、タスクは実行せず 0 を返す
     if [ -n "$3" ] && [ "$3" -eq "0" ]; then
         echo "skipped: $2" >> "${lfile}" 2>&1
-        echo "[ NA ] $1"
+        echo "[ NA ] ${cnt_tsk}. $1${task_usr}"
         cnt_na=$((cnt_na+1))
         skip_flg=1 # タスクをスキップしたらフラグは false に戻す
         return 0
     fi
 
-    # タスク名称に <user> が含まれている場合は、$usrname ユーザとしてタスクを実行する
-    if echo "$1" | grep -qF '<user>'; then
-        task_sudo="sudo -u ${usrname} -i "
-    else
-        task_sudo=''
-    fi
-
     # skip_flg が false の場合、タスクを実行する
-    echo "execute: $task_sudo$2" >> "${lfile}" 2>&1
+    echo "execute${task_usr}: $task_sudo$2" >> "${lfile}" 2>&1
     eval "$task_sudo$2" >> "${lfile}" 2>&1
     ecode=$?
     # タスクとして実行したコマンドの終了コードが 0 の場合は result に OK をセットして、成功カウント数(cnt_ok)をインクリメント
@@ -209,7 +219,7 @@ try_task (){
         cnt_ng=$((cnt_ng+1))
     fi
 
-    printf "[ ${result} ] $1\n"
+    printf "[ ${result} ] ${cnt_tsk}. $1${task_usr}\n"
     return $ecode
 }
 
@@ -242,22 +252,22 @@ git_clone (){
         cdir="${hdir}/${prj_name}"
     fi
 
-    try_task "${prj_name} ディレクトリが存在することを確認 <user>" "test -d ${cdir}"
+    try_task -u "${prj_name} ディレクトリが存在することを確認" "test -d ${cdir}"
 
     # ディレクトリが存在する場合はクローンしない
     [ "$?" -eq "0" ] && skip_flg=0
-    try_task "${prj_name} プロジェクトのクローン実行 <user>" "git clone $1 ${cdir}" $skip_flg
+    try_task -u "${prj_name} プロジェクトのクローン実行" "git clone $1 ${cdir}" $skip_flg
 }
 
 # シンボリックリンク作成関数
 # 第一引数(必須)：リンク元
 # 第二引数(必須)：リンク先
 ln_s (){
-    try_task "シンボリックリンク $2 が存在することの確認 <user>" "test -h $2"
+    try_task -u "シンボリックリンク $2 が存在することの確認" "test -h $2"
 
     # シンボリックリンクが既に存在する場合はリンクを作成しない
     [ "$?" -eq "0" ] && skip_flg=0
-    try_task "シンボリックリンク $2 の作成 <user>" "ln -s $1 $2" $skip_flg
+    try_task -u "シンボリックリンク $2 の作成" "ln -s $1 $2" $skip_flg
 }
 
 # ファイルダウンロード関数
@@ -268,18 +278,29 @@ fdl (){
         fdl_ops="-e HTTP_PROXY=$(echo ${prx_url} | cut -d '/' -f 3)"
     fi
     # ファイルダウンロード実行
-    try_task "ファイルダウンロード ($1) <user>" "wget ${fdl_ops} $1"
+    try_task -u "ファイルダウンロード ($1)" "wget ${fdl_ops} $1"
 }
 
 # ディレクトリ作成関数
 # 第一引数(必須)：ディレクトリ用途
 # 第二引数(必須)：ディレクトリパス
 mkd (){
-    try_task "$1 用フォルダが存在することの確認 <user>" "test -d $2"
+    try_task -u "$1 用フォルダが存在することの確認" "test -d $2"
 
     # 既にフォルダがある場合は何もしない
     [ "$?" -eq "0" ] && skip_flg=0
-    try_task "$1 用フォルダ作成 <user>" "mkdir $2" $skip_flg
+    try_task -u "$1 用フォルダ作成" "mkdir $2" $skip_flg
+}
+
+# ファイルコピー関数
+# 第一引数(必須)：コピー元
+# 第二引数(必須)：コピー先
+fcp (){
+    try_task "$2 が存在することの確認" "test -f $2"
+
+    # 既にファイルがある場合は何もしない
+    [ "$?" -eq "0" ] && skip_flg=0
+    try_task "$1 から $2 へのコピー" "cp -pf $1 $2" $skip_flg
 }
 
 
@@ -333,6 +354,9 @@ install_pkg 'neomutt' 'neomutt'
 install_pkg 'fetchmail' 'fetchmail'
 install_pkg 'maildrop' 'maildrop'
 install_pkg 'source-highlight'
+install_pkg 'tree' 'tree'
+install_pkg 'nkf' 'nkf'
+install_pkg 'lynx' 'lynx'
 
 
 # ----------
@@ -342,33 +366,82 @@ echo_ptask '時刻同期設定'
 
 try_task '不要設定の削除' "sed -i -e '/^pool/d' ${CHRONYCONF}"
 try_task '時刻同期設定の追加' "echo 'pool ${NTPSV} iburst' >> ${CHRONYCONF}"
-try_task 'chronydの起動' 'service chrony restart'
-# try_task 'chronydの自動起動設定'
+try_task 'chronydの再起動' 'service chrony restart'
+
+
+# ----------
+# Cron
+# ----------
+echo_ptask 'cron設定'
+try_task 'cronが起動していることの確認' 'service cron status'
+
+# 既に起動している場合には何もしない
+[ "$?" -eq "0" ] && skip_flg=0
+try_task 'cronの起動' 'service cron start' $skip_flg
+
+
+# ----------
+# Init Script
+# ----------
+echo_ptask 'initscript設定'
+try_task 'fstab設定が存在することの確認' "grep -Fq 'none none rc defaults 0 0' /etc/fstab"
+# 既に設定がある場合には何もしない
+[ "$?" -eq "0" ] && skip_flg=0
+try_task "fstabに設定を追加" "echo 'none none rc defaults 0 0' >>/etc/fstab" $skip_flg
+
+mountrc='#!/bin/sh\n\n'
+mountrc="${mountrc}service crony start\n"
+mountrc="${mountrc}service cron start\n"
+mountrc="${mountrc}chmod 777 /run/screen\n"
+try_task '/sbin/mount.rc が存在することの確認' 'test -f /sbin/mount.rc'
+# 既にファイルがある場合は何もしない
+[ "$?" -eq "0" ] && skip_flg=0
+try_task '/sbin/mount.rc の作成' "echo \"${mountrc}\" >/sbin/mount.rc && chmod +x /sbin/mount.rc" $skip_flg
+
 
 # ==================================================
 # User Tasks
 # ==================================================
-# セットアップ対象のユーザとしてタスクを実行する場合は <user> をタスク名称に含める
-# <user> が含まれない場合、root ユーザとしてタスクが実行される
+# セットアップ対象のユーザアカウントとしてタスクを実行するには、try_task に -u オプションを付ける
+
+# ----------
+# General
+# ----------
+echo_ptask '基本設定'
+
+mkd 'バイナリ置き場' "${bdir}"
+
+# ----------
+# wget
+# ----------
+echo_ptask 'wgetセットアップ'
+
+# プロキシ指定がある場合
+if [ -n "${prx_url}" ]; then
+    try_task -u 'プロキシ設定があることの確認' "grep '^http_proxy' ${hdir}/.wgetrc"
+    # 既に設定がある場合には何もしない
+    [ "$?" -eq "0" ] && skip_flg=0
+    try_task -u "プロキシ設定の追加" "echo http_proxy=${prx_url} >> ${hdir}/.wgetrc" $skip_flg
+fi
 
 # ----------
 # git
 # ----------
 echo_ptask 'gitセットアップ'
 
-try_task 'Gitユーザ設定 <user>' "git config --global user.name ${GIT_UNAME}"
-try_task 'Gitエディタ設定 <user>' "git config --global core.editor vim"
-try_task 'Git色設定(diff) <user>' 'git config --global color.diff auto'
-try_task 'Git色設定(status) <user>' 'git config --global color.status auto'
-try_task 'Git色設定(branch) <user>' 'git config --global color.branch auto'
-try_task 'Gitグラフ設定 <user>' 'git config --global alias.graph "log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'' --abbrev-commit --date=relative"'
+try_task -u 'Gitユーザ設定' "git config --global user.name ${GIT_UNAME}"
+try_task -u 'Gitエディタ設定' "git config --global core.editor vim"
+try_task -u 'Git色設定(diff)' 'git config --global color.diff auto'
+try_task -u 'Git色設定(status)' 'git config --global color.status auto'
+try_task -u 'Git色設定(branch)' 'git config --global color.branch auto'
+try_task -u 'Gitグラフ設定' 'git config --global alias.graph "log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'' --abbrev-commit --date=relative"'
 
-try_task 'Git公開鍵確認 (要手動配置) <user>' "test -f ${hdir}/.ssh/${GIT_PUBKEY}"
-try_task 'Git秘密鍵確認 (要手動配置) <user>' "test -f ${hdir}/.ssh/${GIT_SECKEY}"
+try_task -u 'Git公開鍵確認 (要手動配置)' "test -f ${hdir}/.ssh/${GIT_PUBKEY}"
+try_task -u 'Git秘密鍵確認 (要手動配置)' "test -f ${hdir}/.ssh/${GIT_SECKEY}"
 
 # プロキシ指定がある場合はプロキシの設定をする
 if [ -n "${prx_url}" ]; then
-    try_task 'Gitプロキシ設定 <user>' "git config --global http.proxy ${prx_url}"
+    try_task -u 'Gitプロキシ設定' "git config --global http.proxy ${prx_url}"
 fi
 
 
@@ -425,15 +498,15 @@ mkd 'vim swp' "${vdir}/swp"
 
 # カラースキーマのダウンロード・コピー
 git_clone "${GIT_REPO_VIM_SOLARIZED}" "${vdir}"
-try_task 'カラースキーマファイルのコピー <user>' "cp -p ${vdir}/vim-colors-solarized/colors/solarized.vim ${vdir}/colors/"
+try_task -u 'カラースキーマファイルのコピー' "cp -p ${vdir}/vim-colors-solarized/colors/solarized.vim ${vdir}/colors/"
 
 # シンボリックリンク作成
 ln_s "${dotfiles}/.vimrc" "${hdir}/.vimrc"
 
 # ログファイルのハイライト
 git_clone "${GIT_REPO_VIM_LOGHIGHLIGHT}" "${vdir}"
-try_task 'vim-log-highlighting設定ファイルコピー(ftdetect) <user>' "cp -rp ${vdir}/vim-log-highlighting/ftdetect ${vdir}/"
-try_task 'vim-log-highlighting設定ファイルコピー(syntax) <user>' "cp -rp ${vdir}/vim-log-highlighting/syntax ${vdir}/"
+try_task -u 'vim-log-highlighting設定ファイルコピー(ftdetect)' "cp -rp ${vdir}/vim-log-highlighting/ftdetect ${vdir}/"
+try_task -u 'vim-log-highlighting設定ファイルコピー(syntax)' "cp -rp ${vdir}/vim-log-highlighting/syntax ${vdir}/"
 
 
 # ----------
@@ -444,14 +517,27 @@ echo_ptask 'neomuttセットアップ'
 # ディレクトリ作成
 mkd 'neomutt' "${mdir}"
 mkd 'mail受信' "${hdir}/mail"
+mkd 'キャッシュ' "${mdir}/mcache"
+
+# シンボリックリンク作成
+ln_s "${dotfiles}/.muttrc" "${hdir}/.muttrc"
+
+# ファイルコピー
+fcp "${dotfiles}/.mutt/common" "${mdir}/common"
+fcp "${dotfiles}/re-filter.sh" "${bdir}/re-filter.sh"
+fcp "${dotfiles}/.mutt/mailcap" "${mdir}/mailcap"
+
+# カラースキーマインストール
+git_clone "${GIT_REPO_NEOMUTT_SOLARIZED}" "${mdir}"
 
 
 # ----------
 # setup result
 # ----------
 echo_ptask 'セットアップ結果'
-echo "OK: ${cnt_ok} 件"
-echo "NG: ${cnt_ng} 件"
-echo "NA: ${cnt_na} 件"
+echo "Total: ${cnt_tsk} 件"
+echo "   OK: ${cnt_ok} 件"
+echo "   NG: ${cnt_ng} 件"
+echo "   NA: ${cnt_na} 件"
 echo "セットアップログファイル: ${lfile}"
 echo '=================================================='

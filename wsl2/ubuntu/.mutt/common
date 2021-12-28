@@ -1,0 +1,123 @@
+# --------------------------------------------------
+# General
+# --------------------------------------------------
+set use_from = yes
+set envelope_from = yes
+set charset = "utf-8"
+set ssl_force_tls = yes
+set editor = "vim"
+set date_format = "%y-%m-%d %T"
+set index_format = "%4C | %Z %?X?A&-? [%d] %-40.40a (%-4.4c) | %s"
+set folder_format = "%3C | %N | [%6n/%6m] | %-60.60f | %d"
+set attribution = "On %d, %a wrote:"
+set pager_index_lines = 10
+set pager_stop = yes
+set tilde
+set fast_reply = yes
+set include = yes
+set askcc = yes
+set edit_headers = yes
+set abort_nosubject = no
+set abort_unmodified = no
+set smart_wrap
+set beep = no
+#set sort_browser = "reverse-date"
+set sort_browser = "reverse-alpha"
+set sort = "date"
+set sleep_time = 0
+set rfc2047_parameters = yes
+unignore Content-Type
+set mime_forward = yes
+set mime_forward_rest = yes
+auto_view text/html
+alternative_order text/plain text/html
+set mailcap_path="~/.mutt/mailcap"
+
+
+# --------------------------------------------------
+# Bind
+# --------------------------------------------------
+bind attach,index,pager,browser \CF next-page
+bind attach,index,pager,browser \CB previous-page
+bind attach,index,browser g first-entry
+bind attach,index,browser G last-entry
+bind browser l enter-mask
+bind index,pager,browser L buffy-list
+bind index Q quit
+bind index q noop
+bind browser a exit
+
+
+# --------------------------------------------------
+# Macro
+# --------------------------------------------------
+macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+
+#macro index,pager a "<change-folder>?<toggle-mailboxes>" "show incoming mailboxes list"
+#macro index,pager a "<change-folder>?" "show incoming mailboxes list"
+macro index,pager a "<change-folder>?<change-folder>^U~/mail/<enter><toggle-mailboxes>" "show incoming mailboxes list"
+
+macro index T ":set sort=threads<enter>"
+macro index D ":set sort=date<enter>"
+macro index \CR "<tag-pattern>~O<enter><tag-prefix><clear-flag>O<untag-pattern>.<enter><catchup>" "mark all new as read"
+macro index,browser,pager \ek kkkkkkkkkk
+macro index,browser,pager \ej jjjjjjjjjj
+
+macro browser l <enter-mask>\CU
+macro index  l <limit>\CU
+macro pager l <exit>l
+
+macro index,pager R <group-reply>
+
+macro pager g <exit><first-entry><display-message>
+macro pager G <exit><last-entry><display-message>
+
+macro browser d Od
+macro browser n oa
+
+macro browser A <change-dir>^U~/.mutt/attachment<enter>
+
+macro browser m "<exit>m"
+
+macro index c <change-folder>?
+
+
+# --------------------------------------------------
+# Hook
+# --------------------------------------------------
+folder-hook . push <last-entry>
+
+
+# --------------------------------------------------
+# Sidebar
+# --------------------------------------------------
+set sidebar_visible = yes
+set sidebar_short_path = yes
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
+set sidebar_new_mail_only = yes
+set sidebar_width = 50
+set sidebar_short_path = yes
+set sidebar_delim_chars = "/"
+set sidebar_folder_indent = yes
+set sidebar_indent_string = "|---"
+set sidebar_sort_method = 'reverse-alpha'
+set sidebar_next_new_wrap = yes
+#bind index,pager \Cp sidebar-prev
+#bind index,pager \Cn sidebar-next
+bind index,pager \Cp sidebar-prev-new
+bind index,pager \Cn sidebar-next-new
+bind index,pager \Co sidebar-open
+bind index,pager b sidebar-toggle-visible
+bind index,pager <Esc>n sidebar-page-down
+bind index,pager <Esc>p sidebar-page-up
+bind index,pager <Down> sidebar-next-new
+bind index,pager <Up> sidebar-prev-new
+
+color sidebar_indicator default color17         # Dark blue background
+color sidebar_highlight white   color238        # Grey background
+color sidebar_spoolfile yellow  default         # Yellow
+color sidebar_new       green   default         # Green
+color sidebar_ordinary  default default         # Default colors
+color sidebar_flagged   red     default         # Red
+color sidebar_divider   color8  default         # Dark grey
