@@ -183,3 +183,6 @@ wcd () {
 e (){
     explorer.exe "$(wslpath -w $1)"
 }
+wcode (){
+    code "$(wslpath -u $1)"
+}
