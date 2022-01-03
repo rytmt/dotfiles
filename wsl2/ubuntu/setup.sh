@@ -337,6 +337,8 @@ if [ -n "${prx_url}" ]; then
     try_task 'aptプロキシ設定 (https)' "echo '${https_proxy_line}' >> ${APTCONF}" $skip_flg
 fi
 
+try_task 'apt updateの実行' 'apt update'
+
 
 # ----------
 # packages
