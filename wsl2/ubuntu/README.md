@@ -1,6 +1,6 @@
-# 1. README.md
+# 1. ubuntu on wsl2 セットアップ
 
-- [1. README.md](#1-readmemd)
+- [1. ubuntu on wsl2 セットアップ](#1-ubuntu-on-wsl2-セットアップ)
   - [1.1. setup.sh](#11-setupsh)
   - [1.2. neomutt セットアップ](#12-neomutt-セットアップ)
     - [1.2.1. ファイル構成](#121-ファイル構成)

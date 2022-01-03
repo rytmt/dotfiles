@@ -12,6 +12,7 @@
 - ctrl2cap
 - vlc
 - honeyview
+- adobe acrobat reader
 
 ### 設定が必要なもの
 #### vivaldi
