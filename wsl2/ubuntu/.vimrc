@@ -71,11 +71,20 @@ set matchtime=3
 set laststatus=2
 set statusline=%y
 set visualbell t_vb=
-autocmd BufNewFile,BufRead * highlight mailQuoted1 ctermfg=4
-autocmd BufNewFile,BufRead * highlight mailQuoted2 ctermfg=2
-autocmd BufNewFile,BufRead * highlight mailQuoted3 ctermfg=6
-autocmd BufNewFile,BufRead * highlight mailQuoted4 ctermfg=3
-autocmd BufNewFile,BufRead * highlight mailQuoted5 ctermfg=13
+
+
+" --------------------------------------------------
+" Mail
+" --------------------------------------------------
+autocmd FileType mail highlight mailQuoted1 ctermfg=4
+autocmd FileType mail highlight mailQuoted2 ctermfg=2
+autocmd FileType mail highlight mailQuoted3 ctermfg=6
+autocmd FileType mail highlight mailQuoted4 ctermfg=3
+autocmd FileType mail highlight mailQuoted5 ctermfg=13
+autocmd FileType mail set textwidth=64
+autocmd FileType mail set formatoptions=qmMw
+autocmd FileType mail set ambiwidth=double
+
 
 
 " --------------------------------------------------
