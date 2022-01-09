@@ -524,11 +524,8 @@ mkd 'キャッシュ' "${mdir}/mcache"
 
 # シンボリックリンク作成
 ln_s "${dotfiles}/.muttrc" "${hdir}/.muttrc"
-
-# ファイルコピー
-fcp "${dotfiles}/.mutt/common" "${mdir}/common"
-fcp "${dotfiles}/re-filter.sh" "${bdir}/re-filter.sh"
-fcp "${dotfiles}/.mutt/mailcap" "${mdir}/mailcap"
+ln_s "${dotfiles}/bin/re-filter.sh" "${bdir}/re-filter.sh"
+ln_s "${dotfiles}/bin/ical2txt.sh" "${bdir}/ical2txt.sh"
 
 # カラースキーマインストール
 git_clone "${GIT_REPO_NEOMUTT_SOLARIZED}" "${mdir}"

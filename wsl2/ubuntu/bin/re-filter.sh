@@ -14,6 +14,12 @@ else # 引数の個数チェックに成功した場合は形式チェックす�
     if [ ! -f "$1" ]; then
         arg_err="${arg_err}$1 という名前のファイルは存在しません\n"
         arg_chk=$((arg_chk+1))
+    else # ファイルが存在する場合は内容のチェックをする
+        maildrop -V 9 "$1" </dev/null 2>/dev/null
+        if [ "$?" -ne "0" ]; then
+            arg_err="${arg_err}$1 のファイル内容に誤りがあります\n"
+            arg_chk=$((arg_chk+1))
+        fi
     fi
     if [ ! -d "$2" ]; then
         arg_err="${arg_err}$2 という名前のディレクトリは存在しません\n"
@@ -34,19 +40,24 @@ tmpd="/tmp/$(basename $0)_$(basename ${mbox})_$(date '+%Y%m%d-%H%M%S')"
 [ -d "${tmpd}" ] || mkdir "${tmpd}"
 
 # 退避実行
-echo "escape start: ${mbox} to ${tmpd}"
+echo "1. mail escape start: ${mbox} to ${tmpd}"
+echo "        ${mbox} : $(find ${mbox} -type f | wc -l) files"
+echo "        ${tmpd} : $(ls -1 ${tmpd} | wc -l) files"
 find "${mbox}" -type f | while read line; do
     mv "${line}" "${tmpd}/"
 done
+echo "2. mail escape finished"
+echo "        ${mbox} : $(find ${mbox} -type f | wc -l) files"
+echo "        ${tmpd} : $(ls -1 ${tmpd} | wc -l) files"
 
 # 再フィルタリング実行
-echo "filtering start: $(ls -1 ${tmpd} | wc -l) files detected"
+echo "3. filtering start"
 find "${tmpd}" -type f | while read line; do
     cat "${line}" | maildrop "$1"
 done
-echo "filtering finished: $(ls -1 ${mbox} | wc -l) files remained"
+echo "4. filtering finished: $(find ${mbox} -type f | wc -l) files remained"
 
 # 一時退避先の削除
-echo "delete ${tmpd} start"
+echo "5. delete ${tmpd} start"
 rm -rf "${tmpd}"
-echo "delete finished"
+echo "6. delete finished"

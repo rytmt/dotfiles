@@ -25,20 +25,21 @@
 ## 1.2. neomutt セットアップ
 ### 1.2.1. ファイル構成
 - neomutt
-  - ~/.muttrc                    : [自動作成] mutt 設定ファイルの大本。このファイルから common, account を読み込む。
-  - ~/.mutt/common               : [自動作成] mutt 共有の設定
-  - ~/.mutt/account              : [手動作成] mutt アカウント個別の設定
-  - ~/.mutt/mcache               : [自動作成] ヘッダとメッセージのキャッシュ用ディレクトリ
-  - ~/.mutt/mutt-colors-solarized: [自動作成] カラースキーマ用ファイル
-  - ~/.mutt/signature_default    : [手動作成] デフォルトの署名
-  - ~/.mutt/signature_internal   : [手動作成] 内部向けメールの署名
+  - ~/.muttrc                           : [自動作成] mutt 設定ファイルの大本。このファイルから common, account を読み込む。
+  - ~/dotfiles/wsl2/ubuntu/.mutt/common : [自動作成] mutt 共有の設定
+  - ~/.mutt/account                     : [手動作成] mutt アカウント個別の設定
+  - ~/.mutt/mcache                      : [自動作成] ヘッダとメッセージのキャッシュ用ディレクトリ
+  - ~/dotfiles/wsl2/ubuntu/.mutt/mailcap: [自動作成] MIME別のアクセス方法の定義
+  - ~/.mutt/mutt-colors-solarized       : [自動作成] カラースキーマ用ファイル
+  - ~/.mutt/signature_default           : [手動作成] デフォルトの署名
+  - ~/.mutt/signature_internal          : [手動作成] 内部向けメールの署名
 - fetchmail
-  - ~/.fetchmailrc               : [手動作成] メール受信用設定
+  - ~/.fetchmailrc                      : [手動作成] メール受信用設定
 - maildrop
-  - ~/.mailfilter                : [手動作成] メール振り分け設定
+  - ~/.mailfilter                       : [手動作成] メール振り分け設定
 - others
-  - ~/mail                       : [自動作成] メール保存用ディレクトリ
-  - ~/bin/re-filter.sh           : [自動作成] メール手動フィルタリング用スクリプト
+  - ~/mail                              : [自動作成] メール保存用ディレクトリ
+  - ~/bin/re-filter.sh                  : [自動作成] メール手動フィルタリング用スクリプト
 
 ### 1.2.2. 手動作成ファイルの作成手順
 #### 1.2.2.1. ~/.mutt/account
