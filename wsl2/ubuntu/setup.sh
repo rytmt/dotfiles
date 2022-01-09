@@ -394,6 +394,7 @@ try_task "fstabに設定を追加" "echo 'none none rc defaults 0 0' >>/etc/fsta
 mountrc='#!/bin/sh\n\n'
 mountrc="${mountrc}service crony start\n"
 mountrc="${mountrc}service cron start\n"
+mountrc="${mountrc}[ -d /run/screen ] || mkdir /run/screen\n"
 mountrc="${mountrc}chmod 777 /run/screen\n"
 try_task '/sbin/mount.rc が存在することの確認' 'test -f /sbin/mount.rc'
 # 既にファイルがある場合は何もしない
