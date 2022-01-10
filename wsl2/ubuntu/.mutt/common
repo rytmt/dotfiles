@@ -55,7 +55,7 @@ macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 
 #macro index,pager a "<change-folder>?<toggle-mailboxes>" "show incoming mailboxes list"
 #macro index,pager a "<change-folder>?" "show incoming mailboxes list"
-macro index,pager a "<change-folder>?<change-folder>^U~/mail/<enter><toggle-mailboxes>" "show incoming mailboxes list"
+#macro index,pager a "<change-folder>?<change-folder>^U~/mail/<enter><toggle-mailboxes>" "show incoming mailboxes list"
 
 macro index T ":set sort=threads<enter>"
 macro index D ":set sort=date<enter>"

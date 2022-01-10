@@ -52,7 +52,7 @@ echo "        ${tmpd} : $(ls -1 ${tmpd} | wc -l) files"
 
 # フィルタリング先ディレクトリ作成
 echo "3. mail directory make"
-mf2md.sh "$1"
+mf2md.sh "$1" | grep -F 'created'
 
 # 再フィルタリング実行
 echo "4. filtering start"

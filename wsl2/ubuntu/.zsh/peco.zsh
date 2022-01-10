@@ -66,3 +66,12 @@ function peco-directory-history () {
 }
 zle -N peco-directory-history
 bindkey '^[r' peco-directory-history
+
+
+# general usage
+function peco-buffer() {
+    BUFFER=$(eval ${BUFFER} | peco)
+    CURSOR=0
+}
+zle -N peco-buffer
+bindkey "^[p" peco-buffer

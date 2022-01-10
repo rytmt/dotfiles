@@ -6,11 +6,12 @@ compinit
 zstyle ':completion::complete:*' use-cache true
 zstyle ':completion:*:default' menu select true
 zstyle ':completion:*:default' menu select=1
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 autoload colors
 colors
 zstyle ':completion:*' list-colors "${LS_COLORS}"
 
+zstyle ':completion:*' verbose yes
 
 # --------------------------------------------------
 # History
@@ -66,6 +67,7 @@ setopt NO_FLOW_CONTROL
 setopt INTERACTIVE_COMMENTS
 unsetopt SINGLE_LINE_ZLE
 setopt COMPLETE_IN_WORD
+setopt GLOBDOTS
 
 
 # --------------------------------------------------
@@ -188,7 +190,7 @@ screenstart (){
 
     # create screen window and execute command from csv
     x=1
-    cat $2 | while read line; do
+    cat "$2" | while read line; do
         # get window name and command string from csv file
         winname="$(echo $line | cut -d ',' -f 1)"
         cmdstr="$(echo $line | cut -d ',' -f 2)"

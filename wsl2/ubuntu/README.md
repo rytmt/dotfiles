@@ -22,6 +22,7 @@
   - 第二引数(任意)：プロキシサーバのURL(例：http://proxy.local:8080)
 - セットアップ内容の詳細はスクリプト内のコメントを参照
 
+
 ## 1.2. neomutt セットアップ
 ### 1.2.1. ファイル構成
 - neomutt
@@ -42,6 +43,7 @@
   - ~/bin/mf2md.sh                      : [自動作成] .mailfilter からメールディレクトリを作成するスクリプト
   - ~/bin/re-filter.sh                  : [自動作成] メール手動フィルタリング用スクリプト
 
+
 ### 1.2.2. 手動作成ファイルの作成手順
 #### 1.2.2.1. ~/.mutt/account
 以下のテンプレートを適宜書き換えて作成する
@@ -51,6 +53,9 @@ set record    = ~/mail/__sent # 送信済みメールの保存先。maildirmake 
 
 set folder    = ~/mail
 set spoolfile = ~/mail
+
+# ディレクトリ一覧のデフォルトを指定
+macro index,pager a "<change-folder>?<change-folder>^U~/mail/<enter><toggle-mailboxes>" "show incoming mailboxes list"
 
 set realname = 'Taro Yamada' # メール送信時の表示名
 set from = 'localpart@domain.local' # メール送信時のFromアドレス
@@ -63,6 +68,7 @@ folder-hook . 'set read_inc=1000'
 my_hdr Return-Path: localpart@domain.local # メール送信時のReturn-Path
 
 set smtp_url = "smtps://localpart@domain.local@smtpserver.domain.local:465/" # メール送信に使用するSMTPサーバ
+set smtp_pass = "my password" # SMTP サーバのパスワード
 
 send-hook . set signature="~/.mutt/signature_default" # デフォルトの署名ファイルのパス
 send-hook "~t @domain.local" set signature=~/.mutt/signature_internal # 内部向けメールの署名ファイルのパス
@@ -91,7 +97,7 @@ poll imapserver.domain.local
   no mimedecode
   # -V1 はデバッグレベル(0は何もしない、9が最大)
   # 振り分けでエラーになるときは -V9 にしてログを見る
-  mda "maildrop -V1 /path/to/.mailfilter >>/path/to/logfile.log 2>&1"
+  mda "maildrop -V1 /path/to/.mailfilter >>/path/to/mailfilter.log 2>&1"
 ```
 
 #### 1.2.2.4. ~/.mailfilter

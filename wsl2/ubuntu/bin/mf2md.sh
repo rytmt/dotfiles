@@ -25,6 +25,6 @@ while read line; do
         echo "[skipped] ${line}"
     else
         maildirmake "${line}"
-        echo "[made]    ${line}"
+        echo "[created]    ${line}"
     fi
 done
