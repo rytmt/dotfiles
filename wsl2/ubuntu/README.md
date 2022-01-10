@@ -181,6 +181,7 @@ maildrop -V 9 .mailfilter </dev/null 2> mailfilter.log
 .mailfilter ファイルをもとに、以下のコマンドでフォルダを作成する。
 ``` shell
 grep -F '=' .mailfilter | grep -F 'MAILDIR' | grep -v -e '^MAILDIR' -e '^#' | cut -d '"' -f 2 | sed "s|\$MAILDIR|$HOME/mail|g" | while read line; do [ -d "${line}" ] || maildirmake "${line}"; done
+maildirmake ~/mail/__sent
 ```
 
 ### 1.2.5. 初回メール取り込み

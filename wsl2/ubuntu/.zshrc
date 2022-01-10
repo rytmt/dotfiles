@@ -160,9 +160,60 @@ cmdsend (){
         # Check if it is numerical value
         expr $x + 1 >/dev/null
         if [ $? -lt 2 ]; then
-            screen -p $x -X stuff "$cmdstr \n"
+            screen -p $x -X stuff "$cmdstr\n"
         fi
     done
+}
+# first arg.: session name
+# second arg.: csv file name (first column: window name, second column: command)
+screenstart (){
+    # arguments check
+    if [ $# -ne 2 ]; then
+        echo 'Requires two arguments.'
+        return 1
+    fi
+    if [ ! -f "$2" ]; then
+        echo "cannot open $2. No such file."
+        return 1
+    fi
+
+    sname="$1" # set screen session name
+
+    # start screen session
+    if screen -ls | grep -q "${sname}"; then
+        echo "screen session '${sname}' already started"
+        return 1
+    fi
+    screen -d -m -S "${sname}" -t 'workspace'
+
+    # create screen window and execute command from csv
+    x=1
+    cat $2 | while read line; do
+        # get window name and command string from csv file
+        winname="$(echo $line | cut -d ',' -f 1)"
+        cmdstr="$(echo $line | cut -d ',' -f 2)"
+
+        # check winname length
+        if [ ${#winname} -le 0 ]; then
+            x=$((x+1))
+            continue
+        fi
+
+        # create new window (using workspace window)
+        screen -S "${sname}" -p 0 -X stuff "screen -t ${winname}\n"
+
+        # execute command (using workspace window)
+        cmdstr=$(echo ${cmdstr} | sed 's/'\''/'\''"'\''"'\''/g') # escape single quote
+        screen -S "${sname}" -p 0 -X stuff "screen -p $x -X stuff '${cmdstr}\\\n'\n"
+        x=$((x+1))
+        sleep 1s
+    done
+
+    # remove workspace window
+    screen -S "${sname}" -p 0 -X stuff 'exit\n'
+
+    # attach screen
+    screen -r "${sname}" -p 1
 }
 
 # source-highlight
