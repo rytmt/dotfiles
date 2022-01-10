@@ -50,14 +50,18 @@ echo "2. mail escape finished"
 echo "        ${mbox} : $(find ${mbox} -type f | wc -l) files"
 echo "        ${tmpd} : $(ls -1 ${tmpd} | wc -l) files"
 
+# フィルタリング先ディレクトリ作成
+echo "3. mail directory make"
+mf2md.sh "$1"
+
 # 再フィルタリング実行
-echo "3. filtering start"
+echo "4. filtering start"
 find "${tmpd}" -type f | while read line; do
     cat "${line}" | maildrop "$1"
 done
-echo "4. filtering finished: $(find ${mbox} -type f | wc -l) files remained"
+echo "5. filtering finished: $(find ${mbox} -type f | wc -l) files remained in ${mbox}"
 
 # 一時退避先の削除
-echo "5. delete ${tmpd} start"
+echo "6. delete ${tmpd} start"
 rm -rf "${tmpd}"
-echo "6. delete finished"
+echo "7. delete finished"

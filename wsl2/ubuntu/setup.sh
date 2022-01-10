@@ -524,6 +524,7 @@ mkd 'キャッシュ' "${mdir}/mcache"
 
 # シンボリックリンク作成
 ln_s "${dotfiles}/.muttrc" "${hdir}/.muttrc"
+ln_s "${dotfiles}/bin/mf2md.sh" "${bdir}/mf2md.sh"
 ln_s "${dotfiles}/bin/re-filter.sh" "${bdir}/re-filter.sh"
 ln_s "${dotfiles}/bin/ical2txt.sh" "${bdir}/ical2txt.sh"
 

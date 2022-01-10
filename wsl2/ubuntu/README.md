@@ -39,6 +39,7 @@
   - ~/.mailfilter                       : [手動作成] メール振り分け設定
 - others
   - ~/mail                              : [自動作成] メール保存用ディレクトリ
+  - ~/bin/mf2md.sh                      : [自動作成] .mailfilter からメールディレクトリを作成するスクリプト
   - ~/bin/re-filter.sh                  : [自動作成] メール手動フィルタリング用スクリプト
 
 ### 1.2.2. 手動作成ファイルの作成手順
@@ -174,14 +175,13 @@ to $DEFAULT
 
 ### 1.2.3. メールフィルタのテスト
 ``` shell
-maildrop -V 9 .mailfilter </dev/null 2> mailfilter.log
+maildrop -V 2 .mailfilter </dev/null 2> mailfilter.log
 ```
 
 ### 1.2.4. メールフォルダ作成
-.mailfilter ファイルをもとに、以下のコマンドでフォルダを作成する。
+.mailfilter ファイルをもとに、以下のスクリプトでフォルダを作成する。
 ``` shell
-grep -F '=' .mailfilter | grep -F 'MAILDIR' | grep -v -e '^MAILDIR' -e '^#' | cut -d '"' -f 2 | sed "s|\$MAILDIR|$HOME/mail|g" | while read line; do [ -d "${line}" ] || maildirmake "${line}"; done
-maildirmake ~/mail/__sent
+mf2md.sh .mailfilter
 ```
 
 ### 1.2.5. 初回メール取り込み
