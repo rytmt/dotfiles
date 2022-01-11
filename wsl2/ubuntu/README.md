@@ -46,8 +46,8 @@
 
 ### 1.2.2. 手動作成ファイルの作成手順
 #### 1.2.2.1. ~/.mutt/account
-以下のテンプレートを適宜書き換えて作成する
-```
+以下のテンプレートを適宜書き換えて作成する。権限は 600 にしておく
+``` ini
 set mbox_type = Maildir
 set record    = ~/mail/__sent # 送信済みメールの保存先。maildirmake で作成する。
 
@@ -86,7 +86,7 @@ Taro Yamada <taro-yamada@domain.local>
 
 #### 1.2.2.3. ~/.fetchmailrc
 以下のテンプレートを適宜書き換えて作成する。権限は 600 にしておく。
-```
+``` ini
 poll imapserver.domain.local
   protocol imap
   port 143 # 平文の場合
