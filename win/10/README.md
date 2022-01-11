@@ -14,6 +14,9 @@
 - honeyview
 - adobe acrobat reader
 
+## フォントインストール
+- https://github.com/yuru7/HackGen/releases/latest
+
 ### 設定が必要なもの
 #### vivaldi
 1. インストール

@@ -39,8 +39,8 @@ GIT_REPO_DOT='https://github.com/rytmt/dotfiles.git' #dotfiles url
 GIT_REPO_DIRCOLOR='https://github.com/seebi/dircolors-solarized.git'
 GIT_REPO_ZSH_HIGHLIGHT='https://github.com/zsh-users/zsh-syntax-highlighting.git'
 GIT_REPO_VIM_SOLARIZED='https://github.com/altercation/vim-colors-solarized.git'
-GIT_REPO_VIM_LOGHIGHLIGHT='https://github.com/mtdl9/vim-log-highlighting'
-GIT_REPO_NEOMUTT_SOLARIZED='https://github.com/altercation/mutt-colors-solarized'
+GIT_REPO_VIM_LOGHIGHLIGHT='https://github.com/mtdl9/vim-log-highlighting.git'
+GIT_REPO_NEOMUTT_SOLARIZED='https://github.com/altercation/mutt-colors-solarized.git'
 GIT_UNAME='rytmt' # gitユーザ名
 GIT_PUBKEY='id_rsa_github.pub'
 GIT_SECKEY='id_rsa_github'
@@ -359,6 +359,7 @@ install_pkg 'source-highlight'
 install_pkg 'tree' 'tree'
 install_pkg 'nkf' 'nkf'
 install_pkg 'lynx' 'lynx'
+install_pkg 'golang-go'
 
 
 # ----------
@@ -413,6 +414,11 @@ try_task '/sbin/mount.rc の作成' "echo \"${mountrc}\" >/sbin/mount.rc && chmo
 echo_ptask '基本設定'
 
 mkd 'バイナリ置き場' "${bdir}"
+try_task -u 'powerline-goバイナリファイルがあることの確認' "test -f ${hdir}/go/bin/powerline-go"
+# 既にファイルがある場合には何もしない
+[ "$?" -eq "0" ] && skip_flg=0
+try_task -u 'powerline-goバイナリファイルのダウンロード' 'go get -u github.com/justjanne/powerline-go'
+
 
 # ----------
 # wget

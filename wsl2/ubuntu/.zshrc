@@ -33,9 +33,11 @@ HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
 # --------------------------------------------------
 # Prompt
 # --------------------------------------------------
-PROMPT="%F{yellow}ubuntu@wsl2%(!.#.$)%f "
-RPROMPT='[%B%F{blue}%~%f%b] (%?)'
-
+#PROMPT="%F{yellow}ubuntu@wsl2%(!.#.$)%f "
+#RPROMPT='[%B%F{blue}%~%f%b] (%?)'
+precmd (){
+    PS1="$($HOME/go/bin/powerline-go -numeric-exit-codes -shell zsh -theme solarized-dark16 -hostname-only-if-ssh -trim-ad-domain -error $?)"
+}
 
 # --------------------------------------------------
 # Setopt
