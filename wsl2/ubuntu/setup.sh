@@ -182,7 +182,6 @@ sudo -u "${usrname}" touch "${lfile}"
 # オプション    ：-u (セットアップ対象のユーザとしてタスクを実行する)
 # 第一引数(必須)：タスク名称
 # 第二引数(必須)：コマンド文字列 (タスク内容)
-# 第三引数(任意)：タスクスキップフラグ (0ならタスクをスキップする)
 try_task (){
     # タスクのカウントをインクリメント
     cnt_tsk=$((cnt_tsk+1))
@@ -197,8 +196,8 @@ try_task (){
         task_usr=" (user: root)"
     fi
 
-    # 第三引数の skip_flg が存在し true の場合、タスクは実行せず 0 を返す
-    if [ -n "$3" ] && [ "$3" -eq "0" ]; then
+    # skip_flg が true の場合、タスクは実行せず 0 を返す
+    if [ "${skip_flg}" -eq "0" ]; then
         echo "skipped: $2" >> "${lfile}" 2>&1
         echo "[ NA ] ${cnt_tsk}. $1${task_usr}"
         cnt_na=$((cnt_na+1))
@@ -223,19 +222,25 @@ try_task (){
     return $ecode
 }
 
+# try_task 関数のラップ関数
+# 引数はすべて try_task に渡す
+# try_task が正常終了した場合、skip_flg を true にする
+check_task (){
+    try_task "$@"
+    [ "$?" -eq "0" ] && skip_flg=0
+}
+
 # パッケージインストール関数
 # 第一引数(必須)：パッケージ名
 # 第二引数(任意)：コマンド名
 install_pkg (){
     # コマンド名の指定がある場合はコマンドが存在することを確認する
     if [ -n "$2" ]; then
-        try_task "$2コマンドが存在することの確認" "type $2"
+        check_task "$2コマンドが存在することの確認" "type $2"
     else # ない場合はパッケージ名でインストールチェック
-        try_task "$1パッケージが存在することの確認" "dpkg -l | grep $1"
+        check_task "$1パッケージが存在することの確認" "dpkg -l | grep $1"
     fi
-    # 既にパッケージがインストールされている場合はskip_flgをセットしてインストールを省略する
-    [ "$?" -eq "0" ] && skip_flg=0
-    try_task "$1パッケージのインストール" "apt-get -y install $1" $skip_flg
+    try_task "$1パッケージのインストール" "apt-get -y install $1"
 }
 
 # git clone関数
@@ -252,22 +257,16 @@ git_clone (){
         cdir="${hdir}/${prj_name}"
     fi
 
-    try_task -u "${prj_name} ディレクトリが存在することを確認" "test -d ${cdir}"
-
-    # ディレクトリが存在する場合はクローンしない
-    [ "$?" -eq "0" ] && skip_flg=0
-    try_task -u "${prj_name} プロジェクトのクローン実行" "git clone $1 ${cdir}" $skip_flg
+    check_task -u "${prj_name} ディレクトリが存在することを確認" "test -d ${cdir}"
+    try_task -u "${prj_name} プロジェクトのクローン実行" "git clone $1 ${cdir}"
 }
 
 # シンボリックリンク作成関数
 # 第一引数(必須)：リンク元
 # 第二引数(必須)：リンク先
 ln_s (){
-    try_task -u "シンボリックリンク $2 が存在することの確認" "test -h $2"
-
-    # シンボリックリンクが既に存在する場合はリンクを作成しない
-    [ "$?" -eq "0" ] && skip_flg=0
-    try_task -u "シンボリックリンク $2 の作成" "ln -s $1 $2" $skip_flg
+    check_task -u "シンボリックリンク $2 が存在することの確認" "test -h $2"
+    try_task -u "シンボリックリンク $2 の作成" "ln -s $1 $2"
 }
 
 # ファイルダウンロード関数
@@ -285,22 +284,16 @@ fdl (){
 # 第一引数(必須)：ディレクトリ用途
 # 第二引数(必須)：ディレクトリパス
 mkd (){
-    try_task -u "$1 用フォルダが存在することの確認" "test -d $2"
-
-    # 既にフォルダがある場合は何もしない
-    [ "$?" -eq "0" ] && skip_flg=0
-    try_task -u "$1 用フォルダ作成" "mkdir $2" $skip_flg
+    check_task -u "$1 用フォルダが存在することの確認" "test -d $2"
+    try_task -u "$1 用フォルダ作成" "mkdir $2"
 }
 
 # ファイルコピー関数
 # 第一引数(必須)：コピー元
 # 第二引数(必須)：コピー先
 fcp (){
-    try_task "$2 が存在することの確認" "test -f $2"
-
-    # 既にファイルがある場合は何もしない
-    [ "$?" -eq "0" ] && skip_flg=0
-    try_task "$1 から $2 へのコピー" "cp -pf $1 $2" $skip_flg
+    check_task "$2 が存在することの確認" "test -f $2"
+    try_task "$1 から $2 へのコピー" "cp -pf $1 $2"
 }
 
 
@@ -312,29 +305,20 @@ fcp (){
 # ----------
 echo_ptask 'aptセットアップ'
 
-try_task "${APTCONF} ファイルが存在することの確認" "test -f ${APTCONF}"
-
-# 既に apt 設定ファイルが存在する場合はskip_flgをセットして設定ファイル作成を省略する
-[ "$?" -eq "0" ] && skip_flg=0
-try_task "${APTCONF} ファイルの作成" "touch ${APTCONF}" $skip_flg
+check_task "${APTCONF} ファイルが存在することの確認" "test -f ${APTCONF}"
+try_task "${APTCONF} ファイルの作成" "touch ${APTCONF}"
 
 # プロキシ指定がある場合はプロキシの設定をする
 if [ -n "${prx_url}" ]; then
     # HTTPプロキシ設定
     http_proxy_line="Acquire::http::Proxy \"${prx_url}\";"
-    # 既にプロキシ設定がある場合はスキップ
-    if grep -q "${http_proxy_line}" ${APTCONF}; then
-        skip_flg=0
-    fi
-    try_task 'aptプロキシ設定 (http)' "echo '${http_proxy_line}' >> ${APTCONF}" $skip_flg
+    check_task 'aptプロキシ設定(http)が存在することの確認' "grep -q ${http_proxy_line} ${APTCONF}"
+    try_task 'aptプロキシ設定(http)' "echo '${http_proxy_line}' >> ${APTCONF}"
 
     # HTTPSプロキシ設定
     https_proxy_line="Acquire::https::Proxy \"${prx_url}\";"
-    # 既にプロキシ設定がある場合はスキップ
-    if grep -q "${https_proxy_line}" ${APTCONF}; then
-        skip_flg=0
-    fi
-    try_task 'aptプロキシ設定 (https)' "echo '${https_proxy_line}' >> ${APTCONF}" $skip_flg
+    check_task 'aptプロキシ設定(https)が存在することの確認' "grep -q ${https_proxy_line} ${APTCONF}"
+    try_task 'aptプロキシ設定 (https)' "echo '${https_proxy_line}' >> ${APTCONF}"
 fi
 
 try_task 'apt updateの実行' 'apt update'
@@ -376,31 +360,24 @@ try_task 'chronydの再起動' 'service chrony restart'
 # Cron
 # ----------
 echo_ptask 'cron設定'
-try_task 'cronが起動していることの確認' 'service cron status'
-
-# 既に起動している場合には何もしない
-[ "$?" -eq "0" ] && skip_flg=0
-try_task 'cronの起動' 'service cron start' $skip_flg
+check_task 'cronが起動していることの確認' 'service cron status'
+try_task 'cronの起動' 'service cron start'
 
 
 # ----------
 # Init Script
 # ----------
 echo_ptask 'initscript設定'
-try_task 'fstab設定が存在することの確認' "grep -Fq 'none none rc defaults 0 0' /etc/fstab"
-# 既に設定がある場合には何もしない
-[ "$?" -eq "0" ] && skip_flg=0
-try_task "fstabに設定を追加" "echo 'none none rc defaults 0 0' >>/etc/fstab" $skip_flg
+check_task 'fstab設定が存在することの確認' "grep -Fq 'none none rc defaults 0 0' /etc/fstab"
+try_task "fstabに設定を追加" "echo 'none none rc defaults 0 0' >>/etc/fstab"
 
 mountrc='#!/bin/sh\n\n'
 mountrc="${mountrc}service crony start\n"
 mountrc="${mountrc}service cron start\n"
 mountrc="${mountrc}[ -d /run/screen ] || mkdir /run/screen\n"
 mountrc="${mountrc}chmod 777 /run/screen\n"
-try_task '/sbin/mount.rc が存在することの確認' 'test -f /sbin/mount.rc'
-# 既にファイルがある場合は何もしない
-[ "$?" -eq "0" ] && skip_flg=0
-try_task '/sbin/mount.rc の作成' "echo \"${mountrc}\" >/sbin/mount.rc && chmod +x /sbin/mount.rc" $skip_flg
+check_task '/sbin/mount.rc が存在することの確認' 'test -f /sbin/mount.rc'
+try_task '/sbin/mount.rc の作成' "echo \"${mountrc}\" >/sbin/mount.rc && chmod +x /sbin/mount.rc"
 
 
 # ==================================================
@@ -414,9 +391,7 @@ try_task '/sbin/mount.rc の作成' "echo \"${mountrc}\" >/sbin/mount.rc && chmo
 echo_ptask '基本設定'
 
 mkd 'バイナリ置き場' "${bdir}"
-try_task -u 'powerline-goバイナリファイルがあることの確認' "test -f ${hdir}/go/bin/powerline-go"
-# 既にファイルがある場合には何もしない
-[ "$?" -eq "0" ] && skip_flg=0
+check_task -u 'powerline-goバイナリファイルがあることの確認' "test -f ${hdir}/go/bin/powerline-go"
 try_task -u 'powerline-goバイナリファイルのダウンロード' 'go get -u github.com/justjanne/powerline-go'
 
 
@@ -427,10 +402,8 @@ echo_ptask 'wgetセットアップ'
 
 # プロキシ指定がある場合
 if [ -n "${prx_url}" ]; then
-    try_task -u 'プロキシ設定があることの確認' "grep '^http_proxy' ${hdir}/.wgetrc"
-    # 既に設定がある場合には何もしない
-    [ "$?" -eq "0" ] && skip_flg=0
-    try_task -u "プロキシ設定の追加" "echo http_proxy=${prx_url} >> ${hdir}/.wgetrc" $skip_flg
+    check_task -u 'プロキシ設定があることの確認' "grep '^http_proxy' ${hdir}/.wgetrc"
+    try_task -u "プロキシ設定の追加" "echo http_proxy=${prx_url} >> ${hdir}/.wgetrc"
 fi
 
 # ----------
