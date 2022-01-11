@@ -312,12 +312,12 @@ try_task "${APTCONF} ファイルの作成" "touch ${APTCONF}"
 if [ -n "${prx_url}" ]; then
     # HTTPプロキシ設定
     http_proxy_line="Acquire::http::Proxy \"${prx_url}\";"
-    check_task 'aptプロキシ設定(http)が存在することの確認' "grep -q ${http_proxy_line} ${APTCONF}"
+    check_task 'aptプロキシ設定(http)が存在することの確認' "grep -qF 'Acquire::http::Proxy' ${APTCONF}"
     try_task 'aptプロキシ設定(http)' "echo '${http_proxy_line}' >> ${APTCONF}"
 
     # HTTPSプロキシ設定
     https_proxy_line="Acquire::https::Proxy \"${prx_url}\";"
-    check_task 'aptプロキシ設定(https)が存在することの確認' "grep -q ${https_proxy_line} ${APTCONF}"
+    check_task 'aptプロキシ設定(https)が存在することの確認' "grep -qF 'Acquire::https::Proxy' ${APTCONF}"
     try_task 'aptプロキシ設定 (https)' "echo '${https_proxy_line}' >> ${APTCONF}"
 fi
 
@@ -391,8 +391,14 @@ try_task '/sbin/mount.rc の作成' "echo \"${mountrc}\" >/sbin/mount.rc && chmo
 echo_ptask '基本設定'
 
 mkd 'バイナリ置き場' "${bdir}"
+
 check_task -u 'powerline-goバイナリファイルがあることの確認' "test -f ${hdir}/go/bin/powerline-go"
-try_task -u 'powerline-goバイナリファイルのダウンロード' 'go get -u github.com/justjanne/powerline-go'
+# プロキシ指定がある場合
+if [ -n "${prx_url}" ]; then
+    try_task -u 'powerline-goバイナリファイルのダウンロード' "http_proxy=${prx_url} go get -u github.com/justjanne/powerline-go"
+else
+    try_task -u 'powerline-goバイナリファイルのダウンロード' 'go get -u github.com/justjanne/powerline-go'
+fi
 
 
 # ----------
