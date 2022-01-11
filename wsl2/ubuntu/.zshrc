@@ -227,7 +227,7 @@ fcheck "/usr/share/source-highlight/src-hilite-lesspipe.sh"
 # misc
 work (){
     work_folder="${HOME}/work/$(date '+%Y%m%d')"
-    [ -d "${work_folder}" ] || mkdir "${work_folder}"
+    [ -d "${work_folder}" ] || mkdir -p "${work_folder}"
     cd "${work_folder}"
 }
 
