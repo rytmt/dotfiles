@@ -138,7 +138,8 @@ if( \
 # Folders
 folder1 = "$MAILDIR/folder1"
 folder2 = "$MAILDIR/folder2"
-folder2 = "$MAILDIR/folder3"
+folder3 = "$MAILDIR/folder3"
+folder4 = "$MAILDIR/folder4"
 
 # Filtering Rules
 if (/^To:.*localpart@domain.local.*/:h) # if 文は必ずこの形式で記載する必要がある。一行では書けない。
@@ -155,10 +156,23 @@ if (/^To:.*localpart@domain.local.*/:h) # if 文は必ずこの形式で記載�
     {
         to $folder2
     }
+    # From と Return-Path を比較することも可能
+    if (/^From:\s*(.*)/:h)
+    {
+        ADDR_F=getaddr($MATCH1)
+    }
+    if (/^Return-Path:\s*(.*)/:h)
+    {
+        ADDR_R=getaddr($MATCH1)
+    }
+    if ($ADDR_F eq $ADDR_R)
+    {
+        to $folder3
+    }
 }
 if (/^Cc:.*localpart@domain.local.*/:h)
 {
-    to $folder3
+    to $folder4
 }
 
 
