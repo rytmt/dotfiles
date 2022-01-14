@@ -37,7 +37,7 @@ HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
 #RPROMPT='[%B%F{blue}%~%f%b] (%?)'
 export GOPATH="$HOME/go"
 precmd (){
-    PS1="$($GOPATH/bin/powerline-go -numeric-exit-codes -shell zsh -theme solarized-dark16 -hostname-only-if-ssh -trim-ad-domain -error $?)"
+    PS1="$($GOPATH/bin/powerline-go -numeric-exit-codes -shell zsh -theme gruvbox -hostname-only-if-ssh -trim-ad-domain -error $?)"
 }
 
 # --------------------------------------------------
@@ -150,8 +150,10 @@ if [ $? ] ; then
 fi
 
 # dircolor
-fcheck "${HOME}/dircolors-solarized/dircolors.ansi-dark"
-[ $? ] && eval $(dircolors "${HOME}/dircolors-solarized/dircolors.ansi-dark")
+#fcheck "${HOME}/dircolors-solarized/dircolors.ansi-dark"
+#[ $? ] && eval $(dircolors "${HOME}/dircolors-solarized/dircolors.ansi-dark")
+fcheck "${HOME}/.dircolors_gruvbox"
+[ $? ] && eval $(dircolors "${HOME}/.dircolors_gruvbox")
 
 # for screen
 cmdsend (){

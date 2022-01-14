@@ -90,4 +90,5 @@ autocmd FileType mail set ambiwidth=double
 " --------------------------------------------------
 " ColorScheme
 " --------------------------------------------------
-colorscheme solarized
+"colorscheme solarized
+colorscheme gruvbox

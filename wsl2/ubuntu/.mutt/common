@@ -120,3 +120,10 @@ color sidebar_new       green   default         # Green
 color sidebar_ordinary  default default         # Default colors
 color sidebar_flagged   red     default         # Red
 color sidebar_divider   color8  default         # Dark grey
+
+
+# --------------------------------------------------
+# ColorScheme
+# --------------------------------------------------
+source ~/.mutt/mutt-gruvbox/colors-gruvbox-shuber.muttrc
+source ~/.mutt/mutt-gruvbox/colors-gruvbox-shuber-extended.muttrc

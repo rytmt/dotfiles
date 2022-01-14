@@ -36,11 +36,13 @@
 # Static
 ENVCHECK_URL='https://github.com/'
 GIT_REPO_DOT='https://github.com/rytmt/dotfiles.git' #dotfiles url
-GIT_REPO_DIRCOLOR='https://github.com/seebi/dircolors-solarized.git'
+#GIT_REPO_DIRCOLOR='https://github.com/seebi/dircolors-solarized.git'
 GIT_REPO_ZSH_HIGHLIGHT='https://github.com/zsh-users/zsh-syntax-highlighting.git'
-GIT_REPO_VIM_SOLARIZED='https://github.com/altercation/vim-colors-solarized.git'
+#GIT_REPO_VIM_SOLARIZED='https://github.com/altercation/vim-colors-solarized.git'
+GIT_REPO_VIM_GRUVBOX='https://github.com/morhetz/gruvbox.git'
 GIT_REPO_VIM_LOGHIGHLIGHT='https://github.com/mtdl9/vim-log-highlighting.git'
 GIT_REPO_NEOMUTT_SOLARIZED='https://github.com/altercation/mutt-colors-solarized.git'
+GIT_REPO_NEOMUTT_GRUVBOX='https://git.sthu.org/repos/mutt-gruvbox.git'
 GIT_UNAME='rytmt' # gitユーザ名
 GIT_PUBKEY='id_rsa_github.pub'
 GIT_SECKEY='id_rsa_github'
@@ -400,6 +402,9 @@ else
     try_task -u 'powerline-goバイナリファイルのダウンロード' 'go get -u github.com/justjanne/powerline-go'
 fi
 
+# dircolors のシンボリックリンク作成
+ln_s  "${dotfiles}/.dircolors_gruvbox" "${hdir}/.dircolors_gruvbox"
+
 
 # ----------
 # wget
@@ -440,7 +445,7 @@ echo_ptask 'Git Clone'
 
 # git clone タスクは git_clone 関数で行う
 git_clone "${GIT_REPO_DOT}" # dotfiles
-git_clone "${GIT_REPO_DIRCOLOR}" # ls dircolor
+#git_clone "${GIT_REPO_DIRCOLOR}" # ls dircolor
 
 
 # ----------
@@ -485,8 +490,10 @@ mkd 'vim undo' "${vdir}/undo"
 mkd 'vim swp' "${vdir}/swp"
 
 # カラースキーマのダウンロード・コピー
-git_clone "${GIT_REPO_VIM_SOLARIZED}" "${vdir}"
-try_task -u 'カラースキーマファイルのコピー' "cp -p ${vdir}/vim-colors-solarized/colors/solarized.vim ${vdir}/colors/"
+#git_clone "${GIT_REPO_VIM_SOLARIZED}" "${vdir}"
+#try_task -u 'カラースキーマファイルのコピー' "cp -p ${vdir}/vim-colors-solarized/colors/solarized.vim ${vdir}/colors/"
+git_clone "${GIT_REPO_VIM_GRUVBOX}" "${vdir}"
+try_task -u 'カラースキーマファイルのコピー' "cp -p ${vdir}/gruvbox/colors/gruvbox.vim ${vdir}/colors/"
 
 # シンボリックリンク作成
 ln_s "${dotfiles}/.vimrc" "${hdir}/.vimrc"
@@ -514,7 +521,8 @@ ln_s "${dotfiles}/bin/re-filter.sh" "${bdir}/re-filter.sh"
 ln_s "${dotfiles}/bin/ical2txt.sh" "${bdir}/ical2txt.sh"
 
 # カラースキーマインストール
-git_clone "${GIT_REPO_NEOMUTT_SOLARIZED}" "${mdir}"
+#git_clone "${GIT_REPO_NEOMUTT_SOLARIZED}" "${mdir}"
+git_clone "${GIT_REPO_NEOMUTT_GRUVBOX}" "${mdir}"
 
 
 # ----------
