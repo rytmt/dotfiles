@@ -346,6 +346,7 @@ install_pkg 'tree' 'tree'
 install_pkg 'nkf' 'nkf'
 install_pkg 'lynx' 'lynx'
 install_pkg 'golang-go'
+install_pkg 'ldap-utils'
 
 
 # ----------

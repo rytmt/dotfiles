@@ -102,6 +102,7 @@ set sidebar_folder_indent = yes
 set sidebar_indent_string = "|---"
 set sidebar_sort_method = 'reverse-alpha'
 set sidebar_next_new_wrap = yes
+set sidebar_divider_char = "|"
 #bind index,pager \Cp sidebar-prev
 #bind index,pager \Cn sidebar-next
 bind index,pager \Cp sidebar-prev-new
