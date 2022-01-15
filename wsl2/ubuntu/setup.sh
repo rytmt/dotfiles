@@ -395,6 +395,9 @@ echo_ptask '基本設定'
 
 mkd 'バイナリ置き場' "${bdir}"
 
+# バックアップ用スクリプトのシンボリックリンク作成
+ln_s "${dotfiles}/bin/rsbk.sh" "${bdir}/rsbk.sh"
+
 check_task -u 'powerline-goバイナリファイルがあることの確認' "test -f ${hdir}/go/bin/powerline-go"
 # プロキシ指定がある場合
 if [ -n "${prx_url}" ]; then
