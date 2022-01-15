@@ -5,14 +5,21 @@ if [ $# -ne 1 ]; then
     return 1
 fi
 if [ ! -f "$1" ]; then
-    echo "cannot open $2. No such file."
+    echo "cannot open $1. No such file."
     return 1
 fi
 
-maildir="$(grep ^MAILDIR $1 | head -n 1 | cut -d '=' -f 2 | cut -d '"' -f 2)"
+maildrop -V 9 "$1" </dev/null 2>/dev/null
+if [ "$?" -ne "0" ]; then
+    echo "format error in $1"
+    echo "details: maildrop -V 1 $1 </dev/null"
+fi
 
-sent="$(echo ${maildir}/__sent | sed "s|\$HOME|$HOME|g")"
-[ -d "${sent}" ] || maildirmake "${sent}"
+maildir="$(grep ^MAILDIR $1 | head -n 1 | cut -d '=' -f 2 | cut -d '"' -f 2)"
+maildir="$(echo ${maildir} | sed "s|\$HOME|$HOME|g")"
+
+[ -d "${maildir}" ] || mkdir -p "${maildir}"
+[ -d "${maildir}/__sent" ] || maildirmake "${maildir}/__sent"
 
 grep -F '=' "$1" | \
 grep -F 'MAILDIR' | \
