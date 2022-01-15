@@ -15,6 +15,7 @@
     - [1.2.6. メール定期受信設定](#126-メール定期受信設定)
     - [1.2.7. メールフィルタの再適用](#127-メールフィルタの再適用)
     - [1.2.8. コマンド/マクロ のメモ](#128-コマンドマクロ-のメモ)
+    - [1.2.9. notmuch(メール検索)のセットアップ](#129-notmuchメール検索のセットアップ)
 
 ## 1.1. setup.sh
 - ubuntu セットアップ用スクリプト
@@ -38,6 +39,8 @@
   - ~/.fetchmailrc                      : [手動作成] メール受信用設定
 - maildrop
   - ~/.mailfilter                       : [手動作成] メール振り分け設定
+- notmuch
+  - ~/mail/.notmuch                     : [手動作成] メール検索用DB
 - others
   - ~/mail                              : [自動作成] メール保存用ディレクトリ
   - ~/bin/mf2md.sh                      : [自動作成] .mailfilter からメールディレクトリを作成するスクリプト
@@ -47,7 +50,7 @@
 ### 1.2.2. 手動作成ファイルの作成手順
 #### 1.2.2.1. ~/.mutt/account
 以下のテンプレートを適宜書き換えて作成する。権限は 600 にしておく
-``` ini
+``` shell
 set mbox_type = Maildir
 set record    = ~/mail/__sent # 送信済みメールの保存先。maildirmake で作成する。
 
@@ -74,7 +77,7 @@ send-hook . set signature="~/.mutt/signature_default" # デフォルトの署名
 send-hook "~t @domain.local" set signature=~/.mutt/signature_internal # 内部向けメールの署名ファイルのパス
 
 #mailboxes `echo -n "+ "; find ~/mail -maxdepth 1 -type d -name cur -prune -o -type d -name new -prune -o -type d -name tmp -prune -o -type d -printf "+'%f' "`
-mailboxes `find ~/mail -maxdepth 1 -type d | while read line; do basename $line; done | grep -v ^mail | while read line; do printf "+'$line' "; done`
+mailboxes `find ~/mail -maxdepth 1 -type d | while read line; do basename $line; done | grep -v -e ^mail -e '\.notmuch' | while read line; do printf "+'$line' "; done`
 ```
 
 #### 1.2.2.2. ~/.mutt/signature_default, internal
@@ -253,3 +256,27 @@ re-filter.sh .mailfilter ~/mail/__default
   - ^O: 選択しているフォルダを開く
 
 
+### 1.2.9. notmuch(メール検索)のセットアップ
+``` shell
+# notmuch のセットアップ (対話形式)
+notmuch setup
+
+# DB の作成
+# セットアップで指定したディレクトリ配下に、.notmuch ディレクトリが作成される
+notmuch new
+
+# メールの検索
+notmuch search 'from:hoge@domain.local'
+notmuch search 'subject:hogehoge and to:soge@domain.local'
+notmuch search 'subject:hogehoge or  to:soge@domain.local'
+
+# 検索したメールを閲覧する
+notmuch find 'thread:xxxxxxxxxx'
+
+# 検索方法の確認
+man notmuch-search-terms
+
+# そのほかコマンドのヘルプ
+notmuch --help
+notmuch search --help
+```
