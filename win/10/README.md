@@ -6,6 +6,9 @@
 - ダークモードに設定
 - エクスプローラで拡張子を表示するようにする
 
+## フォントインストール
+- https://github.com/yuru7/HackGen/releases/latest
+
 ## ソフトウェアインストール
 ### 特に設定のいらないもの
 - 7zip
@@ -14,14 +17,10 @@
 - honeyview
 - adobe acrobat reader
 
-## フォントインストール
-- https://github.com/yuru7/HackGen/releases/latest
-
 ### 設定が必要なもの
-#### vivaldi
-1. インストール
-2. 設定同期 (vivaldi独自アカウント)
-3. ジェスチャー設定 (同期されない場合)
+#### google chrome
+1. 設定同期 (4114)
+2. ブックマーク等は同期しないようにする
 
 #### autohotkey
 1. autohotkey のインストール
@@ -41,8 +40,9 @@
 
 #### windows terminal
 1. microsoft store からインストール
-2. GUI から適当に設定
+2. ~/dotfiles/win/10/winterm_gruvbox.json を windows terminal の設定(.json)に追記
+3. GUI から適当に設定
 
 #### vscode
 1. インストール
-2. 設定同期 (msアカウント)
+2. 設定同期 (msアカウント:rytmt)
