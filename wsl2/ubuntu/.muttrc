@@ -2,9 +2,6 @@
 source "~/dotfiles/wsl2/ubuntu/.mutt/common"
 set mailcap_path="~/dotfiles/wsl2/ubuntu/.mutt/mailcap"
 
-# Color Scheme
-source "~/.mutt/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc"
-
 # Account
 source "~/.mutt/account"
 #folder-hook $folder 'source ~/.mutt/account'
