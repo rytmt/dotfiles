@@ -30,7 +30,7 @@ do
     [ -f "${line}" ] && rsync -ptu "${line}" "${dstdir}/"
     if [ -d "${line}" ]; then
         srcdir="$(echo ${line} | sed 's|/$||')"
-        rsync -ptur "${srcdir}" "${dstdir}/"
+        rsync -ptur --delete "${srcdir}" "${dstdir}/"
     fi
 done
 
