@@ -244,3 +244,6 @@ e (){
 wcode (){
     code "$(wslpath -u $1)"
 }
+wcode-ar (){
+    code -ar "$(wslpath -u $1)"
+}
