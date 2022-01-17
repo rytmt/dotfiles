@@ -247,7 +247,7 @@ parse_args (){
     flg=0
     for n in $(seq 1 $#)
     do
-        if echo "$1" | grep -qE '^--'; then
+        if echo "$1" | grep -qE '^--$'; then
             shift
             flg=1
             continue
