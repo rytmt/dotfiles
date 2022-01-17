@@ -105,8 +105,6 @@ set sidebar_indent_string = "|---"
 set sidebar_sort_method = 'reverse-alpha'
 set sidebar_next_new_wrap = yes
 set sidebar_divider_char = "|"
-#bind index,pager \Cp sidebar-prev
-#bind index,pager \Cn sidebar-next
 bind index,pager \Cp sidebar-prev-new
 bind index,pager \Cn sidebar-next-new
 bind index,pager \Co sidebar-open
@@ -115,6 +113,9 @@ bind index,pager <Esc>n sidebar-page-down
 bind index,pager <Esc>p sidebar-page-up
 bind index,pager <Down> sidebar-next-new
 bind index,pager <Up> sidebar-prev-new
+macro browser \Cp q<sidebar-prev-new>
+macro browser \Cn q<sidebar-next-new>
+macro browser \Co q<sidebar-open>
 
 color sidebar_indicator default color17         # Dark blue background
 color sidebar_highlight white   color238        # Grey background
