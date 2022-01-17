@@ -52,7 +52,8 @@
 以下のテンプレートを適宜書き換えて作成する。権限は 600 にしておく
 ``` shell
 set mbox_type = Maildir
-set record    = ~/mail/__sent # 送信済みメールの保存先。maildirmake で作成する。
+set record    = ~/mail/__sent # 送信済みメールの保存先。mf2md.sh で自動作成される
+set postponed = ~/mail/__postponed # 下書きメールの保存先。mf2md.sh で自動作成される
 
 set folder    = ~/mail
 set spoolfile = ~/mail
@@ -246,6 +247,7 @@ re-filter.sh .mailfilter ~/mail/__default
     - or: | でつなぐ
   - d: メッセージの削除
   - $: 削除などの反映
+  - P: 下書きメッセージの編集再開
 - pager: メール本文を表示している状態
   - R: 全員に返信
   - r: 個人に返信

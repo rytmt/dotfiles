@@ -45,6 +45,8 @@ bind index,pager,browser L buffy-list
 bind index Q quit
 bind index q noop
 bind browser a exit
+bind index,pager P recall-message
+bind index,pager E resend-message
 
 
 # --------------------------------------------------

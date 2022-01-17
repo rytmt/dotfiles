@@ -20,6 +20,7 @@ maildir="$(echo ${maildir} | sed "s|\$HOME|$HOME|g")"
 
 [ -d "${maildir}" ] || mkdir -p "${maildir}"
 [ -d "${maildir}/__sent" ] || maildirmake "${maildir}/__sent"
+[ -d "${maildir}/__postponed" ] || maildirmake "${maildir}/__postponed"
 
 grep -F '=' "$1" | \
 grep -F 'MAILDIR' | \
