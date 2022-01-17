@@ -234,6 +234,39 @@ work (){
     cd "${work_folder}"
 }
 
+parsed_opts=''
+parsed_args=''
+parse_init (){
+    parsed_opts=''
+    parsed_args=''
+}
+parse_args (){
+    parse_init
+    opts=''
+    args=''
+    flg=0
+    for n in $(seq 1 $#)
+    do
+        if echo "$1" | grep -qE '^--'; then
+            shift
+            flg=1
+            continue
+        fi
+
+        if [ "${flg}" -eq "0" ]; then
+            if echo "$1" | grep -qE '^-'; then
+                opts="${opts} $1"
+                shift
+                continue
+            fi
+        fi
+        args="${args} $1"
+        shift
+    done
+    parsed_opts="$(echo -E ${opts} | grep -Eo '\-\w.*\w')"
+    parsed_args="$(echo -E ${args} | sed 's/^ *\| *$//')"
+}
+
 # for wsl2
 wcd () {
     cd "$(wslpath -u $1)"
@@ -242,8 +275,6 @@ e (){
     explorer.exe "$(wslpath -w $1)"
 }
 wcode (){
-    code "$(wslpath -u $1)"
-}
-wcode-ar (){
-    code -ar "$(wslpath -u $1)"
+    parse_args "$@"
+    eval "code ${parsed_opts} $(wslpath -u ${parsed_args})"
 }
