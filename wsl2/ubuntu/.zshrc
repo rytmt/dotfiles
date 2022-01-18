@@ -278,3 +278,10 @@ wcode (){
     parse_args "$@"
     eval "code ${parsed_opts} $(wslpath -u ${parsed_args})"
 }
+c (){
+    if echo "$@" | grep -Eq '[a-zA-Z]:\\'; then
+        wcode "$@"
+    else
+        code "$@"
+    fi
+}
