@@ -61,7 +61,7 @@ macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 
 macro index T ":set sort=threads<enter>"
 macro index D ":set sort=date<enter>"
-macro index \CR "<tag-pattern>~O<enter><tag-prefix><clear-flag>O<untag-pattern>.<enter><catchup>" "mark all new as read"
+macro index \CR "<sidebar-open><tag-pattern>~O<enter><tag-prefix><clear-flag>O<untag-pattern>.<enter>" "mark all new as read"
 macro index,browser,pager \ek kkkkkkkkkk
 macro index,browser,pager \ej jjjjjjjjjj
 
