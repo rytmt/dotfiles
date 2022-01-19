@@ -235,8 +235,8 @@ fcheck "/usr/share/source-highlight/src-hilite-lesspipe.sh"
 
 # exa
 if [ 'type exa >/dev/null 2>&1' ]; then
-    alias ll='exa -lah'
-    alias llt='exa -lah -s modified'
+    alias ll='exa -lah --icons'
+    alias llt='exa -lah --icons -s modified'
 fi
 
 # misc
