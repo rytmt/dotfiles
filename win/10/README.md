@@ -8,6 +8,8 @@
 
 ## フォントインストール
 - https://github.com/yuru7/HackGen/releases/latest
+  - windows terminal には HackGenNerd Console を適用 (exaのアイコン対応)
+  - vscode には HackGen を適用 (設定同期で自動適用されるはず)
 
 ## ソフトウェアインストール
 ### 特に設定のいらないもの
