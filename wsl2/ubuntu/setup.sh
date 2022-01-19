@@ -38,6 +38,7 @@ ENVCHECK_URL='https://github.com/'
 GIT_REPO_DOT='https://github.com/rytmt/dotfiles.git' #dotfiles url
 #GIT_REPO_DIRCOLOR='https://github.com/seebi/dircolors-solarized.git'
 GIT_REPO_ZSH_HIGHLIGHT='https://github.com/zsh-users/zsh-syntax-highlighting.git'
+GIT_REPO_ZSH_AUTOSUGGEST='https://github.com/zsh-users/zsh-autosuggestions.git'
 #GIT_REPO_VIM_SOLARIZED='https://github.com/altercation/vim-colors-solarized.git'
 GIT_REPO_VIM_GRUVBOX='https://github.com/morhetz/gruvbox.git'
 GIT_REPO_VIM_LOGHIGHLIGHT='https://github.com/mtdl9/vim-log-highlighting.git'
@@ -276,10 +277,10 @@ ln_s (){
 fdl (){
     # プロキシ指定がある場合はオプションを追加
     if [ -n "${prx_url}" ]; then
-        fdl_ops="-e HTTP_PROXY=$(echo ${prx_url} | cut -d '/' -f 3)"
+        fdl_ops="-e HTTPS_PROXY=$(echo ${prx_url} | cut -d '/' -f 3)"
     fi
     # ファイルダウンロード実行
-    try_task -u "ファイルダウンロード ($1)" "wget ${fdl_ops} $1"
+    try_task "ファイルダウンロード ($1)" "wget ${fdl_ops} $1"
 }
 
 # ディレクトリ作成関数
@@ -348,6 +349,8 @@ install_pkg 'nkf' 'nkf'
 install_pkg 'lynx' 'lynx'
 install_pkg 'golang-go'
 install_pkg 'ldap-utils'
+install_pkg 'zip' 'zip'
+install_pkg 'unzip' 'unzip'
 
 
 # ----------
@@ -382,6 +385,27 @@ mountrc="${mountrc}[ -d /run/screen ] || mkdir /run/screen\n"
 mountrc="${mountrc}chmod 777 /run/screen\n"
 check_task '/sbin/mount.rc が存在することの確認' 'test -f /sbin/mount.rc'
 try_task '/sbin/mount.rc の作成' "echo \"${mountrc}\" >/sbin/mount.rc && chmod +x /sbin/mount.rc"
+
+
+# ----------
+# exa
+# ----------
+# ubuntu 20.10 以降は apt get exa でインストールできるらしい
+echo_ptask 'exa設定'
+manual_install_exa (){
+    # ダウンロード
+    fdl 'https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip'
+    # 解凍
+    try_task 'exaの解凍' 'unzip exa-linux-x86_64-v0.10.1.zip'
+    # ファイル移動
+    try_task 'ファイル移動(bin)' 'mv ./bin/exa /usr/local/bin/'
+    try_task 'ファイル移動(man.1)' 'mv ./man/exa.1 /usr/share/man/man1/'
+    try_task 'ファイル移動(man.5)' 'mv ./man/exa_colors.5 /usr/share/man/man5/'
+
+}
+check_task 'exaコマンドが存在することの確認' 'type exa'
+
+try_task 'exaの手動インストール' 'manual_install_exa'
 
 
 # ==================================================
@@ -478,6 +502,9 @@ ln_s "${dotfiles}/.zsh/peco.zsh" "${zdir}/peco.zsh"
 
 # ハイライト設定のダウンロード
 git_clone "${GIT_REPO_ZSH_HIGHLIGHT}" "${zdir}"
+
+# 入力補助設定のダウンロード
+git_clone "${GIT_REPO_ZSH_AUTOSUGGEST}" "${zdir}"
 
 try_task 'デフォルトのシェルをzshに変更' "chsh -s /bin/zsh ${usrname}"
 

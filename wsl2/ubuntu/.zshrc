@@ -149,6 +149,12 @@ if [ $? ] ; then
     ZSH_HIGHLIGHT_STYLES[globbing]='none'
 fi
 
+# zsh-autosuggestions
+fload "${ZSH_HOME}/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [ $? ] ; then
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
+fi
+
 # dircolor
 #fcheck "${HOME}/dircolors-solarized/dircolors.ansi-dark"
 #[ $? ] && eval $(dircolors "${HOME}/dircolors-solarized/dircolors.ansi-dark")
@@ -226,6 +232,12 @@ screenstart (){
 # source-highlight
 fcheck "/usr/share/source-highlight/src-hilite-lesspipe.sh"
 [ $? ] && hilite (){ sh /usr/share/source-highlight/src-hilite-lesspipe.sh $* }
+
+# exa
+if [ 'type exa >/dev/null 2>&1' ]; then
+    alias ll='exa -lah'
+    alias llt='exa -lah -s modified'
+fi
 
 # misc
 work (){
