@@ -281,4 +281,7 @@ man notmuch-search-terms
 # そのほかコマンドのヘルプ
 notmuch --help
 notmuch search --help
+
+# crontab への登録
+* 4 * * * (notmuch new 2>&1 | while read line; do echo -E "$(LANG=C date): $line"; done) >> /path/to/log/notmuch.log
 ```
