@@ -92,3 +92,14 @@ autocmd FileType mail set ambiwidth=double
 " --------------------------------------------------
 "colorscheme solarized
 colorscheme gruvbox
+
+
+
+" --------------------------------------------------
+" Background Transparent
+" --------------------------------------------------
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
+highlight LineNr ctermbg=none
+highlight Folded ctermbg=none
+highlight EndOfBuffer ctermbg=none
