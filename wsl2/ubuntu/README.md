@@ -267,10 +267,10 @@ notmuch setup
 # セットアップで指定したディレクトリ配下に、.notmuch ディレクトリが作成される
 notmuch new
 
-# メールの検索
+# メールの検索 (subject はスラッシュで囲まないとうまく検索がヒットしない)
 notmuch search 'from:hoge@domain.local'
-notmuch search 'subject:hogehoge and to:soge@domain.local'
-notmuch search 'subject:hogehoge or  to:soge@domain.local'
+notmuch search 'subject:/hogehoge/ and to:soge@domain.local'
+notmuch search 'subject:/hogehoge/ or  to:soge@domain.local'
 
 # 検索したメールを閲覧する
 notmuch find 'thread:xxxxxxxxxx'
