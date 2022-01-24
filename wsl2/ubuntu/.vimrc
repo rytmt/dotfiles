@@ -65,7 +65,7 @@ set list
 "set listchars=eol:¬,tab:>
 set listchars=eol:¬,tab:»\
 set wrap
-"set cursorline
+set cursorline
 set background=dark
 set matchtime=3
 set laststatus=2
