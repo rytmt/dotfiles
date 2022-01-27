@@ -451,7 +451,7 @@ fi
 # ----------
 echo_ptask 'gitセットアップ'
 
-try_task -u 'Gitユーザ設定' "git config --global user.name ${GIT_UNAME}"
+#try_task -u 'Gitユーザ設定' "git config --global user.name ${GIT_UNAME}"
 try_task -u 'Gitエディタ設定' "git config --global core.editor vim"
 try_task -u 'Git色設定(diff)' 'git config --global color.diff auto'
 try_task -u 'Git色設定(status)' 'git config --global color.status auto'
@@ -475,6 +475,10 @@ echo_ptask 'Git Clone'
 # git clone タスクは git_clone 関数で行う
 git_clone "${GIT_REPO_DOT}" # dotfiles
 #git_clone "${GIT_REPO_DIRCOLOR}" # ls dircolor
+
+# dotfiles のリポジトリに対してユーザ名とメールアドレスを設定する
+check_task 'dotfilesリポジトリ ユーザ設定確認' "grep -F 'name = rytmt' ${hdir}/dotfiles/.git/config"
+try_task 'dotfilesリポジトリ ユーザ設定の実行' "echo '[user]\n        name = rytmt\n        email = rytmt@nxdomain.local' >>${hdir}/dotfiles/.git/config"
 
 
 # ----------
