@@ -240,14 +240,20 @@ if [ 'type exa >/dev/null 2>&1' ]; then
 fi
 tree (){
     target="$1"
-    [ "${target}" = "" ] && target="."
-    shift
+    if [ "${target}" = "" ]; then
+        target="."
+    else
+        shift
+    fi
     exa -lah --icons --color=always -T "${target}" $@ | less  -i -N -S -M -R
 }
 dtree (){
     target="$1"
-    [ "${target}" = "" ] && target="."
-    shift
+    if [ "${target}" = "" ]; then
+        target="."
+    else
+        shift
+    fi
     exa -lah --icons --color=always -T -D "${target}" $@ | less  -i -N -S -M -R
 }
 
