@@ -238,6 +238,18 @@ if [ 'type exa >/dev/null 2>&1' ]; then
     alias ll='exa -lah --icons'
     alias llt='exa -lah --icons -s modified'
 fi
+tree (){
+    target="$1"
+    [ "${target}" = "" ] && target="."
+    shift
+    exa -lah --icons --color=always -T "${target}" $@ | less  -i -N -S -M -R
+}
+dtree (){
+    target="$1"
+    [ "${target}" = "" ] && target="."
+    shift
+    exa -lah --icons --color=always -T -D "${target}" $@ | less  -i -N -S -M -R
+}
 
 # misc
 work (){
