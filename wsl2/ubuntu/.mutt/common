@@ -129,5 +129,7 @@ color sidebar_divider   color8  default         # Dark grey
 # --------------------------------------------------
 # ColorScheme
 # --------------------------------------------------
-source ~/.mutt/mutt-gruvbox/colors-gruvbox-shuber.muttrc
-source ~/.mutt/mutt-gruvbox/colors-gruvbox-shuber-extended.muttrc
+#source ~/.mutt/mutt-gruvbox/colors-gruvbox-shuber.muttrc
+#source ~/.mutt/mutt-gruvbox/colors-gruvbox-shuber-extended.muttrc
+source ~/dotfiles/wsl2/ubuntu/.mutt/colors-gruvbox-shuber-transparent.muttrc
+source ~/dotfiles/wsl2/ubuntu/.mutt/colors-gruvbox-shuber-extended-transparent.muttrc

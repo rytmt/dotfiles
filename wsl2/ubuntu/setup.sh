@@ -43,7 +43,7 @@ GIT_REPO_ZSH_AUTOSUGGEST='https://github.com/zsh-users/zsh-autosuggestions.git'
 GIT_REPO_VIM_GRUVBOX='https://github.com/morhetz/gruvbox.git'
 GIT_REPO_VIM_LOGHIGHLIGHT='https://github.com/mtdl9/vim-log-highlighting.git'
 #GIT_REPO_NEOMUTT_SOLARIZED='https://github.com/altercation/mutt-colors-solarized.git'
-GIT_REPO_NEOMUTT_GRUVBOX='https://git.sthu.org/repos/mutt-gruvbox.git'
+#GIT_REPO_NEOMUTT_GRUVBOX='https://git.sthu.org/repos/mutt-gruvbox.git'
 GIT_UNAME='rytmt' # gitユーザ名
 GIT_PUBKEY='id_rsa_github.pub'
 GIT_SECKEY='id_rsa_github'
@@ -558,7 +558,7 @@ ln_s "${dotfiles}/bin/ical2txt.sh" "${bdir}/ical2txt.sh"
 
 # カラースキーマインストール
 #git_clone "${GIT_REPO_NEOMUTT_SOLARIZED}" "${mdir}"
-git_clone "${GIT_REPO_NEOMUTT_GRUVBOX}" "${mdir}"
+#git_clone "${GIT_REPO_NEOMUTT_GRUVBOX}" "${mdir}"
 
 
 # ----------
