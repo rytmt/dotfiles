@@ -28,10 +28,19 @@ def configure(keymap):
     # --------------------------------------------------------------------
     # 関数定義
 
-    # IME 無効化
+    # IME 無効化と Escape キーの送信
     def ime_off_esc():
         keymap.wnd.setImeStatus(0)
         keymap.InputKeyCommand("Esc")()
+
+    input_down_command = keymap.InputKeyCommand("Down")
+    input_up_command = keymap.InputKeyCommand("Up")
+    def down_multi():
+        for i in range(10):
+            input_down_command()
+    def up_multi():
+        for i in range(10):
+            input_up_command()
 
     # --------------------------------------------------------------------
     # グローバルキーマップ
@@ -45,6 +54,8 @@ def configure(keymap):
         keymap_global["C-L"] = "Right"
         keymap_global["C-A"] = "Home"
         keymap_global["C-E"] = "End"
+        keymap_global["A-J"] = down_multi
+        keymap_global["A-K"] = up_multi
 
         # ウインドウのアクティブ化
         keymap_global[ "C-1" ] = "W-1"
