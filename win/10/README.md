@@ -24,9 +24,13 @@
 1. 設定同期 (4114)
 2. ブックマーク等は同期しないようにする
 
-#### autohotkey
+#### autohotkey (old)
 1. autohotkey のインストール
-2. dotfiles/win/myscript.ahk をダウンロードして、実行
+2. dotfiles/win/10/myscript.ahk をダウンロードして、実行
+
+#### keyhac (new)
+1. keyhac のインストール
+2. dotfiles/win/10/config.py を %AppData%\keyhac\ 配下に保存
 
 #### tweeten
 1. GUI から適当に設定

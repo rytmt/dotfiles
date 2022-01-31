@@ -203,8 +203,8 @@ screenstart (){
     x=1
     cat "$2" | while read line; do
         # get window name and command string from csv file
-        winname="$(echo $line | cut -d ',' -f 1)"
-        cmdstr="$(echo $line | cut -d ',' -f 2)"
+        winname="$(echo -E $line | cut -d ',' -f 1)"
+        cmdstr="$(echo -E $line | cut -d ',' -f 2)"
 
         # check winname length
         if [ ${#winname} -le 0 ]; then
@@ -216,7 +216,7 @@ screenstart (){
         screen -S "${sname}" -p 0 -X stuff "screen -t ${winname}\n"
 
         # execute command (using workspace window)
-        cmdstr=$(echo ${cmdstr} | sed 's/'\''/'\''"'\''"'\''/g') # escape single quote
+        cmdstr=$(echo -E ${cmdstr} | sed 's/'\''/'\''"'\''"'\''/g') # escape single quote
         screen -S "${sname}" -p 0 -X stuff "screen -p $x -X stuff '${cmdstr}\\\n'\n"
         x=$((x+1))
         sleep 1s
@@ -277,14 +277,14 @@ parse_args (){
     flg=0
     for n in $(seq 1 $#)
     do
-        if echo "$1" | grep -qE '^--$'; then
+        if echo -E "$1" | grep -qE '^--$'; then
             shift
             flg=1
             continue
         fi
 
         if [ "${flg}" -eq "0" ]; then
-            if echo "$1" | grep -qE '^-'; then
+            if echo -E "$1" | grep -qE '^-'; then
                 opts="${opts} $1"
                 shift
                 continue
@@ -309,9 +309,20 @@ wcode (){
     eval "code ${parsed_opts} $(wslpath -u ${parsed_args})"
 }
 c (){
-    if echo "$@" | grep -Eq '[a-zA-Z]:\\'; then
+    if echo -E "$@" | grep -Eq '[a-zA-Z]:\\'; then
         wcode "$@"
     else
         code "$@"
     fi
+}
+keyhac (){
+    configfile="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
+    code "${configfile}"
+}
+updatekh (){
+    configfile="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
+    destfile="${HOME}/dotfiles/win/10/config.py"
+
+    [ -f "${destfile}" ] && diff -u --color=always "${configfile}" "${destfile}"
+    cp "${configfile}" "${destfile}"
 }
