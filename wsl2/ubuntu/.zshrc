@@ -315,21 +315,16 @@ c (){
         code "$@"
     fi
 }
+keyhac_config="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
+keyhac_dotfiles="${HOME}/dotfiles/win/10/config.py"
 keyhac_edit (){
-    configfile="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
-    code "${configfile}"
+    code "${keyhac_config}"
 }
-keyhac_cp2git (){
-    configfile="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
-    destfile="${HOME}/dotfiles/win/10/config.py"
-
-    [ -f "${destfile}" ] && diff -u --color=always "${configfile}" "${destfile}"
-    cp "${configfile}" "${destfile}"
+keyhac_local2git (){
+    [ -f "${keyhac_dotfiles}" ] && diff -u --color=always "${keyhac_config}" "${keyhac_dotfiles}"
+    cp "${keyhac_config}" "${keyhac_dotfiles}"
 }
-keyhac_cp2local (){
-    destfile="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
-    configfile="${HOME}/dotfiles/win/10/config.py"
-
-    [ -f "${destfile}" ] && diff -u --color=always "${configfile}" "${destfile}"
-    cp "${configfile}" "${destfile}"
+keyhac_git2local (){
+    [ -f "${keyhac_config}" ] && diff -u --color=always "${keyhac_dotfiles}" "${keyhac_config}"
+    cp "${keyhac_dotfiles}" "${keyhac_config}"
 }
