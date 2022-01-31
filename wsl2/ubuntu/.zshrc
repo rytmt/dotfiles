@@ -315,13 +315,20 @@ c (){
         code "$@"
     fi
 }
-keyhac (){
+keyhac_edit (){
     configfile="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
     code "${configfile}"
 }
-updatekh (){
+keyhac_cp2git (){
     configfile="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
     destfile="${HOME}/dotfiles/win/10/config.py"
+
+    [ -f "${destfile}" ] && diff -u --color=always "${configfile}" "${destfile}"
+    cp "${configfile}" "${destfile}"
+}
+keyhac_cp2local (){
+    destfile="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
+    configfile="${HOME}/dotfiles/win/10/config.py"
 
     [ -f "${destfile}" ] && diff -u --color=always "${configfile}" "${destfile}"
     cp "${configfile}" "${destfile}"

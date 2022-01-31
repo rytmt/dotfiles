@@ -12,7 +12,7 @@ def configure(keymap):
     # Text editer setting for editting config.py file
 
     # 設定ファイル用のエディタ指定 (使用しない)
-    # wsl2 の .zshrc に keyhac コマンドが定義してあるのでそちらを使う
+    # wsl2 の .zshrc に keyhac_edit コマンドが定義してあるのでそちらを使う
     if 1:
         keymap.editor = "notepad.exe"
 
@@ -33,6 +33,13 @@ def configure(keymap):
         keymap.wnd.setImeStatus(0)
         keymap.InputKeyCommand("Esc")()
 
+    # IME 無効化/有効化
+    def ime_off():
+        keymap.wnd.setImeStatus(0)
+    def ime_on():
+        keymap.wnd.setImeStatus(1)
+
+    # カーソル移動用
     input_down_command = keymap.InputKeyCommand("Down")
     input_up_command = keymap.InputKeyCommand("Up")
     def down_multi():
@@ -54,8 +61,8 @@ def configure(keymap):
         keymap_global["C-L"] = "Right"
         keymap_global["C-A"] = "Home"
         keymap_global["C-E"] = "End"
-        keymap_global["A-J"] = down_multi
-        keymap_global["A-K"] = up_multi
+        keymap_global["A-J"] = lambda: down_multi()
+        keymap_global["A-K"] = lambda: up_multi()
 
         # ウインドウのアクティブ化
         keymap_global[ "C-1" ] = "W-1"
@@ -69,7 +76,14 @@ def configure(keymap):
         keymap_global[ "C-9" ] = "W-S-Right"
 
         # IME Off and Escape
-        keymap_global["C-Colon"] = ime_off_esc
+        keymap_global["C-Colon"] = lambda: ime_off_esc()
+
+        # 変換キー/無変換キーでの IME 切り替え
+        keymap_global["(28)"] = lambda: ime_on()
+        keymap_global["(29)"] = lambda: ime_off()
+        # Shift+無変換 で全角英数入力にならないようにする
+        keymap_global["S-(29)"] = lambda: None
+
 
     # テキストボックス用のキーマップ
     if 1:

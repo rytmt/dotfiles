@@ -30,7 +30,9 @@
 
 #### keyhac (new)
 1. keyhac のインストール
-2. dotfiles/win/10/config.py を %AppData%\keyhac\ 配下に保存
+2. keyhac の起動
+3. zsh(wsl2) から keyhac_cp2local コマンドを実行 (dotfiles からローカルに設定をコピー)
+4. keyhac 設定のリロード
 
 #### tweeten
 1. GUI から適当に設定
