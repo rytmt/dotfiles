@@ -320,11 +320,30 @@ keyhac_dotfiles="${HOME}/dotfiles/win/10/config.py"
 keyhac_edit (){
     code "${keyhac_config}"
 }
+keyhac_diff (){
+    if [ -f "${keyhac_config}" -a -f "${keyhac_dotfiles}" ]; then
+        diff -u --color=always "${keyhac_config}" "${keyhac_dotfiles}"
+    else
+        echo "one or more following config file does not exist."
+        echo "${keyhac_config}"
+        echo ""${keyhac_dotfiles}
+    fi
+}
 keyhac_local2git (){
-    [ -f "${keyhac_dotfiles}" ] && diff -u --color=always "${keyhac_config}" "${keyhac_dotfiles}"
+    keyhac_diff
     cp "${keyhac_config}" "${keyhac_dotfiles}"
+    if [ "$?" -eq "0" ]; then
+        echo "copy successed"
+    else
+        echo "copy failed"
+    fi
 }
 keyhac_git2local (){
-    [ -f "${keyhac_config}" ] && diff -u --color=always "${keyhac_dotfiles}" "${keyhac_config}"
+    keyhac_diff
     cp "${keyhac_dotfiles}" "${keyhac_config}"
+    if [ "$?" -eq "0" ]; then
+        echo "copy successed"
+    else
+        echo "copy failed"
+    fi
 }

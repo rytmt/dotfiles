@@ -85,9 +85,16 @@ def configure(keymap):
         keymap_global["S-(29)"] = lambda: None
 
 
-    # テキストボックス用のキーマップ
+    # Edit class 用のキーマップ
     if 1:
         keymap_edit = keymap.defineWindowKeymap( class_name="Edit" )
 
         keymap_edit["C-S-D"] = "Home", "S-End", "C-X"
+
+    # Google Chrome用のキーマップ
+    if 1:
+        keymap_chrome = keymap.defineWindowKeymap( exe_name="chrome.exe" )
+
+        keymap_chrome["C-N"] = "C-Tab"
+        keymap_chrome["C-P"] = "C-S-Tab"
 
