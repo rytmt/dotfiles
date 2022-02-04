@@ -443,7 +443,7 @@ echo_ptask 'wgetセットアップ'
 # プロキシ指定がある場合
 if [ -n "${prx_url}" ]; then
     check_task -u 'プロキシ設定があることの確認' "grep '^http_proxy' ${hdir}/.wgetrc"
-    try_task -u "プロキシ設定の追加" "echo http_proxy=${prx_url} >> ${hdir}/.wgetrc"
+    try_task -u "プロキシ設定の追加" "echo \"http_proxy=${prx_url}\nhttps_proxy=${prx_url}\" >> ${hdir}/.wgetrc"
 fi
 
 # ----------
