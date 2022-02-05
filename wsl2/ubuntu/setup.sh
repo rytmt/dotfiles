@@ -40,7 +40,8 @@ GIT_REPO_DOT='https://github.com/rytmt/dotfiles.git' #dotfiles url
 GIT_REPO_ZSH_HIGHLIGHT='https://github.com/zsh-users/zsh-syntax-highlighting.git'
 GIT_REPO_ZSH_AUTOSUGGEST='https://github.com/zsh-users/zsh-autosuggestions.git'
 #GIT_REPO_VIM_SOLARIZED='https://github.com/altercation/vim-colors-solarized.git'
-GIT_REPO_VIM_GRUVBOX='https://github.com/morhetz/gruvbox.git'
+#GIT_REPO_VIM_GRUVBOX='https://github.com/morhetz/gruvbox.git'
+GIT_REPO_VIM_GRUVBOX_MATERIAL='https://github.com/sainnhe/gruvbox-material.git'
 GIT_REPO_VIM_LOGHIGHLIGHT='https://github.com/mtdl9/vim-log-highlighting.git'
 #GIT_REPO_NEOMUTT_SOLARIZED='https://github.com/altercation/mutt-colors-solarized.git'
 #GIT_REPO_NEOMUTT_GRUVBOX='https://git.sthu.org/repos/mutt-gruvbox.git'
@@ -521,6 +522,7 @@ echo_ptask 'vimセットアップ'
 # ディレクトリ作成
 mkd 'vim' "${vdir}"
 mkd 'vim colorscheme' "${vdir}/colors"
+mkd 'vim autoload' "${vdir}/autoload"
 mkd 'vim backup' "${vdir}/backup"
 mkd 'vim undo' "${vdir}/undo"
 mkd 'vim swp' "${vdir}/swp"
@@ -528,8 +530,11 @@ mkd 'vim swp' "${vdir}/swp"
 # カラースキーマのダウンロード・コピー
 #git_clone "${GIT_REPO_VIM_SOLARIZED}" "${vdir}"
 #try_task -u 'カラースキーマファイルのコピー' "cp -p ${vdir}/vim-colors-solarized/colors/solarized.vim ${vdir}/colors/"
-git_clone "${GIT_REPO_VIM_GRUVBOX}" "${vdir}"
-try_task -u 'カラースキーマファイルのコピー' "cp -p ${vdir}/gruvbox/colors/gruvbox.vim ${vdir}/colors/"
+#git_clone "${GIT_REPO_VIM_GRUVBOX}" "${vdir}"
+#try_task -u 'カラースキーマファイルのコピー' "cp -p ${vdir}/gruvbox/colors/gruvbox.vim ${vdir}/colors/"
+git_clone "${GIT_REPO_VIM_GRUVBOX_MATERIAL}" "${vdir}"
+try_task -u 'カラースキーマファイルのコピー (colors)' "cp -p ${vdir}/gruvbox-material/colors/gruvbox-material.vim ${vdir}/colors/"
+try_task -u 'カラースキーマファイルのコピー (autoload)' "cp -p ${vdir}/gruvbox-material/autoload/gruvbox_material.vim ${vdir}/autoload/"
 
 # シンボリックリンク作成
 ln_s "${dotfiles}/.vimrc" "${hdir}/.vimrc"

@@ -91,7 +91,9 @@ autocmd FileType mail set ambiwidth=double
 " ColorScheme
 " --------------------------------------------------
 "colorscheme solarized
-colorscheme gruvbox
+"colorscheme gruvbox
+let g:gruvbox_material_background = 'soft'
+colorscheme gruvbox-material
 
 
 
