@@ -535,6 +535,7 @@ mkd 'vim swp' "${vdir}/swp"
 git_clone "${GIT_REPO_VIM_GRUVBOX_MATERIAL}" "${vdir}"
 try_task -u 'カラースキーマファイルのコピー (colors)' "cp -p ${vdir}/gruvbox-material/colors/gruvbox-material.vim ${vdir}/colors/"
 try_task -u 'カラースキーマファイルのコピー (autoload)' "cp -p ${vdir}/gruvbox-material/autoload/gruvbox_material.vim ${vdir}/autoload/"
+try_task -u 'プラグインインストール (vim-polyglot)' "git clone --depth 1 https://github.com/sheerun/vim-polyglot ${vdir}/pack/plugins/start/vim-polyglot"
 
 # シンボリックリンク作成
 ln_s "${dotfiles}/.vimrc" "${hdir}/.vimrc"
