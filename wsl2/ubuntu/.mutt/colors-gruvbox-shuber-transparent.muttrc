@@ -36,7 +36,7 @@ color bold        color229 default
 color error       color167 default
 color hdrdefault  color246 default
 #color indicator   color223 color235
-color indicator   color223 color243
+color indicator   color223 color239
 color markers     color243 default
 color normal      color223 default
 color quoted      color250 default
