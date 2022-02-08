@@ -351,7 +351,7 @@ install_pkg 'lynx' 'lynx'
 install_pkg 'golang-go'
 install_pkg 'ldap-utils'
 install_pkg 'zip' 'zip'
-install_pkg 'unzip' 'unzip'
+install_pkg 'jq' 'jq'
 
 
 # ----------
