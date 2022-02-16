@@ -68,5 +68,5 @@ echo "5. filtering finished: $(find ${mbox} -type f | wc -l) files remained in $
 
 # 一時退避先の削除
 echo "6. delete ${tmpd} start"
-rm -rf "${tmpd}"
+rmdir "${tmpd}"
 echo "7. delete finished"
