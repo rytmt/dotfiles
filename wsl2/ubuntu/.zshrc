@@ -326,7 +326,7 @@ keyhac_diff (){
     else
         echo "one or more following config file does not exist."
         echo "${keyhac_config}"
-        echo ""${keyhac_dotfiles}
+        echo "${keyhac_dotfiles}"
     fi
 }
 keyhac_local2git (){
