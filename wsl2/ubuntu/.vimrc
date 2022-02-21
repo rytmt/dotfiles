@@ -49,7 +49,7 @@ set formatoptions=q
 set nrformats=
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
-
+autocmd InsertLeave * set nopaste
 
 " --------------------------------------------------
 " Display
