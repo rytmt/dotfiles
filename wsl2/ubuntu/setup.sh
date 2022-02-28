@@ -352,6 +352,7 @@ install_pkg 'golang-go'
 install_pkg 'ldap-utils'
 install_pkg 'zip' 'zip'
 install_pkg 'jq' 'jq'
+install_pkg 'libxml2-utils'
 
 
 # ----------
