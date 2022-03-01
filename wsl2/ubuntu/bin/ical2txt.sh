@@ -19,4 +19,12 @@ echo
 echo "作成者: ${ORGANIZER_NAME} (${ORGANIZER_ADDR})"
 echo "  日時: ${DATE_START} 〜 ${DATE_END}"
 echo "  場所: ${ROOM}"
-echo "出席者: ${ATTENDEE}"| nkf -w | sed -e 's/$/, /g' | tr -d '\r\n' | fold --space
+echo "出席者:"
+echo "${ATTENDEE}"
+echo "${ORGANIZER_ADDR}"
+
+#echo "出席者: ${ATTENDEE}, ${ORGANIZER_ADDR}"| \
+#  nkf -w | \
+#  sed -e 's/$/, /g' | \
+#  tr -d '\n' | \
+#  sed -e 's/, $//g'
