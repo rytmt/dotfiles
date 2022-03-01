@@ -17,15 +17,15 @@ peco-file() {
     CURSOR=$#BUFFER
 }
 peco-file-recursive() {
-    local filepath="$(find . -type f 2>/dev/null | peco --prompt 'FILE_RECURSIVE>')"
+    local filepath="$(find . -type f 2>/dev/null | grep -vF '.git' | peco --prompt 'FILE_RECURSIVE>')"
     [ -z "$filepath" ] && return
     BUFFER="$LBUFFER$filepath"
     CURSOR=$#BUFFER
 }
 zle -N peco-file
 zle -N peco-file-recursive
-bindkey '^f' peco-file
-bindkey '^[s' peco-file-recursive
+bindkey '^[f' peco-file
+bindkey '^f' peco-file-recursive
 
 
 # select command history
