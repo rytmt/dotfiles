@@ -245,7 +245,7 @@ tree (){
     else
         shift
     fi
-    exa -lah --icons --color=always -T "${target}" $@ | less  -i -N -S -M -R
+    exa -lah --icons --color=always -T "${target}" $@ | less -i -N -S -M -R
 }
 dtree (){
     target="$1"
@@ -254,7 +254,7 @@ dtree (){
     else
         shift
     fi
-    exa -lah --icons --color=always -T -D "${target}" $@ | less  -i -N -S -M -R
+    exa -lah --icons --color=always -T -D "${target}" $@ | less -i -N -S -M -R
 }
 
 # misc
