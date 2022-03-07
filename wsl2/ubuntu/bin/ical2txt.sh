@@ -20,8 +20,8 @@ echo "作成者: ${ORGANIZER_NAME} (${ORGANIZER_ADDR})"
 echo "  日時: ${DATE_START} 〜 ${DATE_END}"
 echo "  場所: ${ROOM}"
 echo "出席者:"
-echo "${ATTENDEE}"
-echo "${ORGANIZER_ADDR}"
+echo "${ATTENDEE}" | while read line; do echo "  - ${line}"; done
+echo "  - ${ORGANIZER_ADDR}"
 
 #echo "出席者: ${ATTENDEE}, ${ORGANIZER_ADDR}"| \
 #  nkf -w | \
