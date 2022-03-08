@@ -354,6 +354,7 @@ install_pkg 'zip' 'zip'
 install_pkg 'jq' 'jq'
 install_pkg 'libxml2-utils'
 install_pkg 'hexyl' 'hexyl'
+install_pkg 'fd-find' 'fdfind'
 
 
 # ----------
