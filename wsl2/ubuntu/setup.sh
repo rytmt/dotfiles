@@ -461,6 +461,8 @@ try_task -u 'Git色設定(diff)' 'git config --global color.diff auto'
 try_task -u 'Git色設定(status)' 'git config --global color.status auto'
 try_task -u 'Git色設定(branch)' 'git config --global color.branch auto'
 try_task -u 'Gitグラフ設定' 'git config --global alias.graph "log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'' --abbrev-commit --date=relative"'
+try_task -u 'Git merge設定(ff)' 'git config --global merge.ff false'
+try_task -u 'Git pull設定(ff)' 'git config --global pull.ff only'
 
 try_task -u 'Git公開鍵確認 (要手動配置)' "test -f ${hdir}/.ssh/${GIT_PUBKEY}"
 try_task -u 'Git秘密鍵確認 (要手動配置)' "test -f ${hdir}/.ssh/${GIT_SECKEY}"
