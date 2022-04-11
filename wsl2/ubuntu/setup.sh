@@ -355,6 +355,7 @@ install_pkg 'jq' 'jq'
 install_pkg 'libxml2-utils'
 install_pkg 'hexyl' 'hexyl'
 install_pkg 'fd-find' 'fdfind'
+install_pkg 'python3-pip'
 
 
 # ----------
@@ -485,6 +486,20 @@ git_clone "${GIT_REPO_DOT}" # dotfiles
 # dotfiles のリポジトリに対してユーザ名とメールアドレスを設定する
 check_task 'dotfilesリポジトリ ユーザ設定確認' "grep -F 'name = rytmt' ${hdir}/dotfiles/.git/config"
 try_task 'dotfilesリポジトリ ユーザ設定の実行' "echo '[user]\n        name = rytmt\n        email = rytmt@nxdomain.local' >>${hdir}/dotfiles/.git/config"
+
+
+# ----------
+# python-pip
+# ----------
+echo_ptask 'python-pipセットアップ'
+# プロキシ指定がある場合
+if [ -n "${prx_url}" ]; then
+    if [ ! -f ${hdir}/.pip/pip.conf ]; then
+        try_task -u '~/.pipフォルダの作成' "mkdir ${hdir}/.pip"
+        try_task -u '~/.pip/pip.confファイルの作成' "touch ${hdir}/.pip/pip.conf"
+        try_task -u '~/.pip/pip.confファイルへの設定' "echo '[global]\nproxy = ${prx_url}' >${hdir}/.pip/pip.conf"
+    fi
+fi
 
 
 # ----------
