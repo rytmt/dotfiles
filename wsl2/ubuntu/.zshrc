@@ -94,6 +94,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias history='history -f 1'
 alias less='less -i -N -S -M -R'
+alias python='python3'
 
 
 # --------------------------------------------------
