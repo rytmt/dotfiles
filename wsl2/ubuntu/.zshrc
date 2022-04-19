@@ -348,3 +348,16 @@ keyhac_git2local (){
         echo "copy failed"
     fi
 }
+
+# for ranger file manager
+disable r
+r() {
+    if [ -z "$RANGER_LEVEL" ]; then
+        ranger $@
+    else
+        exit
+    fi
+}
+
+# for return code 0
+:
