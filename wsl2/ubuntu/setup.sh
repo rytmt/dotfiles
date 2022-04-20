@@ -357,6 +357,7 @@ install_pkg 'hexyl' 'hexyl'
 install_pkg 'fd-find' 'fdfind'
 install_pkg 'python3-pip'
 install_pkg 'pwgen' 'pwgen'
+install_pkg 'ranger'
 
 
 # ----------
