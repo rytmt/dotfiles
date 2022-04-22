@@ -358,6 +358,7 @@ install_pkg 'fd-find' 'fdfind'
 install_pkg 'python3-pip'
 install_pkg 'pwgen' 'pwgen'
 install_pkg 'ranger'
+install_pkg 'highlight' 'highlight'
 
 
 # ----------
