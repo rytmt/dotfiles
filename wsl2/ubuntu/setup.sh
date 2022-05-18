@@ -359,6 +359,7 @@ install_pkg 'python3-pip'
 install_pkg 'pwgen' 'pwgen'
 install_pkg 'ranger' 'ranger'
 install_pkg 'highlight' 'highlight'
+install_pkg 'traceroute' 'traceroute'
 
 
 # ----------
