@@ -71,6 +71,7 @@ set matchtime=3
 set laststatus=2
 set statusline=%y
 set visualbell t_vb=
+set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p]
 
 
 " --------------------------------------------------
@@ -105,3 +106,9 @@ highlight NonText ctermbg=none
 highlight LineNr ctermbg=none
 highlight Folded ctermbg=none
 highlight EndOfBuffer ctermbg=none
+
+
+
+" --------------------------------------------------
+" Plugin
+" --------------------------------------------------

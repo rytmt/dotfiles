@@ -563,6 +563,8 @@ try_task -u 'カラースキーマファイルのコピー (autoload)' "cp -p ${
 # プラグインインストール
 check_task 'プラグインチェック (vim-polyglot)' "test -d ${vdir}/pack/plugins/start/vim-polyglot"
 try_task -u 'プラグインインストール (vim-polyglot)' "git clone --depth 1 https://github.com/sheerun/vim-polyglot ${vdir}/pack/plugins/start/vim-polyglot"
+check_task 'プラグインチェック (vim-airline)' "test -d ${vdir}/pack/plugins/start/vim-airline"
+try_task -u 'プラグインインストール (vim-airline)' "git clone --depth 1 https://github.com/vim-airline/vim-airline.git ${vdir}/pack/plugins/start/vim-airline"
 
 # シンボリックリンク作成
 ln_s "${dotfiles}/.vimrc" "${hdir}/.vimrc"
