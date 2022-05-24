@@ -262,7 +262,7 @@ git_clone (){
     fi
 
     check_task -u "${prj_name} ディレクトリが存在することを確認" "test -d ${cdir}"
-    try_task -u "${prj_name} プロジェクトのクローン実行" "git clone $1 ${cdir}"
+    try_task -u "${prj_name} プロジェクトのクローン実行" "git clone --depth 1 $1 ${cdir}"
 }
 
 # シンボリックリンク作成関数
