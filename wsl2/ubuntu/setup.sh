@@ -360,6 +360,7 @@ install_pkg 'pwgen' 'pwgen'
 install_pkg 'ranger' 'ranger'
 install_pkg 'highlight' 'highlight'
 install_pkg 'traceroute' 'traceroute'
+install_pkg 'ipcalc' 'ipcalc'
 
 
 # ----------
