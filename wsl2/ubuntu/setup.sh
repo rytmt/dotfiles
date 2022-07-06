@@ -362,6 +362,7 @@ install_pkg 'highlight' 'highlight'
 install_pkg 'traceroute' 'traceroute'
 install_pkg 'ipcalc' 'ipcalc'
 install_pkg 'dateutils'
+install_pkg 'rename' 'rename'
 
 
 # ----------
