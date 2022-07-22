@@ -24,14 +24,10 @@
 1. 設定同期 (4114)
 2. ブックマーク等は同期しないようにする
 
-#### autohotkey (old)
-1. autohotkey のインストール
-2. dotfiles/win/10/myscript.ahk をダウンロードして、実行
-
-#### keyhac (new)
+#### keyhac
 1. keyhac のインストール
 2. keyhac の起動
-3. zsh(wsl2) から keyhac_cp2local コマンドを実行 (dotfiles からローカルに設定をコピー)
+3. zsh(wsl2) から keyhac_git2local コマンドを実行 (config.py をローカルにコピー)
 4. keyhac 設定のリロード
 
 #### tweeten
@@ -48,14 +44,19 @@
 
 #### windows terminal
 1. microsoft store からインストール
-2. ~/dotfiles/win/10/winterm_gruvbox.json を windows terminal の設定(.json)に追記
+2. ~/dotfiles/win/10/winterm_colorthemes.json を windows terminal の設定(.json)に追記
 3. GUI から適当に設定
 
 #### vscode
 1. インストール
-2. 設定同期 (msアカウント:rytmt)
+2. 設定同期 (rytmt@outlook.jp)
 
-#### tablacus Explorer
+#### old
+##### autohotkey
+1. autohotkey のインストール
+2. dotfiles/win/10/myscript.ahk をダウンロードして、実行
+
+##### tablacus Explorer
 1. インストール
 2. アドオンインストール (ツール -> アドオン)
    1. ダークモード
