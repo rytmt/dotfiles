@@ -142,6 +142,7 @@ fi
 # プロキシ指定がある場合
 if [ -n "${prx_url}" ]; then
     curl_ops="-k --connect-timeout 10 -x $prx_url"
+    export https_proxy=${prx_url}
 else # プロキシ指定がない場合
     curl_ops='-k --connect-timeout 10'
 fi
@@ -280,8 +281,14 @@ fdl (){
     if [ -n "${prx_url}" ]; then
         fdl_ops="-e HTTPS_PROXY=$(echo ${prx_url} | cut -d '/' -f 3)"
     fi
+    # 第一引数が -u の場合、$usrname ユーザとしてタスクを実行する
+    uflg=''
+    if echo "$1" | grep -qE '^-u$'; then
+        uflg='-u'
+        shift
+    fi
     # ファイルダウンロード実行
-    try_task "ファイルダウンロード ($1)" "wget ${fdl_ops} $1"
+    try_task ${uflg} "ファイルダウンロード ($1)" "wget ${fdl_ops} $1"
 }
 
 # ディレクトリ作成関数
@@ -597,6 +604,25 @@ ln_s "${dotfiles}/bin/ical2txt.sh" "${bdir}/ical2txt.sh"
 # カラースキーマインストール
 #git_clone "${GIT_REPO_NEOMUTT_SOLARIZED}" "${mdir}"
 #git_clone "${GIT_REPO_NEOMUTT_GRUVBOX}" "${mdir}"
+
+
+# ----------
+# Rust
+# ----------
+#echo_ptask 'rustセットアップ'
+#
+## インストール用のスクリプトダウンロード
+#fdl -u 'https://sh.rustup.rs -O sh.rustup.rs.sh'
+#try_task -u 'スクリプトに実行権限を付与' 'chmod +x sh.rustup.rs.sh'
+#
+#check_task -u 'rustがインストールされていることを確認' "type cargo"
+#if [ -n "${prx_url}" ]; then
+#    try_task -u 'rustインストール実行' "https_proxy=${prx_url} ./sh.rustup.rs.sh -q -y"
+#else
+#    try_task -u 'rustインストール実行' "./sh.rustup.rs.sh -q -y"
+#fi
+#try_task -u '環境設定' "source ${hdir}/.cargo/env"
+#try_task -u 'piprインストール' 'cargo install pipr'
 
 
 # ----------
