@@ -381,6 +381,8 @@ echo_ptask '時刻同期設定'
 try_task '不要設定の削除' "sed -i -e '/^pool/d' ${CHRONYCONF}"
 try_task '時刻同期設定の追加' "echo 'pool ${NTPSV} iburst' >> ${CHRONYCONF}"
 try_task 'chronydの再起動' 'service chrony restart'
+check_task 'cron再起動タスクが存在することの確認' "grep -Fq 'service cron restart' /etc/crontab"
+try_task 'cron再起動タスク登録' "echo '0 0 * * * root service cron restart' >> /etc/crontab"
 
 
 # ----------
