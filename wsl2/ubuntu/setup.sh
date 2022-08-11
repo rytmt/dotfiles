@@ -418,6 +418,14 @@ try_task '/sbin/mount.rc の作成' "echo \"${mountrc}\" >/sbin/mount.rc && chmo
 
 
 # ----------
+# sudoers
+# ----------
+echo_ptask 'sudoers設定'
+check_task 'sudoers設定が存在することの確認' "test -f /etc/sudoers.d/${usrname}"
+try_task 'sudoers設定の追加' "echo '${usrname} ALL=NOPASSWD: ALL' > /etc/sudoers.d/${usrname}"
+
+
+# ----------
 # exa
 # ----------
 # ubuntu 20.10 以降は apt get exa でインストールできるらしい
