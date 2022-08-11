@@ -198,13 +198,14 @@ try_task (){
         shift
     else
         task_sudo=''
-        task_usr=" (user: root)"
+        task_usr=" (user: \e[38;5;207mroot\e[m)" #紫色
     fi
 
     # skip_flg が true の場合、タスクは実行せず 0 を返す
     if [ "${skip_flg}" -eq "0" ]; then
         echo "skipped: $2" >> "${lfile}" 2>&1
-        echo "[ NA ] ${cnt_tsk}. $1${task_usr}"
+        printf "\e[38;5;242m[ NA ] ${cnt_tsk}. $1${task_usr}\e[m \n" #灰色
+        #echo "[ NA ] ${cnt_tsk}. $1${task_usr}"
         cnt_na=$((cnt_na+1))
         skip_flg=1 # タスクをスキップしたらフラグは false に戻す
         return 0
@@ -216,10 +217,10 @@ try_task (){
     ecode=$?
     # タスクとして実行したコマンドの終了コードが 0 の場合は result に OK をセットして、成功カウント数(cnt_ok)をインクリメント
     if [ "$ecode" -eq "0" ]; then
-        result='\e[38;5;40mOK\e[m'
+        result='\e[38;5;40mOK\e[m' #緑色
         cnt_ok=$((cnt_ok+1))
     else
-        result='\e[1;31mNG\e[m'
+        result='\e[1;31mNG\e[m' #赤色
         cnt_ng=$((cnt_ng+1))
     fi
 
@@ -295,8 +296,14 @@ fdl (){
 # 第一引数(必須)：ディレクトリ用途
 # 第二引数(必須)：ディレクトリパス
 mkd (){
-    check_task -u "$1 用フォルダが存在することの確認" "test -d $2"
-    try_task -u "$1 用フォルダ作成" "mkdir $2"
+    # 第一引数が -u の場合、$usrname ユーザとしてタスクを実行する
+    uflg=''
+    if echo "$1" | grep -qE '^-u$'; then
+        uflg='-u'
+        shift
+    fi
+    check_task ${uflg} "$1 用フォルダが存在することの確認" "test -d $2"
+    try_task ${uflg} "$1 用フォルダ作成" "mkdir -p $2"
 }
 
 # ファイルコピー関数
@@ -381,8 +388,6 @@ echo_ptask '時刻同期設定'
 try_task '不要設定の削除' "sed -i -e '/^pool/d' ${CHRONYCONF}"
 try_task '時刻同期設定の追加' "echo 'pool ${NTPSV} iburst' >> ${CHRONYCONF}"
 try_task 'chronydの再起動' 'service chrony restart'
-check_task 'cron再起動タスクが存在することの確認' "grep -Fq 'service cron restart' /etc/crontab"
-try_task 'cron再起動タスク登録' "echo '0 0 * * * root service cron restart' >> /etc/crontab"
 
 
 # ----------
@@ -391,6 +396,8 @@ try_task 'cron再起動タスク登録' "echo '0 0 * * * root service cron resta
 echo_ptask 'cron設定'
 check_task 'cronが起動していることの確認' 'service cron status'
 try_task 'cronの起動' 'service cron start'
+check_task 'cron再起動タスクが存在することの確認' "grep -Fq 'service cron restart' /etc/crontab"
+try_task 'cron再起動タスク登録' "echo '0 0 * * * root service cron restart' >> /etc/crontab"
 
 
 # ----------
@@ -403,6 +410,7 @@ try_task "fstabに設定を追加" "echo 'none none rc defaults 0 0' >>/etc/fsta
 mountrc='#!/bin/sh\n\n'
 mountrc="${mountrc}service crony start\n"
 mountrc="${mountrc}service cron start\n"
+mountrc="${mountrc}service docker start\n"
 mountrc="${mountrc}[ -d /run/screen ] || mkdir /run/screen\n"
 mountrc="${mountrc}chmod 777 /run/screen\n"
 check_task '/sbin/mount.rc が存在することの確認' 'test -f /sbin/mount.rc'
@@ -440,7 +448,7 @@ try_task 'exaの手動インストール' 'manual_install_exa'
 # ----------
 echo_ptask '基本設定'
 
-mkd 'バイナリ置き場' "${bdir}"
+mkd -u 'バイナリ置き場' "${bdir}"
 
 # バックアップ用スクリプトのシンボリックリンク作成
 ln_s "${dotfiles}/bin/rsbk.sh" "${bdir}/rsbk.sh"
@@ -536,7 +544,7 @@ try_task '/run/screen の権限変更' 'chmod 777 /run/screen'
 # ----------
 echo_ptask 'zshセットアップ'
 
-mkd 'zsh' "${zdir}" # ディレクトリ作成
+mkd -u 'zsh' "${zdir}" # ディレクトリ作成
 
 # シンボリックリンク作成
 ln_s "${dotfiles}/.zshrc" "${hdir}/.zshrc"
@@ -557,12 +565,12 @@ try_task 'デフォルトのシェルをzshに変更' "chsh -s /bin/zsh ${usrnam
 echo_ptask 'vimセットアップ'
 
 # ディレクトリ作成
-mkd 'vim' "${vdir}"
-mkd 'vim colorscheme' "${vdir}/colors"
-mkd 'vim autoload' "${vdir}/autoload"
-mkd 'vim backup' "${vdir}/backup"
-mkd 'vim undo' "${vdir}/undo"
-mkd 'vim swp' "${vdir}/swp"
+mkd -u 'vim' "${vdir}"
+mkd -u 'vim colorscheme' "${vdir}/colors"
+mkd -u 'vim autoload' "${vdir}/autoload"
+mkd -u 'vim backup' "${vdir}/backup"
+mkd -u 'vim undo' "${vdir}/undo"
+mkd -u 'vim swp' "${vdir}/swp"
 
 # カラースキーマのダウンロード・コピー
 #git_clone "${GIT_REPO_VIM_SOLARIZED}" "${vdir}"
@@ -594,9 +602,9 @@ try_task -u 'vim-log-highlighting設定ファイルコピー(syntax)' "cp -rp ${
 echo_ptask 'neomuttセットアップ'
 
 # ディレクトリ作成
-mkd 'neomutt' "${mdir}"
-mkd 'mail受信' "${hdir}/mail"
-mkd 'キャッシュ' "${mdir}/mcache"
+mkd -u 'neomutt' "${mdir}"
+mkd -u 'mail受信' "${hdir}/mail"
+mkd -u 'キャッシュ' "${mdir}/mcache"
 
 # シンボリックリンク作成
 ln_s "${dotfiles}/.muttrc" "${hdir}/.muttrc"
@@ -627,6 +635,69 @@ ln_s "${dotfiles}/bin/ical2txt.sh" "${bdir}/ical2txt.sh"
 #try_task -u '環境設定' "source ${hdir}/.cargo/env"
 #try_task -u 'piprインストール' 'cargo install pipr'
 
+
+# ----------
+# Docker
+# ----------
+echo_ptask 'dockerセットアップ'
+# official reference: https://docs.docker.com/engine/install/ubuntu/
+
+# docker インストール用関数
+docker_install(){
+    # 依存パッケージのインストール
+    install_pkg 'ca-certificates'
+    install_pkg 'gnupg'
+    install_pkg 'lsb-release'
+    install_pkg 'curl' 'curl'
+
+    # GPG鍵の追加
+    mkd 'GPG鍵' '/etc/apt/keyrings'
+    check_task 'GPG鍵が存在することの確認' 'test -f /etc/apt/keyrings/docker.gpg'
+    try_task 'GPG鍵のダウンロード' \
+     "curl $curl_ops -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg"
+
+    # リポジトリのセットアップ
+    docker_repo_setup='echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null'
+    try_task 'リポジトリのセットアップ' "${docker_repo_setup}"
+
+    # Docker Engine のインストール
+    try_task 'apt updateの実行' 'apt update'
+    install_pkg 'docker-ce'
+    install_pkg 'docker-ce-cli'
+    install_pkg 'containerd.io'
+    install_pkg 'docker-compose-plugin'
+
+}
+
+# docker 用プロキシ設定
+docker_proxy (){
+    mkd 'docker設定ファイル' "$HOME/.docker"
+
+    # 設定の書き込み
+    cat <<EOS > ${HOME}/.docker/config.json
+{
+ "proxies":
+ {
+   "default":
+   {
+     "httpProxy": "${prx_url}",
+     "httpsProxy": "${prx_url}"
+   }
+ }
+}
+EOS
+}
+
+check_task 'Dockerがインストールされていることの確認' 'type docker'
+try_task 'Dockerのインストール' 'docker_install'
+
+# プロキシ指定がある場合
+if [ -n "${prx_url}" ]; then
+    try_task 'Dockerプロキシ設定' 'docker_proxy'
+fi
+
+check_task 'dockerが起動していることの確認' 'service docker status'
+try_task 'dockerの起動' 'service docker start'
 
 # ----------
 # setup result
