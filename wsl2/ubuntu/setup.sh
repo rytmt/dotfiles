@@ -677,35 +677,23 @@ docker_install(){
 
 }
 
-# docker 用プロキシ設定
-docker_proxy (){
-    mkd 'docker設定ファイル' "$HOME/.docker"
-
-    # 設定の書き込み
-    cat <<EOS > ${HOME}/.docker/config.json
-{
- "proxies":
- {
-   "default":
-   {
-     "httpProxy": "${prx_url}",
-     "httpsProxy": "${prx_url}"
-   }
- }
-}
-EOS
-}
-
-check_task 'Dockerがインストールされていることの確認' 'type docker'
-try_task 'Dockerのインストール' 'docker_install'
+check_task 'dockerがインストールされていることの確認' 'type docker'
+try_task 'dockerのインストール' 'docker_install'
 
 # プロキシ指定がある場合
 if [ -n "${prx_url}" ]; then
-    try_task 'Dockerプロキシ設定' 'docker_proxy'
+    proxy_setting="$(cat <<EOS
+export http_proxy='${prx_url}'
+export https_proxy='${prx_url}'
+EOS
+    )"
+    check_task 'dockerプロキシ設定が存在することの確認' "grep -Eq '^export https?_proxy' /etc/default/docker"
+    try_task 'dockerプロキシ設定' "echo \"${proxy_setting}\" >> /etc/default/docker"
 fi
 
 check_task 'dockerが起動していることの確認' 'service docker status'
 try_task 'dockerの起動' 'service docker start'
+
 
 # ----------
 # setup result
