@@ -229,6 +229,9 @@ screenstart (){
     # attach screen
     screen -r "${sname}" -p 1
 }
+# for vbell
+screen -X vbell_msg "screen vbell"
+alias vbell='screen -X vbell_msg'
 
 # source-highlight
 fcheck "/usr/share/source-highlight/src-hilite-lesspipe.sh"
@@ -257,6 +260,10 @@ dtree (){
     fi
     exa -lah --icons --color=always -T -D --ignore-glob='.git' "${target}" $@ | less -i -N -S -M -R
 }
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # misc
 work (){
@@ -314,6 +321,7 @@ wcd () {
 }
 e (){
     explorer.exe "$(wslpath -w $1)"
+    :
 }
 wcode (){
     parse_args "$@"

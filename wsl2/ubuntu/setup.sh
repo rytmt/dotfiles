@@ -319,6 +319,19 @@ fcp (){
 # System Tasks
 # ==================================================
 # ----------
+# curl
+# ----------
+echo_ptask 'curlセットアップ'
+if [ -n "${prx_url}" ]; then
+    check_task '.curlrc ファイルが存在することの確認' 'test -f /root/.curlrc'
+    try_task '.curlrc ファイルの作成' "echo proxy=${prx_url} >>/root/.curlrc"
+
+    check_task -u '.curlrc ファイルが存在することの確認' "test -f ${hdir}/.curlrc"
+    try_task -u '.curlrc ファイルの作成' "echo proxy=${prx_url} >>${hdir}/.curlrc"
+fi
+
+
+# ----------
 # apt
 # ----------
 echo_ptask 'aptセットアップ'
@@ -662,7 +675,7 @@ docker_install(){
     mkd 'GPG鍵' '/etc/apt/keyrings'
     check_task 'GPG鍵が存在することの確認' 'test -f /etc/apt/keyrings/docker.gpg'
     try_task 'GPG鍵のダウンロード' \
-     "curl $curl_ops -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg"
+     "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg"
 
     # リポジトリのセットアップ
     docker_repo_setup='echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null'
@@ -693,6 +706,29 @@ fi
 
 check_task 'dockerが起動していることの確認' 'service docker status'
 try_task 'dockerの起動' 'service docker start'
+
+
+# ----------
+# Node.js
+# ----------
+# おそらくnvmのインストールに使用したシェル(.xxshrcファイル)に環境変数が追加される。スクリプト化が難しいので諦める。
+#echo_ptask 'node.jsセットアップ'
+#
+## nvm インストール用関数
+#nvm_install(){
+#    nvm_installcmd="$(curl https://github.com/nvm-sh/nvm 2>/dev/null | grep -Po 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v[0-9.]+/install.sh \| bash' | sort | uniq)"
+#    nvm_installcmd_flg="$(echo ${nvm_installcmd} | grep ^curl | wc -l)"
+#
+#    if [ ${nvm_installcmd_flg} -ne 1 ]; then
+#        return 1
+#    fi
+#
+#    try_task -u 'nvmインストールスクリプトの実行' "${nvm_installcmd}"
+#    return $?
+#}
+#
+#check_task -u 'nvmがインストールされていることの確認' 'type nvm'
+#try_task 'nvmのインストール' 'nvm_install'
 
 
 # ----------
