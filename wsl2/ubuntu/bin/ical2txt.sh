@@ -2,10 +2,10 @@
 
 ICAL="$1"
 
-DATE_START="$(grep -E '^DTSTART;TZID=' "${ICAL}" | awk -F ':' '{ print $NF }' | cut -c 1-13)"
+DATE_START="$(grep -E '^DTSTART;TZID=' "${ICAL}" | awk -F ':' '{ print $NF }' | cut -c 1-13 | sed 's/T/ /g')"
 DATE_START="$(date --date="${DATE_START}" "+%Y/%m/%d(%a) %H:%M")"
 
-DATE_END="$(grep -E '^DTEND;TZID=' "${ICAL}" | awk -F ':' '{ print $NF }' | cut -c 1-13)"
+DATE_END="$(grep -E '^DTEND;TZID=' "${ICAL}" | awk -F ':' '{ print $NF }' | cut -c 1-13 | sed 's/T/ /g')"
 DATE_END="$(date --date="${DATE_END}" "+%Y/%m/%d(%a) %H:%M")"
 
 ORGANIZER_ADDR="$(grep -E '^ORGANIZER;CN=' "${ICAL}" | awk -F ':' '{ print $NF }' | tr -d '\r')"
