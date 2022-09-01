@@ -553,6 +553,9 @@ fi
 # ----------
 echo_ptask 'screenセットアップ'
 
+# ログ保存用フォルダの作成
+[ -d ${hdir}/log/screen ] || sudo -u "${usrname}" mkdir "${hdir}/log/screen"
+
 # シンボリックリンク作成
 ln_s "${dotfiles}/.screenrc" "${hdir}/.screenrc"
 

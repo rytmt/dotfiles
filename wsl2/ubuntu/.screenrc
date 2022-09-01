@@ -1,14 +1,19 @@
-startup_message 'off'
+# general
+startup_message off
 escape ^Tt
 #hardstatus alwayslastline  "%{=d kW}%-w%{=u kY}%n %t%{=d kW}%+w %=%{= W}%H %{= W}%m-%d %c"
 #caption always '%?%F%{=r kb}%:%{=u kb}%?%n %f %t%='
 caption always "%{kY} %n%f* %t %?%{YR}%{kR} %u %{Rw}%:%{Yw}%?%?%F%{.w}%:%{.w}%?%="
 #hardstatus alwayslastline "%{bk} %S %{kb} $LOGNAME %{bk} %H %?%{kb}%{kY} %-Lw%{Yk}%:%{Yb}%{Yk}%?%{Yk} %n%f* %t %{kY}%+Lw %-="
 hardstatus alwayslastline "%{wk} 20%y-%m-%d %c %{kw} $LOGNAME %{wk} %H %?%{kw}%{kY} %-Lw%{Yk}%:%{Yw}%{Yk}%?%{Yk} %n%f* %t %{kY}%+Lw %-="
-defbce 'on'
+defbce on
 term xterm-256color
-altscreen 'on'
+altscreen on
 defscrollback 10000
+vbell on
+verbose on
+
+# keybind
 bind r eval 'echo "Resize window"' 'command -c resize'
 bind -c resize ^] command
 bind -c resize j eval 'resize +1' 'command -c resize'
@@ -31,5 +36,10 @@ bindkey -m "^[[F" stuff $
 bindkey -m ' ' eval 'stuff \040' 'writebuf' 'exec sh -c "cat /tmp/screen-exchange | clip.exe"'
 bindkey -m Y   eval 'stuff Y'    'writebuf' 'exec sh -c "cat /tmp/screen-exchange | clip.exe"'
 bindkey -m W   eval 'stuff W'    'writebuf' 'exec sh -c "cat /tmp/screen-exchange | clip.exe"'
-logfile "/var/log/screen/screen-%Y%m%d-%n.log"
-deflog 'on'
+
+# log
+#logfile "/var/log/screen/screen-%Y%m%d-%n.log"
+logfile "$HOME/log/screen/screen.%H.%Y%m%d-%02c:%s-%n.%t.log"
+logtstamp on
+logtstamp string "\n-- SCREEN [%Y/%m/%d %02c:%s] %n:%t --\n"
+deflog on
