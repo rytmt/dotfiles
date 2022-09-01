@@ -562,6 +562,9 @@ ln_s "${dotfiles}/.screenrc" "${hdir}/.screenrc"
 # /run/screen を 777 にしないと screen が起動しないことがある
 try_task '/run/screen の権限変更' 'chmod 777 /run/screen'
 
+# vbell用スクリプトのシンボリックリンク作成
+ln_s "${dotfiles}/bin/vbell_beyond_screen.sh" "${bdir}/vbell_beyond_screen.sh"
+
 
 # ----------
 # zsh
