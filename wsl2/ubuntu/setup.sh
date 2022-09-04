@@ -39,6 +39,7 @@ GIT_REPO_DOT='https://github.com/rytmt/dotfiles.git' #dotfiles url
 #GIT_REPO_DIRCOLOR='https://github.com/seebi/dircolors-solarized.git'
 GIT_REPO_ZSH_HIGHLIGHT='https://github.com/zsh-users/zsh-syntax-highlighting.git'
 GIT_REPO_ZSH_AUTOSUGGEST='https://github.com/zsh-users/zsh-autosuggestions.git'
+GIT_REPO_ZSH_P10K='https://github.com/romkatv/powerlevel10k.git'
 #GIT_REPO_VIM_SOLARIZED='https://github.com/altercation/vim-colors-solarized.git'
 #GIT_REPO_VIM_GRUVBOX='https://github.com/morhetz/gruvbox.git'
 GIT_REPO_VIM_GRUVBOX_MATERIAL='https://github.com/sainnhe/gruvbox-material.git'
@@ -583,6 +584,9 @@ git_clone "${GIT_REPO_ZSH_HIGHLIGHT}" "${zdir}"
 
 # 入力補助設定のダウンロード
 git_clone "${GIT_REPO_ZSH_AUTOSUGGEST}" "${zdir}"
+
+# powerline設定のダウンロード
+git_clone "${GIT_REPO_ZSH_P10K}" "${zdir}"
 
 try_task 'デフォルトのシェルをzshに変更' "chsh -s /bin/zsh ${usrname}"
 

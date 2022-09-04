@@ -36,9 +36,12 @@ HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
 #PROMPT="%F{yellow}ubuntu@wsl2%(!.#.$)%f "
 #RPROMPT='[%B%F{blue}%~%f%b] (%?)'
 export GOPATH="$HOME/go"
-precmd (){
-    PS1="$($GOPATH/bin/powerline-go -numeric-exit-codes -shell zsh -theme default -hostname-only-if-ssh -trim-ad-domain -error $?)"
-}
+#precmd (){
+#    PS1="$($GOPATH/bin/powerline-go -numeric-exit-codes -shell zsh -theme default -hostname-only-if-ssh -trim-ad-domain -error $?)"
+#}
+ZSH_HOME=~/.zsh
+source "$ZSH_HOME/powerlevel10k/powerlevel10k.zsh-theme"
+[[ ! -f "${ZSH_HOME}/.p10k.zsh" ]] || source "${ZSH_HOME}/.p10k.zsh"
 
 # --------------------------------------------------
 # Setopt
@@ -108,7 +111,6 @@ export NO_AT_BRIDGE=1
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>|'
 
 LS_COLORS=
-ZSH_HOME=~/.zsh
 
 # common func
 gecho() { printf "\e[1;32m$*\e[m\n" }
