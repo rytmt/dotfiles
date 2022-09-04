@@ -578,6 +578,7 @@ mkd -u 'zsh' "${zdir}" # ディレクトリ作成
 # シンボリックリンク作成
 ln_s "${dotfiles}/.zshrc" "${hdir}/.zshrc"
 ln_s "${dotfiles}/.zsh/peco.zsh" "${zdir}/peco.zsh"
+ln_s "${dotfiles}/.zsh/.p10k.zsh" "${zdir}/.p10k.zsh"
 
 # ハイライト設定のダウンロード
 git_clone "${GIT_REPO_ZSH_HIGHLIGHT}" "${zdir}"
