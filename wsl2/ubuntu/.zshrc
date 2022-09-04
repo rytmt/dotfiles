@@ -37,7 +37,7 @@ HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
 #RPROMPT='[%B%F{blue}%~%f%b] (%?)'
 export GOPATH="$HOME/go"
 precmd (){
-    PS1="$($GOPATH/bin/powerline-go -numeric-exit-codes -shell zsh -theme gruvbox -hostname-only-if-ssh -trim-ad-domain -error $?)"
+    PS1="$($GOPATH/bin/powerline-go -numeric-exit-codes -shell zsh -theme default -hostname-only-if-ssh -trim-ad-domain -error $?)"
 }
 
 # --------------------------------------------------
