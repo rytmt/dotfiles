@@ -716,6 +716,8 @@ EOS
     try_task 'dockerプロキシ設定' "echo \"${proxy_setting}\" >> /etc/default/docker"
 fi
 
+try_task "dockerグループへの${usrname}ユーザの追加" "usermod -aG docker ${usrname}"
+
 check_task 'dockerが起動していることの確認' 'service docker status'
 try_task 'dockerの起動' 'service docker start'
 
