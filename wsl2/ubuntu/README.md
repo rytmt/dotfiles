@@ -236,7 +236,7 @@ re-filter.sh .mailfilter ~/mail/__default
 ### 1.2.8. コマンド/マクロ のメモ
 - index: メールの件名が表示されている画面
   - ^R: 全てのメールを既読状態にする
-  - l: メッセージのフィルタ
+  - l: メッセージのフィルタ [パターン一覧](https://neomutt.org/guide/advancedusage.html#patterns)
     - ~b 検索ワード: メール本文の検索
     - ~f 検索ワード: メールのFromの検索
     - ~t 検索ワード: メールのToの検索
