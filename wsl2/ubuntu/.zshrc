@@ -322,7 +322,9 @@ wcd () {
     cd "$(wslpath -u $1)"
 }
 e (){
-    explorer.exe "$(wslpath -w $1)"
+    epath=$1
+    [ "x$1" = "x" ] && epath='.'
+    explorer.exe "$(wslpath -w ${epath})"
     :
 }
 wcode (){
