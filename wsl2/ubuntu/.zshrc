@@ -26,7 +26,7 @@ bindkey '^S' history-incremental-pattern-search-forward
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
-PATH=${PATH}:~/bin
+PATH=${PATH}:~/bin:~/.local/bin
 
 HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
 
@@ -51,6 +51,7 @@ setopt MARK_DIRS
 setopt LIST_TYPES
 setopt NO_BEEP
 setopt AUTO_PARAM_SLASH
+setopt AUTO_CD
 unsetopt complete_aliases
 setopt LIST_PACKED
 setopt NOTIFY
@@ -98,6 +99,8 @@ alias grep='grep --color=auto'
 alias history='history -f 1'
 alias less='less -i -N -S -M -R'
 alias python='python3'
+alias b='cd ..'
+alias u='cd -'
 
 
 # --------------------------------------------------
