@@ -51,6 +51,7 @@ inoremap <C-a> <Home>
 inoremap <C-e> <End>
 autocmd InsertLeave * set nopaste
 
+
 " --------------------------------------------------
 " Display
 " --------------------------------------------------
@@ -87,7 +88,6 @@ autocmd FileType mail set formatoptions=qmMw
 autocmd FileType mail set ambiwidth=double
 
 
-
 " --------------------------------------------------
 " ColorScheme
 " --------------------------------------------------
@@ -95,7 +95,6 @@ autocmd FileType mail set ambiwidth=double
 "colorscheme gruvbox
 let g:gruvbox_material_background = 'soft'
 colorscheme gruvbox-material
-
 
 
 " --------------------------------------------------
@@ -107,6 +106,13 @@ highlight LineNr ctermbg=none
 highlight Folded ctermbg=none
 highlight EndOfBuffer ctermbg=none
 
+
+" --------------------------------------------------
+" FileType
+" --------------------------------------------------
+if len(&filetype) == 0
+  set filetype=log
+endif
 
 
 " --------------------------------------------------
