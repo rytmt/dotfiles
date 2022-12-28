@@ -238,7 +238,7 @@ screenstart (){
 set_screen_title(){
     # check if parent process is screen or not
     if cat /proc/${PPID}/status | grep ^Name | grep -q screen; then
-        screen -X title "$(basename "$(pwd)")"
+        screen -X title "$(basename "$(pwd)" | cut -c 1-15)"
     fi
 }
 autoload -Uz add-zsh-hook
