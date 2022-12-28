@@ -234,6 +234,17 @@ screenstart (){
     # attach screen
     screen -r "${sname}" -p 1
 }
+
+set_screen_title(){
+    # check if parent process is screen or not
+    if cat /proc/${PPID}/status | grep ^Name | grep -q screen; then
+        screen -X title "$(basename "$(pwd)")"
+    fi
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd set_screen_title
+
+
 # for vbell
 screen -X vbell_msg "screen vbell"
 alias vbell='screen -X vbell_msg'
