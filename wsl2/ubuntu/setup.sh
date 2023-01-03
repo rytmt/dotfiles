@@ -392,6 +392,7 @@ install_pkg 'ipcalc' 'ipcalc'
 install_pkg 'dateutils'
 install_pkg 'rename' 'rename'
 install_pkg 'xlsx2csv' 'xlsx2csv'
+install_pkg 'ffmpeg' 'ffmpeg'
 
 
 # ----------
