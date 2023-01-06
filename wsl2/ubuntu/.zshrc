@@ -235,13 +235,32 @@ screenstart (){
     screen -r "${sname}" -p 1
 }
 
+dir_screen_title='~'
+command_screen_title=''
 set_screen_title(){
     if [ ! "${STY}x" = "x" ]; then
-        screen -X title "$(basename "$(pwd)" | cut -c 1-15)"
+        if [ ! "${command_screen_title}x" = "x" ]; then
+            command_screen_title="(${command_screen_title})"
+        fi
+        screen -X title "${dir_screen_title} ${command_screen_title}"
     fi
 }
+chpwd_screen_title(){
+    dir_screen_title="$(basename "$(pwd)" | cut -c 1-15)"
+    set_screen_title
+}
+preexec_screen_title(){
+    command_screen_title="$(echo $1 | cut -d ' ' -f 1)"
+    set_screen_title
+}
+precmd_screen_title(){
+    command_screen_title=''
+    set_screen_title
+}
 autoload -Uz add-zsh-hook
-add-zsh-hook chpwd set_screen_title
+add-zsh-hook chpwd chpwd_screen_title
+add-zsh-hook preexec preexec_screen_title
+add-zsh-hook precmd precmd_screen_title
 
 
 # for vbell

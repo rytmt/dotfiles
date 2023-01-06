@@ -174,6 +174,7 @@ zdir="${hdir}/.zsh" # zsh設定ファイル配置先ディレクトリ
 mdir="${hdir}/.mutt" # neomutt設定ファイル配置先ディレクトリ
 vdir="${hdir}/.vim" # vim設定ファイル配置先ディレクトリ
 bdir="${hdir}/bin" # バイナリ配置先ディレクトリ
+sdir="${hdir}/.ssh/conf.d" # ssh用設定ファイル配置先ディレクトリ
 lfile="${hdir}/log/${SCRIPT_NAME}_${DATETIME}.log" # ログファイルフルパス
 
 # セットアップ対象ユーザとしてログファイルを作成しておく
@@ -488,6 +489,19 @@ fi
 # dircolors のシンボリックリンク作成
 ln_s  "${dotfiles}/.dircolors_gruvbox" "${hdir}/.dircolors_gruvbox"
 
+
+# ----------
+# ssh
+# ----------
+echo_ptask 'sshセットアップ'
+
+mkd -u 'SSH設定ファイル置き場' "${sdir}"
+
+# 設定ファイルのシンボリックリンク作成
+ln_s "${dotfiles}/screen_ssh" "${sdir}/screen_ssh"
+
+check_task -u 'Include設定があることの確認' "grep 'Include conf.d' ${hdir}/.ssh/config"
+try_task -u 'Include設定の追加' "echo 'Host *\n    Include conf.d/*\n' >> ${hdir}/.ssh/config"
 
 # ----------
 # wget
