@@ -737,6 +737,21 @@ check_task 'dockerが起動していることの確認' 'service docker status'
 try_task 'dockerの起動' 'service docker start'
 
 
+
+# ----------
+# PowerShell
+# ----------
+# 参考: https://learn.microsoft.com/ja-jp/powershell/scripting/install/install-ubuntu
+powershell_install(){
+    fdl "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+    try_task 'Microsoftのリポジトリを登録' 'dpkg -i packages-microsoft-prod.deb'
+    install_pkg 'powershell' 'pwsh'
+}
+
+check_task 'powershellがインストールされていることの確認' 'type pwsh'
+try_task 'powershellのインストール' 'powershell_install'
+
+
 # ----------
 # Node.js
 # ----------
