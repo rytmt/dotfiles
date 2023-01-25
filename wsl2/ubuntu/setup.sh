@@ -745,6 +745,7 @@ try_task 'dockerの起動' 'service docker start'
 powershell_install(){
     fdl "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
     try_task 'Microsoftのリポジトリを登録' 'dpkg -i packages-microsoft-prod.deb'
+    try_task 'apt updateの実行' 'apt update'
     install_pkg 'powershell' 'pwsh'
 }
 
