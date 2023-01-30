@@ -65,7 +65,7 @@ cnoremap <C-e> <End>
 " Display
 " -------
 set background=dark
-colorscheme desert
+colorscheme murphy
 syntax on
 set number
 set title
