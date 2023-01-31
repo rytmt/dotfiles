@@ -23,7 +23,7 @@ ATTENDEE_OPT="$(grep -E -A 2 '^ATTENDEE;ROLE=OPT' "${ICAL}" | grep -E -v '^ATTEN
 
 ROOM="$(grep -E '^LOCATION' "${ICAL}" | awk -F ':' '{ print $NF }' | tr -d '\r')"
 
-DESCRIPTION="$(cat "${ICAL}" | awk '/^DESCRIPTION;LANGUAGE=/,/^RRULE:FREQ/ {print $0}' | sed -r -e 's/\r//g' -e 's/DESCRIPTION;LANGUAGE=.*://' | grep -v '^RRULE:FREQ')"
+DESCRIPTION="$(cat "${ICAL}" | awk '/^DESCRIPTION;LANGUAGE=/,/^UID:/ {print $0}' | sed -r -e 's/\r//g' -e 's/DESCRIPTION;LANGUAGE=.*://' | grep -v -e '^UID:' -e 'RRULE:FREQ')"
 
 echo
 echo "    作成者: ${ORGANIZER_NAME} (${ORGANIZER_ADDR})"
