@@ -6,7 +6,7 @@
     - [1.2.1. ファイル構成](#121-ファイル構成)
     - [1.2.2. 手動作成ファイルの作成手順](#122-手動作成ファイルの作成手順)
       - [1.2.2.1. ~/.mutt/account](#1221-muttaccount)
-      - [1.2.2.2. ~/.mutt/signature_default, internal](#1222-muttsignature_default-internal)
+      - [1.2.2.2. ~/.mutt/signature\_default, internal](#1222-muttsignature_default-internal)
       - [1.2.2.3. ~/.fetchmailrc](#1223-fetchmailrc)
       - [1.2.2.4. ~/.mailfilter](#1224-mailfilter)
     - [1.2.3. メールフィルタのテスト](#123-メールフィルタのテスト)
@@ -148,7 +148,7 @@ folder4 = "$MAILDIR/folder4"
 # Filtering Rules
 if (/^To:.*localpart@domain.local.*/:h) # if 文は必ずこの形式で記載する必要がある。一行では書けない。
 {
-    if (/^From:.*localpart@domain.local.*/:h)
+    if (/^From:.*localpart@domain.local.*/:h) # ヘッダにマッチさせる場合は :h で本文の場合は :b
     {
         if (/^Subject:.*日本語での振り分けも可能.*/:h)
         {
