@@ -101,6 +101,7 @@ alias less='less -i -N -S -M -R'
 alias python='python3'
 alias b='cd ..'
 alias u='cd -'
+alias rmzid='rm *:Zone.Identifier'
 
 
 # --------------------------------------------------
