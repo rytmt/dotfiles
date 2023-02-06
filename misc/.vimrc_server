@@ -65,7 +65,7 @@ cnoremap <C-e> <End>
 " Display
 " -------
 set background=dark
-colorscheme murphy
+colorscheme darkblue
 syntax on
 set number
 set title
@@ -84,4 +84,4 @@ highlight NonText ctermbg=none
 highlight LineNr ctermbg=none
 highlight Folded ctermbg=none
 highlight EndOfBuffer ctermbg=none
-highlight CursorLine cterm=NONE ctermbg=DarkGray
+highlight CursorLine cterm=NONE ctermbg=238
