@@ -634,6 +634,8 @@ check_task 'プラグインチェック (vim-polyglot)' "test -d ${vdir}/pack/pl
 try_task -u 'プラグインインストール (vim-polyglot)' "git clone --depth 1 https://github.com/sheerun/vim-polyglot ${vdir}/pack/plugins/start/vim-polyglot"
 check_task 'プラグインチェック (vim-airline)' "test -d ${vdir}/pack/plugins/start/vim-airline"
 try_task -u 'プラグインインストール (vim-airline)' "git clone --depth 1 https://github.com/vim-airline/vim-airline.git ${vdir}/pack/plugins/start/vim-airline"
+check_task 'プラグインチェック (indentLine)' "test -d ${vdir}/pack/plugins/start/indentLine"
+try_task -u 'プラグインインストール (indentLine)' "git clone --depth 1 https://github.com/Yggdroot/indentLine.git  ${vdir}/pack/plugins/start/indentLine"
 
 # シンボリックリンク作成
 ln_s "${dotfiles}/.vimrc" "${hdir}/.vimrc"
