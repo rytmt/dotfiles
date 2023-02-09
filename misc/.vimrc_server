@@ -65,12 +65,12 @@ cnoremap <C-e> <End>
 " Display
 " -------
 set background=dark
-colorscheme darkblue
+colorscheme desert
 syntax on
 set number
 set title
 set showcmd
-set cmdheight=2
+set cmdheight=1
 set ruler
 set showmatch
 set list
@@ -78,6 +78,7 @@ set wrap
 set cursorline
 set matchtime=3
 set laststatus=2
+set statusline=%y
 set visualbell t_vb=
 highlight Normal ctermbg=none
 highlight NonText ctermbg=none
