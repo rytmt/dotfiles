@@ -176,6 +176,7 @@ vdir="${hdir}/.vim" # vim設定ファイル配置先ディレクトリ
 bdir="${hdir}/bin" # バイナリ配置先ディレクトリ
 sdir="${hdir}/.ssh/conf.d" # ssh用設定ファイル配置先ディレクトリ
 lfile="${hdir}/log/${SCRIPT_NAME}_${DATETIME}.log" # ログファイルフルパス
+usrcron="/var/spool/cron/crontabs/${usrname}" #ユーザのcronファイル
 
 # セットアップ対象ユーザとしてログファイルを作成しておく
 [ -d ${hdir}/log ] || sudo -u "${usrname}" mkdir "${hdir}/log"
@@ -581,6 +582,10 @@ try_task '/run/screen の権限変更' 'chmod 777 /run/screen'
 
 # vbell用スクリプトのシンボリックリンク作成
 ln_s "${dotfiles}/bin/vbell_beyond_screen.sh" "${bdir}/vbell_beyond_screen.sh"
+
+# ログ削除コマンドのcron登録
+check_task "ログ削除コマンドの登録確認" "grep -Fq \"${hdir}/log/screen\" ${usrcron}"
+try_task "ログ削除コマンドの登録" "echo \"* 4 * * * find ${hdir}/log/screen -type f -mtime +30 | while read oldfile; do rm -f \"\\\${oldfile}\" >/dev/null 2>&1; done\" >>${usrcron}"
 
 
 # ----------

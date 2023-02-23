@@ -264,6 +264,12 @@ add-zsh-hook chpwd chpwd_screen_title
 add-zsh-hook preexec preexec_screen_title
 add-zsh-hook precmd precmd_screen_title
 
+SCREEN_LOGDIR="${HOME}/log/screen"
+screen_logdump(){
+    current_log="$(ls -rt1 ${SCREEN_LOGDIR} | tail -n 1)"
+    cat "${SCREEN_LOGDIR}/${current_log}" > "screen_$(date -Iseconds).log"
+}
+
 
 # for vbell
 screen -X vbell_msg "screen vbell"
