@@ -103,6 +103,7 @@ alias p='python'
 alias b='cd ..'
 alias u='cd -'
 alias rmzid='rm *:Zone.Identifier'
+alias screen='screen -U' # for copy-mode encoding issue
 
 
 # --------------------------------------------------
