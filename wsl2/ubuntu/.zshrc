@@ -309,6 +309,15 @@ dtree (){
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
+# terminal logging
+logstart(){
+    if [ $# -ne 1 ]; then
+        echo 'argument error'
+    else
+        script -fq >(awk '{print strftime("%F %T ") $0}{fflush() }'>>"$1")
+    fi
+}
+
 # misc
 work (){
     work_folder="${HOME}/work/$(date '+%Y%m%d')"
