@@ -1,16 +1,17 @@
 #!/bin/sh
 
-rmzero(){
-    if echo "$1" | grep -qE '^[0-9]+$'; then
-        echo "$1" | grep -Eo '[1-9]+[0-9]*$'
-    fi
-}
-
 sum=0
 while read line; do
 
-    tmp="$(rmzero $line)"
-    sum="$((sum + tmp))"
+    if echo -n "${line}" | grep -Fq '.'; then
+        # float
+        tmp="${line}"
+    else
+        # int
+        tmp="$(echo -n $line | sed 's/^0\+//g')"
+    fi
+
+    sum=$(echo "${sum} + ${tmp}" | bc)
 
 done
 echo "${sum}"
