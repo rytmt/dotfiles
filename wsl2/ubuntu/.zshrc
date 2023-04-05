@@ -250,7 +250,7 @@ set_screen_title(){
     fi
 }
 chpwd_screen_title(){
-    dir_screen_title="$(basename "$(pwd)" | cut -c 1-15)"
+    dir_screen_title="$(basename "$(pwd)" | LANG=C sed 's/[\x80-\xFF]/x/g' | cut -c 1-16)"
     set_screen_title
 }
 preexec_screen_title(){
