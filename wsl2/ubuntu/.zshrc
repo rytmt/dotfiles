@@ -324,6 +324,9 @@ work (){
     [ -d "${work_folder}" ] || mkdir -p "${work_folder}"
     cd "${work_folder}"
 }
+home (){
+    cd "${HOME}"
+}
 
 colors_ansi (){
     for ((i = 0; i < 16; i++)); do
