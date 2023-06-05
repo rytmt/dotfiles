@@ -36,6 +36,7 @@ HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
 #PROMPT="%F{yellow}ubuntu@wsl2%(!.#.$)%f "
 #RPROMPT='[%B%F{blue}%~%f%b] (%?)'
 export GOPATH="$HOME/go"
+PATH=${PATH}:${GOPATH}/bin
 #precmd (){
 #    PS1="$($GOPATH/bin/powerline-go -numeric-exit-codes -shell zsh -theme default -hostname-only-if-ssh -trim-ad-domain -error $?)"
 #}

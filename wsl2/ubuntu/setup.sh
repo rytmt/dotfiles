@@ -487,6 +487,14 @@ else
     try_task -u 'powerline-goバイナリファイルのダウンロード' 'go get -u github.com/justjanne/powerline-go'
 fi
 
+check_task -u 'pupバイナリファイルがあることの確認' "test -f ${hdir}/go/bin/pup"
+# プロキシ指定がある場合
+if [ -n "${prx_url}" ]; then
+    try_task -u 'powerline-goバイナリファイルのダウンロード' "http_proxy=${prx_url} go get -u github.com/ericchiang/pup"
+else
+    try_task -u 'powerline-goバイナリファイルのダウンロード' 'go get -u github.com/ericchiang/pup'
+fi
+
 # dircolors のシンボリックリンク作成
 ln_s  "${dotfiles}/.dircolors_gruvbox" "${hdir}/.dircolors_gruvbox"
 
