@@ -478,6 +478,7 @@ mkd -u 'バイナリ置き場' "${bdir}"
 # スクリプトのシンボリックリンク作成
 ln_s "${dotfiles}/bin/rsbk.sh" "${bdir}/rsbk.sh"
 ln_s "${dotfiles}/bin/sum.sh" "${bdir}/sum.sh"
+ln_s "${dotfiles}/bin/timer.sh" "${bdir}/timer.sh"
 
 check_task -u 'powerline-goバイナリファイルがあることの確認' "test -f ${hdir}/go/bin/powerline-go"
 # プロキシ指定がある場合
