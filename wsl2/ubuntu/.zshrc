@@ -278,37 +278,47 @@ screen_logdump(){
 #screen -X vbell_msg "screen vbell"
 #alias vbell='screen -X vbell_msg'
 
-# for vbell in screen
-getppid(){
-    targetpid="$1"
-    cat "/proc/${targetpid}/status" | grep '^PPid:' | awk '{print $2}'
-}
-getppname(){
-    targetpid="$1"
-    targetppid="$(getppid ${targetpid})"
-    cat "/proc/${targetppid}/status" | grep '^Name' | awk '{print $2}'
-}
-getcpname(){
-    cat /proc/$$/cmdline | rev | cut -d '/' -f 1 | rev
-}
-vbell_cpid="$$"
-vbell(){
-    targetname="$(getcpname)"
 
-    ppid="$(getppid ${vbell_cpid})"
-    ppname="$(getppname ${vbell_cpid})"
-    if [ "${ppname}" = "${targetname}" ]; then
-        ptsname="$(readlink /proc/${ppid}/fd/1)"
-        echo -en "\a" > ${ptsname}
-        return 0
-    elif [ ${ppid} -eq 1 ]; then
-        echo "Can't find ${targetname} in parent processes"
-        return 1
-    else
-        vbell_cpid="${ppid}"
-        vbell
-    fi
+# for vbell in screen
+vbell(){
+    ps j | awk '{if($10 ~ /^screen/){print $5}}' | while read pts; do
+        echo -en '\a' > "/dev/${pts}"
+    done
 }
+
+# for vbell in screen (old)
+#getppid(){
+#    targetpid="$1"
+#    cat "/proc/${targetpid}/status" | grep '^PPid:' | awk '{print $2}'
+#}
+#getppname(){
+#    targetpid="$1"
+#    targetppid="$(getppid ${targetpid})"
+#    cat "/proc/${targetppid}/status" | grep '^Name' | awk '{print $2}'
+#}
+#getcpname(){
+#    cat /proc/$$/cmdline | rev | cut -d '/' -f 1 | rev
+#}
+#vbell_cpid="$$"
+#vbell(){
+#    #targetname="$(getcpname)"
+#    targetname="screen"
+#
+#    ppid="$(getppid ${vbell_cpid})"
+#    ppname="$(getppname ${vbell_cpid})"
+#    if [ "${ppname}" = "${targetname}" ]; then
+#        echo $ppid
+#        echo $ppname
+#        echo -en "\a" > /proc/${ppid}/fd/1
+#        return 0
+#    elif [ ${ppid} -eq 1 ]; then
+#        echo "Can't find ${targetname} in parent processes"
+#        return 1
+#    else
+#        vbell_cpid="${ppid}"
+#        vbell
+#    fi
+#}
 
 # source-highlight
 fcheck "/usr/share/source-highlight/src-hilite-lesspipe.sh"
