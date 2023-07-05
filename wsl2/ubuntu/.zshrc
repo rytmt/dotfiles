@@ -467,6 +467,17 @@ keyhac_git2local (){
         echo "copy failed"
     fi
 }
+open (){
+    cmd.exe /c start "$1" >/dev/null 2>&1
+}
+ghopen (){
+    baseurl="$(git remote -v | grep -F '(fetch)' | grep -Eo 'https://.*\.git' | sed 's|\.git$|/|')"
+    reponame="$(echo ${baseurl} | awk -F '/' '{print $(NF-1)}')"
+    pathstr="$(pwd | grep -Eo "${reponame}/.*" | sed "s|${reponame}/||")"
+    branch="$(git branch --contains | cut -d ' ' -f 2)"
+    fullpath="${baseurl}tree/${branch}/${pathstr}"
+    open "${fullpath}"
+}
 
 # for ranger file manager
 disable r
