@@ -96,13 +96,14 @@ folder-hook . push <last-entry>
 set sidebar_visible = yes
 set sidebar_short_path = yes
 set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
+set mail_check_stats # new option
 set sidebar_new_mail_only = yes
 set sidebar_width = 50
-set sidebar_short_path = yes
 set sidebar_delim_chars = "/"
 set sidebar_folder_indent = yes
 set sidebar_indent_string = "|---"
-set sidebar_sort_method = 'reverse-alpha'
+#set sidebar_sort_method = 'reverse-alpha' # obsolated
+set sidebar_sort_method = 'name'
 set sidebar_next_new_wrap = yes
 set sidebar_divider_char = "|"
 bind index,pager \Cp sidebar-prev-new
