@@ -7,6 +7,7 @@
 - エクスプローラで拡張子を表示するようにする
 - タスクスケジューラから邪魔なものを消す
 - スタートアップから不要なものを消す
+- エクスプローラの右クリックを従来のものに戻す
 
 ## フォントインストール
 - https://github.com/yuru7/HackGen/releases/latest
@@ -16,10 +17,11 @@
 ## ソフトウェアインストール
 ### 特に設定のいらないもの
 - 7zip
-- ctrl2cap
+- ctrl2cap (管理者権限で .\ctrl2cap.exe /install を実行する)
 - vlc
 - honeyview
 - adobe acrobat reader
+- winmerge
 
 ### 設定が必要なもの
 #### google日本語入力
@@ -29,7 +31,7 @@
 
 #### google chrome
 1. 設定同期 (4114)
-2. ブックマーク等は同期しないようにする
+2. ブックマークや履歴等は同期しないようにする
 
 #### keyhac
 1. keyhac のインストール
@@ -46,13 +48,30 @@
 #### tascher
 1. GUI から適当に設定
 
-#### wsl2
-1. wsl2 の有効化、ディストリビューションのインストール (やり方は都度調べる)
+#### CraftLaunch
+1. 適当に設定
+
+#### wsl
+1. microsoft store からインストール
+   1. 以下で検索
+      1. Windows Subsystem for Linux
+      2. Ubuntu
 
 #### windows terminal
 1. microsoft store からインストール
+   1. 既定のプロファイルを Ubuntu に変更
+   2. ubuntu のプロファイルを変更
+      1. 配色: GruvboxMaterialMediumDark
+      2. フォントフェイス: HackGen Console NF
+      3. フォントサイズ: 12
 2. ~/dotfiles/win/10/winterm_colorthemes.json を windows terminal の設定(.json)に追記
-3. GUI から適当に設定
+
+#### Ubuntu
+1. dotfiles をクローン
+   1. git clone 'https://github.com/rytmt/dotfiles.git'
+2. root で setup.sh を実行
+   1. sudo su -
+   2. bash /path/to/script/setup.sh <セットアップ対象アカウント名> 'http://<プロキシ>'
 
 #### vscode
 1. インストール

@@ -480,21 +480,24 @@ ln_s "${dotfiles}/bin/rsbk.sh" "${bdir}/rsbk.sh"
 ln_s "${dotfiles}/bin/sum.sh" "${bdir}/sum.sh"
 ln_s "${dotfiles}/bin/timer.sh" "${bdir}/timer.sh"
 
-check_task -u 'powerline-goバイナリファイルがあることの確認' "test -f ${hdir}/go/bin/powerline-go"
-# プロキシ指定がある場合
-if [ -n "${prx_url}" ]; then
-    try_task -u 'powerline-goバイナリファイルのダウンロード' "http_proxy=${prx_url} go get -u github.com/justjanne/powerline-go"
-else
-    try_task -u 'powerline-goバイナリファイルのダウンロード' 'go get -u github.com/justjanne/powerline-go'
-fi
+# -----
+# go get が正常動作しないのでコメントアウト
+# -----
+#check_task -u 'powerline-goバイナリファイルがあることの確認' "test -f ${hdir}/go/bin/powerline-go"
+## プロキシ指定がある場合
+#if [ -n "${prx_url}" ]; then
+#    try_task -u 'powerline-goバイナリファイルのダウンロード' "http_proxy=${prx_url} go get -u github.com/justjanne/powerline-go"
+#else
+#    try_task -u 'powerline-goバイナリファイルのダウンロード' 'go get -u github.com/justjanne/powerline-go'
+#fi
 
-check_task -u 'pupバイナリファイルがあることの確認' "test -f ${hdir}/go/bin/pup"
-# プロキシ指定がある場合
-if [ -n "${prx_url}" ]; then
-    try_task -u 'pupバイナリファイルのダウンロード' "http_proxy=${prx_url} go get -u github.com/ericchiang/pup"
-else
-    try_task -u 'pupバイナリファイルのダウンロード' 'go get -u github.com/ericchiang/pup'
-fi
+#check_task -u 'pupバイナリファイルがあることの確認' "test -f ${hdir}/go/bin/pup"
+## プロキシ指定がある場合
+#if [ -n "${prx_url}" ]; then
+#    try_task -u 'pupバイナリファイルのダウンロード' "http_proxy=${prx_url} go get -u github.com/ericchiang/pup"
+#else
+#    try_task -u 'pupバイナリファイルのダウンロード' 'go get -u github.com/ericchiang/pup'
+#fi
 
 # dircolors のシンボリックリンク作成
 ln_s  "${dotfiles}/.dircolors_gruvbox" "${hdir}/.dircolors_gruvbox"

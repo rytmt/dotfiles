@@ -440,6 +440,11 @@ keyhac_dotfiles="${HOME}/dotfiles/win/10/config.py"
 keyhac_edit (){
     code "${keyhac_config}"
 }
+keyhac_show (){
+    echo "dump config file (${keyhac_config})"
+    echo '-----'
+    cat "${keyhac_config}"
+}
 keyhac_diff (){
     if [ -f "${keyhac_config}" -a -f "${keyhac_dotfiles}" ]; then
         diff -u --color=always "${keyhac_config}" "${keyhac_dotfiles}"
