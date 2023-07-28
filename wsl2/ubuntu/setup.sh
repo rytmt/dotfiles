@@ -561,7 +561,7 @@ git_clone "${GIT_REPO_DOT}" # dotfiles
 
 # dotfiles のリポジトリに対してユーザ名とメールアドレスを設定する
 check_task 'dotfilesリポジトリ ユーザ設定確認' "grep -F 'name = rytmt' ${hdir}/dotfiles/.git/config"
-try_task 'dotfilesリポジトリ ユーザ設定の実行' "echo '[user]\n        name = rytmt\n        email = rytmt@nxdomain.local' >>${hdir}/dotfiles/.git/config"
+try_task 'dotfilesリポジトリ ユーザ設定の実行' "echo -e '[user]\n        name = rytmt\n        email = rytmt@nxdomain.local' >>${hdir}/dotfiles/.git/config"
 
 
 # ----------
