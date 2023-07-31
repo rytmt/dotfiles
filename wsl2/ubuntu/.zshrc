@@ -248,6 +248,7 @@ set_screen_title(){
             command_screen_title="(${command_screen_title})"
         fi
         screen -X title "${dir_screen_title} ${command_screen_title}"
+        echo -ne "\e]2;${dir_screen_title} ${command_screen_title}\007"
     fi
 }
 chpwd_screen_title(){
