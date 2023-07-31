@@ -5,14 +5,18 @@
 - タスクバーから邪魔なものを消す
 - ダークモードに設定
 - エクスプローラで拡張子を表示するようにする
+- 不要なプログラムをアインストールする
 - タスクスケジューラから邪魔なものを消す
 - スタートアップから不要なものを消す
+- サービス一覧から不要なものを停止+スタートアップ無効化
 - エクスプローラの右クリックを従来のものに戻す
 
 ## フォントインストール
 - https://github.com/yuru7/HackGen/releases/latest
   - windows terminal には HackGenNerd Console を適用 (exaのアイコン対応)
   - vscode には HackGen を適用 (設定同期で自動適用されるはず)
+  - 表示名が微妙に変わっているかも
+    - win10 の場合は HackGenNerd Console だった
 
 ## ソフトウェアインストール
 ### 特に設定のいらないもの
@@ -22,6 +26,7 @@
 - honeyview
 - adobe acrobat reader
 - winmerge
+- winshot
 
 ### 設定が必要なもの
 #### google日本語入力
@@ -32,6 +37,7 @@
 #### google chrome
 1. 設定同期 (4114)
 2. ブックマークや履歴等は同期しないようにする
+3. ブックマークの手動インポート
 
 #### keyhac
 1. keyhac のインストール
@@ -56,6 +62,7 @@
    1. 以下で検索
       1. Windows Subsystem for Linux
       2. Ubuntu
+2. %UserProfile% 配下に win/11/.wslconfig をコピー
 
 #### windows terminal
 1. microsoft store からインストール
@@ -72,10 +79,13 @@
 2. root で setup.sh を実行
    1. sudo su -
    2. bash /path/to/script/setup.sh <セットアップ対象アカウント名> 'http://<プロキシ>'
+3. ~/.zsh_history を引っ越す
+4. その他は wsl2/ubuntu/README.md を参照
 
 #### vscode
 1. インストール
 2. 設定同期 (rytmt@outlook.jp)
+3. wsl からの起動が「Installing VS Code Server for x64」で進まない場合は、vscode の左下のアイコンから wsl を選択してみる
 
 #### old
 ##### autohotkey
