@@ -57,7 +57,7 @@ autocmd InsertLeave * set nopaste
 " --------------------------------------------------
 syntax on
 set number
-set title
+set notitle
 set showcmd
 set cmdheight=2
 set ruler
