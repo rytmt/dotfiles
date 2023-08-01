@@ -431,7 +431,7 @@ mountrc="${mountrc}service docker start\n"
 mountrc="${mountrc}[ -d /run/screen ] || mkdir /run/screen\n"
 mountrc="${mountrc}chmod 777 /run/screen\n"
 check_task '/sbin/mount.rc が存在することの確認' 'test -f /sbin/mount.rc'
-try_task '/sbin/mount.rc の作成' "echo \"${mountrc}\" >/sbin/mount.rc && chmod +x /sbin/mount.rc"
+try_task '/sbin/mount.rc の作成' "echo -e \"${mountrc}\" >/sbin/mount.rc && chmod +x /sbin/mount.rc"
 
 
 # ----------
@@ -514,7 +514,7 @@ mkd -u 'SSH設定ファイル置き場' "${sdir}"
 ln_s "${dotfiles}/screen_ssh" "${sdir}/screen_ssh"
 
 check_task -u 'Include設定があることの確認' "grep 'Include conf.d' ${hdir}/.ssh/config"
-try_task -u 'Include設定の追加' "echo 'Host *\n    Include conf.d/*\n' >> ${hdir}/.ssh/config"
+try_task -u 'Include設定の追加' "echo -e 'Host *\n    Include conf.d/*\n' >> ${hdir}/.ssh/config"
 
 # ----------
 # wget
@@ -524,7 +524,7 @@ echo_ptask 'wgetセットアップ'
 # プロキシ指定がある場合
 if [ -n "${prx_url}" ]; then
     check_task -u 'プロキシ設定があることの確認' "grep '^http_proxy' ${hdir}/.wgetrc"
-    try_task -u "プロキシ設定の追加" "echo \"http_proxy=${prx_url}\nhttps_proxy=${prx_url}\" >> ${hdir}/.wgetrc"
+    try_task -u "プロキシ設定の追加" "echo -e \"http_proxy=${prx_url}\nhttps_proxy=${prx_url}\" >> ${hdir}/.wgetrc"
 fi
 
 # ----------
@@ -573,7 +573,7 @@ if [ -n "${prx_url}" ]; then
     if [ ! -f ${hdir}/.pip/pip.conf ]; then
         try_task -u '~/.pipフォルダの作成' "mkdir ${hdir}/.pip"
         try_task -u '~/.pip/pip.confファイルの作成' "touch ${hdir}/.pip/pip.conf"
-        try_task -u '~/.pip/pip.confファイルへの設定' "echo '[global]\nproxy = ${prx_url}' >${hdir}/.pip/pip.conf"
+        try_task -u '~/.pip/pip.confファイルへの設定' "echo -e '[global]\nproxy = ${prx_url}' >${hdir}/.pip/pip.conf"
     fi
 fi
 
