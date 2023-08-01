@@ -71,6 +71,13 @@ def configure(keymap):
         keymap_global[ "C-4" ] = "W-4"
         keymap_global[ "C-5" ] = "W-5"
 
+        # アクティブ化で使えなくなったキーの有効化
+        keymap_global[ "W-1" ] = "C-1"
+        keymap_global[ "W-2" ] = "C-2"
+        keymap_global[ "W-3" ] = "C-3"
+        keymap_global[ "W-4" ] = "C-4"
+        keymap_global[ "W-5" ] = "C-5"
+
         # ウインドウの移動
         keymap_global[ "C-8" ] = "W-S-Left"
         keymap_global[ "C-9" ] = "W-S-Right"
@@ -97,4 +104,5 @@ def configure(keymap):
 
         keymap_chrome["C-N"] = "C-Tab"
         keymap_chrome["C-P"] = "C-S-Tab"
+
 
