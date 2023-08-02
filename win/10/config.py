@@ -1,6 +1,7 @@
-﻿import sys
-import os
-import datetime
+﻿#import sys
+#import os
+#import datetime
+import fnmatch
 
 import pyauto
 from keyhac import *
@@ -49,6 +50,7 @@ def configure(keymap):
         for i in range(10):
             input_up_command()
 
+
     # --------------------------------------------------------------------
     # グローバルキーマップ
     if 1:
@@ -65,11 +67,11 @@ def configure(keymap):
         keymap_global["A-K"] = lambda: up_multi()
 
         # ウインドウのアクティブ化
-        keymap_global["C-1"] = "W-1"
-        keymap_global["C-2"] = "W-2"
-        keymap_global["C-3"] = "W-3"
-        keymap_global["C-4"] = "W-4"
-        keymap_global["C-5"] = "W-5"
+#        keymap_global["C-1"] = "W-1"
+#        keymap_global["C-2"] = "W-2"
+#        keymap_global["C-3"] = "W-3"
+#        keymap_global["C-4"] = "W-4"
+#        keymap_global["C-5"] = "W-5"
 
         # アクティブ化で使えなくなったキーの有効化
 #        keymap_global[ "W-1" ] = "C-1"
@@ -105,4 +107,53 @@ def configure(keymap):
         keymap_chrome["C-N"] = "C-Tab"
         keymap_chrome["C-P"] = "C-S-Tab"
 
+    # ウインドウアクティブ化
+    if 1:
+        # 関数定義1 (ウィンドウを探す)
+        def find_window(exe_name, class_name=None):
+            found = [None]
+            def _callback(wnd, arg):
+                if not wnd.isVisible() : return True
+                if not fnmatch.fnmatch(wnd.getProcessName(), exe_name) : return True
+                if class_name and not fnmatch.fnmatch(wnd.getClassName(), class_name) : return True
+                found[0] = wnd.getLastActivePopup()
+                return False
+            pyauto.Window.enum(_callback, None)
+            return found[0]
 
+        # 関数定義2 (最大10回アクティブ化にトライする)
+        def activate_window(wnd):
+            if wnd.isMinimized():
+                wnd.restore()
+            trial = 0
+            while trial < 10:
+                trial += 1
+                try:
+                    wnd.setForeground()
+                    if pyauto.Window.getForeground() == wnd:
+                        wnd.setForeground(True)
+                        return True
+                except:
+                    return False
+            return False
+
+        # 関数定義3 (クロージャ生成)
+        def pseudo_cuteExec(exe_name, class_name, exe_path):
+            def _executer():
+                found_wnd = find_window(exe_name, class_name)
+                if not found_wnd:
+                    pass
+                else:
+                    if found_wnd != keymap.getWindow():
+                        if activate_window(found_wnd):
+                            return None
+            return _executer
+
+        # キー割当
+        for key, params in {
+            "C-1": ("chrome.exe", None, None),
+            "C-2": ("msedge.exe", None, None),
+            "C-3": ("WindowsTerminal.exe", None, None),
+            "C-4": ("Code.exe", None, None),
+        }.items():
+            keymap_global[key] = pseudo_cuteExec(*params)
