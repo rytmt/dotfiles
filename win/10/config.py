@@ -65,22 +65,22 @@ def configure(keymap):
         keymap_global["A-K"] = lambda: up_multi()
 
         # ウインドウのアクティブ化
-        keymap_global[ "C-1" ] = "W-1"
-        keymap_global[ "C-2" ] = "W-2"
-        keymap_global[ "C-3" ] = "W-3"
-        keymap_global[ "C-4" ] = "W-4"
-        keymap_global[ "C-5" ] = "W-5"
+        keymap_global["C-1"] = "W-1"
+        keymap_global["C-2"] = "W-2"
+        keymap_global["C-3"] = "W-3"
+        keymap_global["C-4"] = "W-4"
+        keymap_global["C-5"] = "W-5"
 
         # アクティブ化で使えなくなったキーの有効化
-        keymap_global[ "W-1" ] = "C-1"
-        keymap_global[ "W-2" ] = "C-2"
-        keymap_global[ "W-3" ] = "C-3"
-        keymap_global[ "W-4" ] = "C-4"
-        keymap_global[ "W-5" ] = "C-5"
+#        keymap_global[ "W-1" ] = "C-1"
+#        keymap_global[ "W-2" ] = "C-2"
+#        keymap_global[ "W-3" ] = "C-3"
+#        keymap_global[ "W-4" ] = "C-4"
+#        keymap_global[ "W-5" ] = "C-5"
 
         # ウインドウの移動
-        keymap_global[ "C-8" ] = "W-S-Left"
-        keymap_global[ "C-9" ] = "W-S-Right"
+        keymap_global["C-8"] = "W-S-Left"
+        keymap_global["C-9"] = "W-S-Right"
 
         # IME Off and Escape
         keymap_global["C-Colon"] = lambda: ime_off_esc()
