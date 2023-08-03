@@ -43,12 +43,20 @@ def configure(keymap):
     # カーソル移動用
     input_down_command = keymap.InputKeyCommand("Down")
     input_up_command = keymap.InputKeyCommand("Up")
+    input_left_command = keymap.InputKeyCommand("Left")
+    input_right_command = keymap.InputKeyCommand("Right")
     def down_multi():
         for i in range(10):
             input_down_command()
     def up_multi():
         for i in range(10):
             input_up_command()
+    def left_multi():
+        for i in range(10):
+            input_left_command()
+    def right_multi():
+        for i in range(10):
+            input_right_command()
 
 
     # --------------------------------------------------------------------
@@ -65,6 +73,8 @@ def configure(keymap):
         keymap_global["C-E"] = "End"
         keymap_global["A-J"] = lambda: down_multi()
         keymap_global["A-K"] = lambda: up_multi()
+        keymap_global["A-H"] = lambda: left_multi()
+        keymap_global["A-L"] = lambda: right_multi()
 
         # ウインドウのアクティブ化
 #        keymap_global["C-1"] = "W-1"
