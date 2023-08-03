@@ -131,8 +131,15 @@ def configure(keymap):
             pyauto.Window.enum(_callback, None)
             return found[0]
 
-        # 関数定義2 (最大10回アクティブ化にトライする)
+        # 関数定義2 (アクティブ化 or 最小化)
         def activate_window(wnd):
+            # ウインドウがフォーカスされている場合は最小化
+            if pyauto.Window.getFocus().getProcessName() == wnd.getProcessName():
+                print("hoge")
+                wnd.minimize()
+                return True
+
+            # フォーカスされていない場合はアクティブ化
             if wnd.isMinimized():
                 wnd.restore()
             trial = 0
@@ -154,9 +161,8 @@ def configure(keymap):
                 if not found_wnd:
                     pass
                 else:
-                    if found_wnd != keymap.getWindow():
-                        if activate_window(found_wnd):
-                            return None
+                    if activate_window(found_wnd):
+                        return None
             return _executer
 
         # キー割当
