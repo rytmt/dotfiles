@@ -476,9 +476,9 @@ echo_ptask '基本設定'
 mkd -u 'バイナリ置き場' "${bdir}"
 
 # スクリプトのシンボリックリンク作成
-ln_s "${dotfiles}/bin/rsbk.sh" "${bdir}/rsbk.sh"
-ln_s "${dotfiles}/bin/sum.sh" "${bdir}/sum.sh"
-ln_s "${dotfiles}/bin/timer.sh" "${bdir}/timer.sh"
+ls -1 "${dotfiles}/bin" | while read fname; do
+    ln_s "${dotfiles}/bin/${fname}" "${bdir}/${fname}"
+done
 
 # -----
 # go get が正常動作しないのでコメントアウト
@@ -675,9 +675,9 @@ mkd -u 'キャッシュ' "${mdir}/mcache"
 
 # シンボリックリンク作成
 ln_s "${dotfiles}/.muttrc" "${hdir}/.muttrc"
-ln_s "${dotfiles}/bin/mf2md.sh" "${bdir}/mf2md.sh"
-ln_s "${dotfiles}/bin/re-filter.sh" "${bdir}/re-filter.sh"
-ln_s "${dotfiles}/bin/ical2txt.sh" "${bdir}/ical2txt.sh"
+#ln_s "${dotfiles}/bin/mf2md.sh" "${bdir}/mf2md.sh"
+#ln_s "${dotfiles}/bin/re-filter.sh" "${bdir}/re-filter.sh"
+#ln_s "${dotfiles}/bin/ical2txt.sh" "${bdir}/ical2txt.sh"
 
 # カラースキーマインストール
 #git_clone "${GIT_REPO_NEOMUTT_SOLARIZED}" "${mdir}"
