@@ -33,9 +33,9 @@ bindkey -m "^[OH" stuff 0
 bindkey -m "^[OF" stuff $
 bindkey -m "^[[H" stuff 0
 bindkey -m "^[[F" stuff $
-bindkey -m ' ' eval 'stuff \040' 'writebuf' 'exec sh -c "cat /tmp/screen-exchange | clip.exe"'
-bindkey -m Y   eval 'stuff Y'    'writebuf' 'exec sh -c "cat /tmp/screen-exchange | clip.exe"'
-bindkey -m W   eval 'stuff W'    'writebuf' 'exec sh -c "cat /tmp/screen-exchange | clip.exe"'
+bindkey -m ' ' eval 'stuff \040' 'writebuf' 'exec sh -c "cat /tmp/screen-exchange | iconv -c -t sjis | clip.exe"'
+bindkey -m Y   eval 'stuff Y'    'writebuf' 'exec sh -c "cat /tmp/screen-exchange | iconv -c -t sjis | clip.exe"'
+bindkey -m W   eval 'stuff W'    'writebuf' 'exec sh -c "cat /tmp/screen-exchange | iconv -c -t sjis | clip.exe"'
 
 # log
 #logfile "/var/log/screen/screen-%Y%m%d-%n.log"
