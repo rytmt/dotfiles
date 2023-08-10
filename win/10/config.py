@@ -82,6 +82,7 @@ def configure(keymap):
 #        keymap_global["C-3"] = "W-3"
 #        keymap_global["C-4"] = "W-4"
 #        keymap_global["C-5"] = "W-5"
+        keymap_global["C-A-1"] = "W-6" # for explorer.exe
 
         # アクティブ化で使えなくなったキーの有効化
 #        keymap_global[ "W-1" ] = "C-1"
@@ -135,7 +136,6 @@ def configure(keymap):
         def activate_window(wnd):
             # ウインドウがフォーカスされている場合は最小化
             if pyauto.Window.getFocus().getProcessName() == wnd.getProcessName():
-                print("hoge")
                 wnd.minimize()
                 return True
 
