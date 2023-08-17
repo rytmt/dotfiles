@@ -739,15 +739,28 @@ docker_install(){
 check_task 'dockerがインストールされていることの確認' 'type docker'
 try_task 'dockerのインストール' 'docker_install'
 
-# プロキシ指定がある場合
+# プロキシ指定がある場合 (old)
+#if [ -n "${prx_url}" ]; then
+#    proxy_setting="$(cat <<EOS
+#export http_proxy='${prx_url}'
+#export https_proxy='${prx_url}'
+#EOS
+#    )"
+#    check_task 'dockerプロキシ設定が存在することの確認' "grep -Eq '^export https?_proxy' /etc/default/docker"
+#    try_task 'dockerプロキシ設定' "echo \"${proxy_setting}\" >> /etc/default/docker"
+#fi
+# プロキシ指定がある場合 (systemd管理の場合)
 if [ -n "${prx_url}" ]; then
     proxy_setting="$(cat <<EOS
-export http_proxy='${prx_url}'
-export https_proxy='${prx_url}'
+[Service]
+Environment=\"HTTP_PROXY=${prx_url}/\"
+Environment=\"HTTPS_PROXY=${prx_url}/\"
 EOS
     )"
-    check_task 'dockerプロキシ設定が存在することの確認' "grep -Eq '^export https?_proxy' /etc/default/docker"
-    try_task 'dockerプロキシ設定' "echo \"${proxy_setting}\" >> /etc/default/docker"
+
+    mkd 'dockerの設定' '/etc/systemd/system/docker.service.d'
+    check_task 'dockerプロキシ設定が存在することの確認' "grep -Fq 'HTTP_PROXY' /etc/systemd/system/docker.service.d/http-proxy.conf"
+    try_task 'dockerプロキシ設定' "echo \"${proxy_setting}\" > /etc/systemd/system/docker.service.d/http-proxy.conf"
 fi
 
 try_task "dockerグループへの${usrname}ユーザの追加" "usermod -aG docker ${usrname}"
