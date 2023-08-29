@@ -106,6 +106,7 @@ alias b='cd ..'
 alias u='cd -'
 alias rmz='rm *:Zone.Identifier'
 alias screen='screen -U' # for copy-mode encoding issue
+alias fp='readlink -f'
 
 
 # --------------------------------------------------
