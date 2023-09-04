@@ -395,6 +395,8 @@ install_pkg 'dateutils'
 install_pkg 'rename' 'rename'
 install_pkg 'xlsx2csv' 'xlsx2csv'
 install_pkg 'ffmpeg' 'ffmpeg'
+install_pkg 'mkisofs' 'mkisofs'
+install_pkg 'pdftk' 'pdftk'
 
 
 # ----------
