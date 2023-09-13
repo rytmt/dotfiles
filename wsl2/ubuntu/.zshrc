@@ -488,6 +488,7 @@ ghopen (){
 
 # for ranger file manager
 disable r
+# https://github.com/hut/rangerPOWER/blob/master/examples/shell_automatic_cd.sh
 r() {
     temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
     ranger --choosedir="$temp_file" -- "${@:-$PWD}"
