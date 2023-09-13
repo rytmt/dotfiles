@@ -787,6 +787,15 @@ check_task 'powershellがインストールされていることの確認' 'type
 try_task 'powershellのインストール' 'powershell_install'
 
 
+
+# ----------
+# ranger
+# ----------
+mkd -u 'ranger設定ファイル' "${hdir}/.config/ranger"
+ln_s "${dotfiles}/.config/ranger/rc.conf" "${hdir}/.config/ranger/"
+
+
+
 # ----------
 # Node.js
 # ----------
