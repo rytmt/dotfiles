@@ -489,12 +489,20 @@ ghopen (){
 # for ranger file manager
 disable r
 r() {
-    if [ -z "$RANGER_LEVEL" ]; then
-        ranger $@
-    else
-        exit
+    temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
+    ranger --choosedir="$temp_file" -- "${@:-$PWD}"
+    if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
+        cd -- "$chosen_dir"
     fi
+    rm -f -- "$temp_file"
 }
+#r() {
+#    if [ -z "$RANGER_LEVEL" ]; then
+#        ranger $@
+#    else
+#        exit
+#    fi
+#}
 
 # for return code 0
 :
