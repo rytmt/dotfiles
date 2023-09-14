@@ -388,7 +388,7 @@ install_pkg 'fd-find' 'fdfind'
 install_pkg 'python3-pip'
 install_pkg 'pwgen' 'pwgen'
 install_pkg 'ranger' 'ranger'
-install_pkg 'highlight' 'highlight'
+#install_pkg 'highlight' 'highlight'
 install_pkg 'traceroute' 'traceroute'
 install_pkg 'ipcalc' 'ipcalc'
 install_pkg 'dateutils'
@@ -776,6 +776,7 @@ try_task 'dockerの起動' 'service docker start'
 # ----------
 # PowerShell
 # ----------
+echo_ptask 'PowerShellセットアップ'
 # 参考: https://learn.microsoft.com/ja-jp/powershell/scripting/install/install-ubuntu
 powershell_install(){
     fdl "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
@@ -792,8 +793,10 @@ try_task 'powershellのインストール' 'powershell_install'
 # ----------
 # ranger
 # ----------
+echo_ptask 'rangerセットアップ'
 mkd -u 'ranger設定ファイル' "${hdir}/.config/ranger"
 ln_s "${dotfiles}/.config/ranger/rc.conf" "${hdir}/.config/ranger/rc.conf"
+git_clone 'https://github.com/alexanderjeurissen/ranger_devicons' "${hdir}/.config/ranger/plugins/"
 
 
 
