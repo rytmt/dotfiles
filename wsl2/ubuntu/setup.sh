@@ -792,7 +792,7 @@ try_task 'powershellのインストール' 'powershell_install'
 # ranger
 # ----------
 mkd -u 'ranger設定ファイル' "${hdir}/.config/ranger"
-ln_s "${dotfiles}/.config/ranger/rc.conf" "${hdir}/.config/ranger/"
+ln_s "${dotfiles}/.config/ranger/rc.conf" "${hdir}/.config/ranger/rc.conf"
 
 
 
