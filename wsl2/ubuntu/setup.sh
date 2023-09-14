@@ -397,6 +397,7 @@ install_pkg 'xlsx2csv' 'xlsx2csv'
 install_pkg 'ffmpeg' 'ffmpeg'
 install_pkg 'mkisofs' 'mkisofs'
 install_pkg 'pdftk' 'pdftk'
+install_pkg 'bat'
 
 
 # ----------
@@ -794,6 +795,12 @@ try_task 'powershellのインストール' 'powershell_install'
 mkd -u 'ranger設定ファイル' "${hdir}/.config/ranger"
 ln_s "${dotfiles}/.config/ranger/rc.conf" "${hdir}/.config/ranger/rc.conf"
 
+
+
+# ----------
+# bat
+# ----------
+ln_s "/usr/bin/batcat" "${bdir}/bat"
 
 
 # ----------

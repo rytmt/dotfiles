@@ -416,6 +416,33 @@ parse_args (){
     parsed_args="$(echo -E ${args} | sed 's/^ *\| *$//')"
 }
 
+
+# for ranger file manager
+disable r
+# https://github.com/hut/rangerPOWER/blob/master/examples/shell_automatic_cd.sh
+r() {
+    temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
+    ranger --choosedir="$temp_file" -- "${@:-$PWD}"
+    if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
+        cd -- "$chosen_dir"
+    fi
+    rm -f -- "$temp_file"
+}
+#r() {
+#    if [ -z "$RANGER_LEVEL" ]; then
+#        ranger $@
+#    else
+#        exit
+#    fi
+#}
+
+# bat
+if type bat >/dev/null 2>&1; then
+    export BAT_THEME='Solarized (dark)'
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
+
 # for wsl2
 wcd () {
     cd "$(wslpath -u $1)"
@@ -486,24 +513,6 @@ ghopen (){
     open "${fullpath}"
 }
 
-# for ranger file manager
-disable r
-# https://github.com/hut/rangerPOWER/blob/master/examples/shell_automatic_cd.sh
-r() {
-    temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
-    ranger --choosedir="$temp_file" -- "${@:-$PWD}"
-    if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
-        cd -- "$chosen_dir"
-    fi
-    rm -f -- "$temp_file"
-}
-#r() {
-#    if [ -z "$RANGER_LEVEL" ]; then
-#        ranger $@
-#    else
-#        exit
-#    fi
-#}
 
 # for return code 0
 :
