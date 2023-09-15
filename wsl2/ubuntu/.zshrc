@@ -441,6 +441,7 @@ if type bat >/dev/null 2>&1; then
     export BAT_THEME='Monokai Extended'
     export BAT_STYLE='numbers'
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+    alias -g -- --help='--help 2>&1 | bat --language=man --style=plain'
 fi
 
 
