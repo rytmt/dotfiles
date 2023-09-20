@@ -73,6 +73,7 @@ set laststatus=2
 set statusline=%y
 set visualbell t_vb=
 set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p]
+let g:vim_markdown_conceal = 0
 
 
 " --------------------------------------------------
@@ -168,3 +169,4 @@ set tabline=%!MakeTabLine()
 " --------------------------------------------------
 " Plugin
 " --------------------------------------------------
+
