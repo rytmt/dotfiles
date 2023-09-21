@@ -438,9 +438,16 @@ r() {
 
 # bat
 if type bat >/dev/null 2>&1; then
+    # general
     export BAT_THEME='Monokai Extended'
+
+    # ranger
     export BAT_STYLE='numbers'
-    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+    # man page
+    export MANPAGER="sh -c 'col -bx | bat -l man -p --style=numbers'"
+
+    # help option
     alias -g -- --help='--help 2>&1 | bat --language=man --style=plain'
 fi
 
