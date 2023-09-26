@@ -623,6 +623,9 @@ git_clone "${GIT_REPO_ZSH_AUTOSUGGEST}" "${zdir}"
 
 # powerline設定のダウンロード
 git_clone "${GIT_REPO_ZSH_P10K}" "${zdir}"
+# 必要に応じて色の設定を以下に変更
+# POWERLEVEL9K_DIR_BACKGROUND=131
+# POWERLEVEL9K_DIR_FOREGROUND=250
 
 try_task 'デフォルトのシェルをzshに変更' "chsh -s /bin/zsh ${usrname}"
 
