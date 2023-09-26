@@ -17,6 +17,9 @@
   - vscode には HackGen を適用 (設定同期で自動適用されるはず)
   - 表示名が微妙に変わっているかも
     - win10 の場合は HackGenNerd Console だった
+- もしくは以下のフォントを使う
+  - https://github.com/yuru7/PlemolJP
+  - windows terminal では NF フォントが必要なので、PlemolJP Console NF を指定する
 
 ## ソフトウェアインストール
 ### 特に設定のいらないもの
