@@ -445,7 +445,7 @@ if type bat >/dev/null 2>&1; then
     export BAT_STYLE='numbers'
 
     # man page
-    export MANPAGER="sh -c 'col -bx | bat -l man -p --style=numbers'"
+    export MANPAGER="sh -c 'col -bx | bat -l man -p --style=numbers --paging=always'"
 
     # help option
     alias -g -- --help='--help 2>&1 | bat --language=man --style=plain'
