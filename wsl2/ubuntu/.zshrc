@@ -451,6 +451,10 @@ if type bat >/dev/null 2>&1; then
     alias -g -- --help='--help 2>&1 | bat --language=man --style=plain'
 fi
 
+# docker
+docker-tags(){
+    curl -s "https://registry.hub.docker.com/v2/repositories/library/$1/tags?page_size=1024" | jq -r '.results[].name'
+}
 
 # for wsl2
 wcd () {
