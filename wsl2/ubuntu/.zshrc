@@ -43,6 +43,8 @@ PATH=${PATH}:${GOPATH}/bin
 ZSH_HOME=~/.zsh
 source "$ZSH_HOME/powerlevel10k/powerlevel10k.zsh-theme"
 [[ ! -f "${ZSH_HOME}/.p10k.zsh" ]] || source "${ZSH_HOME}/.p10k.zsh"
+# starship
+#eval "$(starship init zsh)"
 
 # --------------------------------------------------
 # Setopt
