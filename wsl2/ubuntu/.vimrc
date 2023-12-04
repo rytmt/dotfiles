@@ -172,7 +172,7 @@ set tabline=%!MakeTabLine()
 " --------------------------------------------------
 augroup Yank
   au!
-  autocmd TextYankPost * :call system('clip.exe', @")
+  autocmd TextYankPost * :call system('iconv -c -t sjis | clip.exe', @")
 augroup END
 
 
