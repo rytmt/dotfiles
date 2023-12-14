@@ -50,6 +50,7 @@ set nrformats=
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 nnoremap Y y$
+nnoremap x "_x
 autocmd InsertLeave * set nopaste
 
 
