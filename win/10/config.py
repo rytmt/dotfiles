@@ -121,6 +121,7 @@ def configure(keymap):
     # 日付入力ショートカット
     if 1:
         def input_date(fmt):
+            ime_off()
             text = datetime.datetime.today()
             keymap.InputTextCommand(text.strftime(fmt))()
         keymap_global["C-A-1"] = lambda: input_date(r"%Y-%m-%d")
