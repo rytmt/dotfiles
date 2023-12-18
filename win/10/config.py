@@ -1,6 +1,6 @@
-﻿#import sys
-#import os
-#import datetime
+﻿import sys
+import os
+import datetime
 import fnmatch
 
 import pyauto
@@ -82,7 +82,7 @@ def configure(keymap):
 #        keymap_global["C-3"] = "W-3"
 #        keymap_global["C-4"] = "W-4"
 #        keymap_global["C-5"] = "W-5"
-        keymap_global["C-A-1"] = "W-6" # for explorer.exe
+        #keymap_global["C-A-1"] = "W-6"
 
         # アクティブ化で使えなくなったキーの有効化
 #        keymap_global[ "W-1" ] = "C-1"
@@ -117,6 +117,15 @@ def configure(keymap):
 
         keymap_chrome["C-N"] = "C-Tab"
         keymap_chrome["C-P"] = "C-S-Tab"
+
+    # 日付入力ショートカット
+    if 1:
+        def input_date(fmt):
+            text = datetime.datetime.today()
+            keymap.InputTextCommand(text.strftime(fmt))()
+        keymap_global["C-A-1"] = lambda: input_date(r"%Y-%m-%d")
+        keymap_global["C-A-2"] = lambda: input_date(r"%Y/%m/%d")
+        keymap_global["C-A-3"] = lambda: input_date(r"%Y%m%d")
 
     # ウインドウアクティブ化
     if 1:
