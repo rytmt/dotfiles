@@ -4,7 +4,8 @@ escape ^Tt
 autodetach on
 #hardstatus alwayslastline  "%{=d kW}%-w%{=u kY}%n %t%{=d kW}%+w %=%{= W}%H %{= W}%m-%d %c"
 #caption always '%?%F%{=r kb}%:%{=u kb}%?%n %f %t%='
-caption always "%{kY} %n%f* %t %?%{YR}%{kR} %u %{Rw}%:%{Yw}%?%?%F%{.w}%:%{.w}%?%="
+#caption always "%{kY} %n%f* %t %?%{YR}%{kR} %u %{Rw}%:%{Yw}%?%?%F%{.w}%:%{.w}%?%="
+caption always "%{kY} %n%f* %t %?%{YR}%{wR} %u %{Rk}%:%{Yk}%?%?%F%{.k}%:%{.k}%?%="
 #hardstatus alwayslastline "%{bk} %S %{kb} $LOGNAME %{bk} %H %?%{kb}%{kY} %-Lw%{Yk}%:%{Yb}%{Yk}%?%{Yk} %n%f* %t %{kY}%+Lw %-="
 hardstatus alwayslastline "%{wk} 20%y-%m-%d %c %{kw} $LOGNAME %{wk} %H %?%{kw}%{kY} %-Lw%{Yk}%:%{Yw}%{Yk}%?%{Yk} %n%f* %t %{kY}%+Lw %-="
 defbce on
