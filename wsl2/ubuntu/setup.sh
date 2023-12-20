@@ -143,6 +143,7 @@ fi
 # プロキシ指定がある場合
 if [ -n "${prx_url}" ]; then
     curl_ops="-k --connect-timeout 10 -x $prx_url"
+    export http_proxy=${prx_url}
     export https_proxy=${prx_url}
 else # プロキシ指定がない場合
     curl_ops='-k --connect-timeout 10'
@@ -483,6 +484,7 @@ ls -1 "${dotfiles}/bin" | while read fname; do
     ln_s "${dotfiles}/bin/${fname}" "${bdir}/${fname}"
 done
 
+
 # -----
 # go get が正常動作しないのでコメントアウト
 # -----
@@ -806,6 +808,7 @@ git_clone 'https://github.com/alexanderjeurissen/ranger_devicons' "${hdir}/.conf
 # ----------
 # bat
 # ----------
+echo_ptask 'batセットアップ'
 ln_s "/usr/bin/batcat" "${bdir}/bat"
 
 
@@ -831,6 +834,15 @@ ln_s "/usr/bin/batcat" "${bdir}/bat"
 #check_task -u 'nvmがインストールされていることの確認' 'type nvm'
 #try_task 'nvmのインストール' 'nvm_install'
 
+
+# ----------
+# jpcal (go)
+# ----------
+echo_ptask 'jpcalセットアップ'
+check_task -u 'jpholidayがインストールされていることの確認' 'pip list | grep jpholiday'
+try_task -u 'jpholidayのインストール' 'pip install jpholiday'
+check_task -u 'jpcalがインストールされていることの確認' "test -f ${hdir}/go/bin/jpcal"
+try_task -u 'jpcalのインストール' 'go install github.com/y-yagi/jpcal@latest'
 
 # ----------
 # setup result
