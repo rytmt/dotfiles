@@ -161,6 +161,8 @@ if [ $? ] ; then
     ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
     ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
     ZSH_HIGHLIGHT_STYLES[globbing]='none'
+    ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/mnt/c)
+    ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/mnt/d)
 fi
 
 # zsh-autosuggestions
