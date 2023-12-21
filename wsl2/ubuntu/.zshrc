@@ -1,3 +1,14 @@
+# Performance Check
+#zmodload zsh/zprof
+
+# --------------------------------------------------
+# General
+# --------------------------------------------------
+ZSH_HOME=~/.zsh
+PATH=${PATH}:~/bin:~/.local/bin
+export GOPATH="$HOME/go"; PATH=${PATH}:${GOPATH}/bin
+
+
 # --------------------------------------------------
 # Completion
 # --------------------------------------------------
@@ -13,6 +24,7 @@ zstyle ':completion:*' list-colors "${LS_COLORS}"
 
 zstyle ':completion:*' verbose yes
 
+
 # --------------------------------------------------
 # History
 # --------------------------------------------------
@@ -26,25 +38,23 @@ bindkey '^S' history-incremental-pattern-search-forward
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
-PATH=${PATH}:~/bin:~/.local/bin
 
 HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
+
 
 # --------------------------------------------------
 # Prompt
 # --------------------------------------------------
 #PROMPT="%F{yellow}ubuntu@wsl2%(!.#.$)%f "
 #RPROMPT='[%B%F{blue}%~%f%b] (%?)'
-export GOPATH="$HOME/go"
-PATH=${PATH}:${GOPATH}/bin
 #precmd (){
 #    PS1="$($GOPATH/bin/powerline-go -numeric-exit-codes -shell zsh -theme default -hostname-only-if-ssh -trim-ad-domain -error $?)"
 #}
-ZSH_HOME=~/.zsh
 source "$ZSH_HOME/powerlevel10k/powerlevel10k.zsh-theme"
 [[ ! -f "${ZSH_HOME}/.p10k.zsh" ]] || source "${ZSH_HOME}/.p10k.zsh"
 # starship
 #eval "$(starship init zsh)"
+
 
 # --------------------------------------------------
 # Setopt
@@ -95,6 +105,7 @@ bindkey "^[OF" end-of-line
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 
+
 # --------------------------------------------------
 # Alias
 # --------------------------------------------------
@@ -112,8 +123,9 @@ alias fp='readlink -f'
 
 
 # --------------------------------------------------
-# Others
+# Misc.
 # --------------------------------------------------
+# pty
 export NO_AT_BRIDGE=1
 [ -t 0 ] && stty stop undef
 [ -t 0 ] && stty start undef
@@ -123,7 +135,45 @@ export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>|'
 
 LS_COLORS=
 
-# common func
+# terminal logging
+logstart(){
+    if [ $# -ne 1 ]; then
+        echo 'argument error'
+    else
+        script -fq >(awk '{print strftime("%F %T ") $0}{fflush() }'>>"$1")
+    fi
+}
+
+# shortcut
+work (){
+    work_folder="${HOME}/work/$(date '+%Y%m%d')"
+    [ -d "${work_folder}" ] || mkdir -p "${work_folder}"
+    cd "${work_folder}"
+}
+home (){
+    cd "${HOME}"
+}
+
+# show colors
+#colors_ansi (){
+#    for ((i = 0; i < 16; i++)); do
+#        for ((j = 0; j < 16; j++)); do
+#            hex=$(($i*16 + $j))
+#            printf '\e[38;5;%dm0x%02X\e[m ' $hex $hex
+#        done
+#        echo "";
+#    done
+#}
+
+# docker
+docker-tags(){
+    curl -s "https://registry.hub.docker.com/v2/repositories/library/$1/tags?page_size=1024" | jq -r '.results[].name'
+}
+
+
+# --------------------------------------------------
+# Common Functions
+# --------------------------------------------------
 gecho() { printf "\e[1;32m$*\e[m\n" }
 recho() { printf "\e[1;31m$*\e[m\n" }
 fload() {
@@ -146,6 +196,10 @@ fcheck() {
     fi
 }
 
+
+# --------------------------------------------------
+# External Config & Plugins
+# --------------------------------------------------
 # user options
 fload "${ZSH_HOME}/options.zsh"
 
@@ -165,6 +219,9 @@ if [ $? ] ; then
     ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/mnt/d)
 fi
 
+# fast-syntax-highlighting
+#fload "${ZSH_HOME}/F-Sy-H/F-Sy-H.plugin.zsh"
+
 # zsh-autosuggestions
 fload "${ZSH_HOME}/zsh-autosuggestions/zsh-autosuggestions.zsh"
 if [ $? ] ; then
@@ -177,7 +234,80 @@ fi
 fcheck "${HOME}/.dircolors_gruvbox"
 [ $? ] && eval $(dircolors "${HOME}/.dircolors_gruvbox")
 
-# for screen
+# source-highlight
+#fcheck "/usr/share/source-highlight/src-hilite-lesspipe.sh"
+#[ $? ] && hilite (){ sh /usr/share/source-highlight/src-hilite-lesspipe.sh $* }
+
+
+# --------------------------------------------------
+# External Programs
+# --------------------------------------------------
+# exa
+if [ 'type exa >/dev/null 2>&1' ]; then
+    alias ll='exa -lah --icons'
+    alias llt='exa -lah --icons -s modified'
+fi
+tree (){
+    target="$1"
+    if [ "${target}" = "" ]; then
+        target="."
+    else
+        shift
+    fi
+    exa -lah --icons --color=always -T --ignore-glob='.git' "${target}" $@ | less -i -N -S -M -R
+}
+dtree (){
+    target="$1"
+    if [ "${target}" = "" ]; then
+        target="."
+    else
+        shift
+    fi
+    exa -lah --icons --color=always -T -D --ignore-glob='.git' "${target}" $@ | less -i -N -S -M -R
+}
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# for ranger file manager
+disable r
+# https://github.com/hut/rangerPOWER/blob/master/examples/shell_automatic_cd.sh
+r() {
+    temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
+    ranger --choosedir="$temp_file" -- "${@:-$PWD}"
+    if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
+        cd -- "$chosen_dir"
+    fi
+    rm -f -- "$temp_file"
+}
+#r() {
+#    if [ -z "$RANGER_LEVEL" ]; then
+#        ranger $@
+#    else
+#        exit
+#    fi
+#}
+
+# bat
+if type bat >/dev/null 2>&1; then
+    # general
+    export BAT_THEME='Monokai Extended'
+
+    # ranger
+    export BAT_STYLE='numbers'
+
+    # man page
+    export MANPAGER="sh -c 'col -bx | bat -l man -p --style=numbers --paging=always'"
+
+    # help option
+    alias -g -- --help='--help 2>&1 | bat --language=man --style=plain'
+fi
+
+
+# --------------------------------------------------
+# GNU Screen
+# --------------------------------------------------
 cmdsend (){
     if [ $# -lt 2 ]; then
         echo 'Requires two or more arguments.'
@@ -279,12 +409,6 @@ screen_logdump(){
     cat "${SCREEN_LOGDIR}/${current_log}" > "screen_$(date -Iseconds).log"
 }
 
-
-# for vbell
-#screen -X vbell_msg "screen vbell"
-#alias vbell='screen -X vbell_msg'
-
-
 # for vbell in screen
 vbell(){
     ps j | awk '{if($10 ~ /^screen/){print $5}}' | while read pts; do
@@ -326,67 +450,12 @@ vbell(){
 #    fi
 #}
 
-# source-highlight
-fcheck "/usr/share/source-highlight/src-hilite-lesspipe.sh"
-[ $? ] && hilite (){ sh /usr/share/source-highlight/src-hilite-lesspipe.sh $* }
 
-# exa
-if [ 'type exa >/dev/null 2>&1' ]; then
-    alias ll='exa -lah --icons'
-    alias llt='exa -lah --icons -s modified'
-fi
-tree (){
-    target="$1"
-    if [ "${target}" = "" ]; then
-        target="."
-    else
-        shift
-    fi
-    exa -lah --icons --color=always -T --ignore-glob='.git' "${target}" $@ | less -i -N -S -M -R
-}
-dtree (){
-    target="$1"
-    if [ "${target}" = "" ]; then
-        target="."
-    else
-        shift
-    fi
-    exa -lah --icons --color=always -T -D --ignore-glob='.git' "${target}" $@ | less -i -N -S -M -R
-}
 
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
-# terminal logging
-logstart(){
-    if [ $# -ne 1 ]; then
-        echo 'argument error'
-    else
-        script -fq >(awk '{print strftime("%F %T ") $0}{fflush() }'>>"$1")
-    fi
-}
-
-# misc
-work (){
-    work_folder="${HOME}/work/$(date '+%Y%m%d')"
-    [ -d "${work_folder}" ] || mkdir -p "${work_folder}"
-    cd "${work_folder}"
-}
-home (){
-    cd "${HOME}"
-}
-
-colors_ansi (){
-    for ((i = 0; i < 16; i++)); do
-        for ((j = 0; j < 16; j++)); do
-            hex=$(($i*16 + $j))
-            printf '\e[38;5;%dm0x%02X\e[m ' $hex $hex
-        done
-        echo "";
-    done
-}
-
+# --------------------------------------------------
+# for WSL
+# --------------------------------------------------
 parsed_opts=''
 parsed_args=''
 parse_init (){
@@ -420,47 +489,6 @@ parse_args (){
     parsed_args="$(echo -E ${args} | sed 's/^ *\| *$//')"
 }
 
-
-# for ranger file manager
-disable r
-# https://github.com/hut/rangerPOWER/blob/master/examples/shell_automatic_cd.sh
-r() {
-    temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
-    ranger --choosedir="$temp_file" -- "${@:-$PWD}"
-    if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
-        cd -- "$chosen_dir"
-    fi
-    rm -f -- "$temp_file"
-}
-#r() {
-#    if [ -z "$RANGER_LEVEL" ]; then
-#        ranger $@
-#    else
-#        exit
-#    fi
-#}
-
-# bat
-if type bat >/dev/null 2>&1; then
-    # general
-    export BAT_THEME='Monokai Extended'
-
-    # ranger
-    export BAT_STYLE='numbers'
-
-    # man page
-    export MANPAGER="sh -c 'col -bx | bat -l man -p --style=numbers --paging=always'"
-
-    # help option
-    alias -g -- --help='--help 2>&1 | bat --language=man --style=plain'
-fi
-
-# docker
-docker-tags(){
-    curl -s "https://registry.hub.docker.com/v2/repositories/library/$1/tags?page_size=1024" | jq -r '.results[].name'
-}
-
-# for wsl2
 wcd () {
     cd "$(wslpath -u $1)"
 }
@@ -530,6 +558,14 @@ ghopen (){
     open "${fullpath}"
 }
 
+# compile
+#if [ ${HOME}/.zshrc -nt ${HOME}/.zshrc.zwc ]; then
+#    zcompile ${HOME}/.zshrc
+#fi
 
 # for return code 0
 :
+
+# Performance Check
+#zprof
+

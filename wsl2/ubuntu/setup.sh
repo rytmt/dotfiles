@@ -38,6 +38,7 @@ ENVCHECK_URL='https://github.com/'
 GIT_REPO_DOT='https://github.com/rytmt/dotfiles.git' #dotfiles url
 #GIT_REPO_DIRCOLOR='https://github.com/seebi/dircolors-solarized.git'
 GIT_REPO_ZSH_HIGHLIGHT='https://github.com/zsh-users/zsh-syntax-highlighting.git'
+GIT_REPO_ZSH_FAST_HIGHLIGHT='https://github.com/z-shell/F-Sy-H.git'
 GIT_REPO_ZSH_AUTOSUGGEST='https://github.com/zsh-users/zsh-autosuggestions.git'
 GIT_REPO_ZSH_P10K='https://github.com/romkatv/powerlevel10k.git'
 #GIT_REPO_VIM_SOLARIZED='https://github.com/altercation/vim-colors-solarized.git'
@@ -619,6 +620,7 @@ ln_s "${dotfiles}/.zsh/.p10k.zsh" "${zdir}/.p10k.zsh"
 
 # ハイライト設定のダウンロード
 git_clone "${GIT_REPO_ZSH_HIGHLIGHT}" "${zdir}"
+git_clone "${GIT_REPO_ZSH_FAST_HIGHLIGHT}" "${zdir}"
 
 # 入力補助設定のダウンロード
 git_clone "${GIT_REPO_ZSH_AUTOSUGGEST}" "${zdir}"
