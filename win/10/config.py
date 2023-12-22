@@ -104,6 +104,9 @@ def configure(keymap):
         # Shift+無変換 で全角英数入力にならないようにする
         keymap_global["S-(29)"] = lambda: None
 
+        # Ctrl+Space で Backspace
+        keymap_global["C-Space"] = "Back"
+
 
     # Edit class 用のキーマップ
     if 1:
