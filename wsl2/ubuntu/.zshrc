@@ -509,6 +509,11 @@ c (){
         code "$@"
     fi
 }
+pwdwin (){
+    curdir="$(pwd)"
+    wslpath -w "${curdir}" | sed -z 's/\n//g' | clip.exe
+    wslpath -w "${curdir}"
+}
 keyhac_config="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
 keyhac_dotfiles="${HOME}/dotfiles/win/10/config.py"
 keyhac_edit (){
