@@ -91,6 +91,13 @@ def configure(keymap):
 #        keymap_global[ "W-4" ] = "C-4"
 #        keymap_global[ "W-5" ] = "C-5"
 
+        # ウインドウアクティブ化 (InputKeyCommand版)
+#        keymap_global["C-1"] = keymap.InputKeyCommand("W-1")
+#        keymap_global["C-2"] = keymap.InputKeyCommand("W-2")
+#        keymap_global["C-3"] = keymap.InputKeyCommand("W-3")
+#        keymap_global["C-4"] = keymap.InputKeyCommand("W-4")
+#        keymap_global["C-5"] = keymap.InputKeyCommand("W-5")
+
         # ウインドウの移動
         keymap_global["C-8"] = "W-S-Left"
         keymap_global["C-9"] = "W-S-Right"
@@ -106,6 +113,9 @@ def configure(keymap):
 
         # Ctrl+Space で Backspace
         keymap_global["C-Space"] = "Back"
+
+        # Ctrl+Alt+i で貼り付け
+        keymap_global["C-A-i"] = "S-Insert"
 
 
     # Edit class 用のキーマップ
