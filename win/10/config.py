@@ -117,12 +117,14 @@ def configure(keymap):
         # Ctrl+Alt+i で貼り付け
         keymap_global["C-A-i"] = "S-Insert"
 
+        # Ctrl+Shift+d で行削除
+        keymap_global["C-S-D"] = "End", "S-Home", "C-X"
 
     # Edit class 用のキーマップ
-    if 1:
-        keymap_edit = keymap.defineWindowKeymap( class_name="Edit" )
-
-        keymap_edit["C-S-D"] = "Home", "S-End", "C-X"
+#    if 1:
+#        keymap_edit = keymap.defineWindowKeymap( class_name="Edit" )
+#
+#        keymap_edit["C-S-D"] = "Home", "S-End", "C-X"
 
     # Google Chrome用のキーマップ
     if 1:
