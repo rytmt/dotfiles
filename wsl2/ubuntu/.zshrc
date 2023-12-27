@@ -558,9 +558,9 @@ ghopen (){
     baseurl="$(git remote -v | grep -F '(fetch)' | grep -Eo 'https://.*\.git' | sed 's|\.git$|/|')"
     reponame="$(echo ${baseurl} | awk -F '/' '{print $(NF-1)}')"
     pathstr="$(pwd | grep -Eo "${reponame}/.*" | sed "s|${reponame}/||")"
-    branch="$(git branch --contains | cut -d ' ' -f 2)"
+    branch="$(git branch --contains | grep '^*' | cut -d ' ' -f 2)"
     fullpath="${baseurl}tree/${branch}/${pathstr}"
-    open "${fullpath}"
+    cmd.exe /c start chrome.exe "${fullpath}" >/dev/null 2>&1
 }
 
 # compile
