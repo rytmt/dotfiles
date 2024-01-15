@@ -552,7 +552,12 @@ keyhac_git2local (){
     fi
 }
 open (){
-    cmd.exe /c start "$1" >/dev/null 2>&1
+    if [ -f "$1" ]; then
+        fullpath="$(wslpath -w $(readlink -f $1))"
+        cmd.exe /c start "${fullpath}" >/dev/null 2>&1
+    else
+        cmd.exe /c start "$1" >/dev/null 2>&1
+    fi
 }
 ghopen (){
     baseurl="$(git remote -v | grep -F '(fetch)' | grep -Eo 'https://.*\.git' | sed 's|\.git$|/|')"
