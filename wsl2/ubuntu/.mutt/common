@@ -9,7 +9,9 @@ set editor = "vim"
 set date_format = "%y-%m-%d %T"
 set index_format = "%4C | %Z %?X?A&-? [%D] %-40.40a (%-4.4c) | %s"
 set folder_format = "%3C | %N | [%6n/%6m] | %-60.60f | %d"
-set attribution = "On %d, %a wrote:"
+set attribution = "On %{%Y-%m-%dT%H:%m:%S%z}, %a wrote:"
+#set attribution = "On %d, %a wrote:"
+#set attribution_locale="ja_JP.UTF-8"
 set pager_index_lines = 10
 set pager_stop = yes
 set tilde
