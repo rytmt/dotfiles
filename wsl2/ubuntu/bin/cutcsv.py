@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
+# usage: cat csvfile | cutcsv.py 1 3
+
 import sys
 import io
 import csv
 
+# 引数には取り出す対象の列の数値が指定される想定
 args = sys.argv
 
 # 標準入力を一行ずつ読み込む
