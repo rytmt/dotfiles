@@ -37,9 +37,9 @@ set wrapscan
 " Input
 " --------------------------------------------------
 set cindent
+set expandtab
 set shiftwidth=4
 set tabstop=4
-set expandtab
 set softtabstop=4
 set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,]
