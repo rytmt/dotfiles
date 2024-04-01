@@ -509,6 +509,13 @@ c (){
         code "$@"
     fi
 }
+clip (){
+    if [ -p /dev/stdin ]; then
+        cat | iconv -c -t sjis | clip.exe
+    else
+        echo "This function only used via pipe."
+    fi
+}
 pwdwin (){
     curdir="$(pwd)"
     wslpath -w "${curdir}" | sed -z 's/\n//g' | clip.exe
