@@ -18,9 +18,9 @@ peco-file() {
 }
 peco-file-recursive() {
     if type fdfind >/dev/null 2>&1; then
-        local filepath="$(fdfind . -t f -H -E .git -E .vscode-server 2>/dev/null | peco --prompt 'FILE_RECURSIVE>')"
+        local filepath="$(fdfind . -t f -H --no-ignore-vcs -E .git -E .vscode-server 2>/dev/null | peco --prompt 'FILE_RECURSIVE>')"
     else
-        local filepath="$(find . -type f 2>/dev/null | grep -vF '.git' | peco --prompt 'FILE_RECURSIVE>')"
+        local filepath="$(find . -type f 2>/dev/null | grep -vF -e '.git' -e '.vscode-server' | peco --prompt 'FILE_RECURSIVE>')"
     fi
     [ -z "$filepath" ] && return
     BUFFER="$LBUFFER$filepath"
