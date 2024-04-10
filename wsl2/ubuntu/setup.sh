@@ -660,10 +660,13 @@ try_task -u 'カラースキーマファイルのコピー (autoload)' "cp -p ${
 # プラグインインストール
 check_task 'プラグインチェック (vim-polyglot)' "test -d ${vdir}/pack/plugins/start/vim-polyglot"
 try_task -u 'プラグインインストール (vim-polyglot)' "git clone --depth 1 https://github.com/sheerun/vim-polyglot ${vdir}/pack/plugins/start/vim-polyglot"
+try_task -u 'vim-polyglotからcsv用の設定ファイルを削除' "find ${vdir}/pack/plugins/start/vim-polyglot -name 'csv.vim' -type f | xargs rm"
 check_task 'プラグインチェック (vim-airline)' "test -d ${vdir}/pack/plugins/start/vim-airline"
 try_task -u 'プラグインインストール (vim-airline)' "git clone --depth 1 https://github.com/vim-airline/vim-airline.git ${vdir}/pack/plugins/start/vim-airline"
 check_task 'プラグインチェック (indentLine)' "test -d ${vdir}/pack/plugins/start/indentLine"
 try_task -u 'プラグインインストール (indentLine)' "git clone --depth 1 https://github.com/Yggdroot/indentLine.git  ${vdir}/pack/plugins/start/indentLine"
+check_task 'プラグインチェック (rainbow_csv)' "test -d ${vdir}/pack/plugins/start/rainbow_csv"
+try_task -u 'プラグインインストール (rainbow_csv)' "git clone --depth 1 https://github.com/mechatroner/rainbow_csv.git  ${vdir}/pack/plugins/start/rainbow_csv"
 
 # シンボリックリンク作成
 ln_s "${dotfiles}/.vimrc" "${hdir}/.vimrc"
