@@ -842,6 +842,14 @@ ln_s "/usr/bin/batcat" "${bdir}/bat"
 
 
 # ----------
+# pipモジュール
+# ----------
+echo_ptask 'pipモジュールセットアップ'
+check_task -u 'csvkitがインストールされていることの確認' 'pip list | grep csvkit'
+try_task -u 'csvkitのインストール' 'pip install csvkit'
+
+
+# ----------
 # jpcal (go)
 # ----------
 echo_ptask 'jpcalセットアップ'
@@ -849,6 +857,7 @@ check_task -u 'jpholidayがインストールされていることの確認' 'pi
 try_task -u 'jpholidayのインストール' 'pip install jpholiday'
 check_task -u 'jpcalがインストールされていることの確認' "test -f ${hdir}/go/bin/jpcal"
 try_task -u 'jpcalのインストール' 'go install github.com/y-yagi/jpcal@latest'
+
 
 # ----------
 # setup result
