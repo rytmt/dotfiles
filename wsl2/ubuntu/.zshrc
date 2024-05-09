@@ -511,7 +511,7 @@ c (){
 }
 clip (){
     if [ -p /dev/stdin ]; then
-        cat | iconv -c -t sjis | clip.exe
+        cat | tee >(iconv -c -t sjis | clip.exe)
     else
         echo "This function only used via pipe."
     fi
