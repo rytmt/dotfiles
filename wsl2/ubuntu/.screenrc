@@ -36,7 +36,8 @@ bindkey -m "^[OF" stuff $
 bindkey -m "^[[H" stuff 0
 bindkey -m "^[[F" stuff $
 bindkey -m ' ' eval 'stuff \040' 'writebuf' 'exec bash -c "cat /tmp/screen-exchange | iconv -c -t sjis | clip.exe"'
-bindkey -m Y   eval 'stuff Y'    'writebuf' 'exec bash -c "cat /tmp/screen-exchange | iconv -c -t sjis | clip.exe"'
+#bindkey -m Y   eval 'stuff Y'    'writebuf' 'exec bash -c "cat /tmp/screen-exchange | iconv -c -t sjis | clip.exe"'
+bindkey -m Y   eval 'stuff \040$\040'    'writebuf' 'exec bash -c "cat /tmp/screen-exchange | iconv -c -t sjis | clip.exe"'
 bindkey -m W   eval 'stuff W'    'writebuf' 'exec bash -c "cat /tmp/screen-exchange | iconv -c -t sjis | clip.exe"'
 
 # start at window 1
