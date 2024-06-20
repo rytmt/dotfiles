@@ -325,132 +325,150 @@ cmdsend (){
 }
 # first arg.: session name
 # second arg.: csv file name (first column: window name, second column: command)
-screenstart (){
-    # arguments check
-    if [ $# -ne 2 ]; then
-        echo 'Requires two arguments.'
-        return 1
-    fi
-    if [ ! -f "$2" ]; then
-        echo "cannot open $2. No such file."
-        return 1
-    fi
-
-    sname="$1" # set screen session name
-
-    # start screen session
-    if screen -ls | grep -q "${sname}"; then
-        echo "screen session '${sname}' already started"
-        return 1
-    fi
-    screen -d -m -S "${sname}" -t 'workspace'
-
-    # create screen window and execute command from csv
-    x=1
-    cat "$2" | while read line; do
-        # get window name and command string from csv file
-        winname="$(echo -E $line | cut -d ',' -f 1)"
-        cmdstr="$(echo -E $line | cut -d ',' -f 2)"
-
-        # check winname length
-        if [ ${#winname} -le 0 ]; then
-            x=$((x+1))
-            continue
-        fi
-
-        # create new window (using workspace window)
-        screen -S "${sname}" -p 0 -X stuff "screen -t ${winname}\n"
-
-        # execute command (using workspace window)
-        cmdstr=$(echo -E ${cmdstr} | sed 's/'\''/'\''"'\''"'\''/g') # escape single quote
-        screen -S "${sname}" -p 0 -X stuff "screen -p $x -X stuff '${cmdstr}\\\n'\n"
-        x=$((x+1))
-        sleep 1s
-    done
-
-    # remove workspace window
-    screen -S "${sname}" -p 0 -X stuff 'exit\n'
-
-    # attach screen
-    screen -r "${sname}" -p 1
-}
-
-dir_screen_title='~'
-command_screen_title=''
-set_screen_title(){
-    if [ ! "${STY}x" = "x" ]; then
-        if [ ! "${command_screen_title}x" = "x" ]; then
-            command_screen_title="(${command_screen_title})"
-        fi
-        screen -X title "${dir_screen_title} ${command_screen_title}"
-        echo -ne "\e]2;${dir_screen_title} ${command_screen_title}\007"
-    fi
-}
-chpwd_screen_title(){
-    dir_screen_title="$(basename "$(pwd)" | LANG=C sed 's/[\x80-\xFF]/x/g' | cut -c 1-16)"
-    set_screen_title
-}
-preexec_screen_title(){
-    command_screen_title="$(echo $1 | cut -d ' ' -f 1)"
-    set_screen_title
-}
-precmd_screen_title(){
-    command_screen_title=''
-    set_screen_title
-}
-autoload -Uz add-zsh-hook
-add-zsh-hook chpwd chpwd_screen_title
-add-zsh-hook preexec preexec_screen_title
-add-zsh-hook precmd precmd_screen_title
-
-SCREEN_LOGDIR="${HOME}/log/screen"
-screen_logdump(){
-    current_log="$(ls -rt1 ${SCREEN_LOGDIR} | tail -n 1)"
-    cat "${SCREEN_LOGDIR}/${current_log}" > "screen_$(date -Iseconds).log"
-}
-
-# for vbell in screen
-vbell(){
-    ps j | awk '{if($10 ~ /^screen/){print $5}}' | while read pts; do
-        echo -en '\a' > "/dev/${pts}"
-    done
-}
-
-# for vbell in screen (old)
-#getppid(){
-#    targetpid="$1"
-#    cat "/proc/${targetpid}/status" | grep '^PPid:' | awk '{print $2}'
-#}
-#getppname(){
-#    targetpid="$1"
-#    targetppid="$(getppid ${targetpid})"
-#    cat "/proc/${targetppid}/status" | grep '^Name' | awk '{print $2}'
-#}
-#getcpname(){
-#    cat /proc/$$/cmdline | rev | cut -d '/' -f 1 | rev
-#}
-#vbell_cpid="$$"
-#vbell(){
-#    #targetname="$(getcpname)"
-#    targetname="screen"
-#
-#    ppid="$(getppid ${vbell_cpid})"
-#    ppname="$(getppname ${vbell_cpid})"
-#    if [ "${ppname}" = "${targetname}" ]; then
-#        echo $ppid
-#        echo $ppname
-#        echo -en "\a" > /proc/${ppid}/fd/1
-#        return 0
-#    elif [ ${ppid} -eq 1 ]; then
-#        echo "Can't find ${targetname} in parent processes"
+#screenstart (){
+#    # arguments check
+#    if [ $# -ne 2 ]; then
+#        echo 'Requires two arguments.'
 #        return 1
-#    else
-#        vbell_cpid="${ppid}"
-#        vbell
+#    fi
+#    if [ ! -f "$2" ]; then
+#        echo "cannot open $2. No such file."
+#        return 1
+#    fi
+#
+#    sname="$1" # set screen session name
+#
+#    # start screen session
+#    if screen -ls | grep -q "${sname}"; then
+#        echo "screen session '${sname}' already started"
+#        return 1
+#    fi
+#    screen -d -m -S "${sname}" -t 'workspace'
+#
+#    # create screen window and execute command from csv
+#    x=1
+#    cat "$2" | while read line; do
+#        # get window name and command string from csv file
+#        winname="$(echo -E $line | cut -d ',' -f 1)"
+#        cmdstr="$(echo -E $line | cut -d ',' -f 2)"
+#
+#        # check winname length
+#        if [ ${#winname} -le 0 ]; then
+#            x=$((x+1))
+#            continue
+#        fi
+#
+#        # create new window (using workspace window)
+#        screen -S "${sname}" -p 0 -X stuff "screen -t ${winname}\n"
+#
+#        # execute command (using workspace window)
+#        cmdstr=$(echo -E ${cmdstr} | sed 's/'\''/'\''"'\''"'\''/g') # escape single quote
+#        screen -S "${sname}" -p 0 -X stuff "screen -p $x -X stuff '${cmdstr}\\\n'\n"
+#        x=$((x+1))
+#        sleep 1s
+#    done
+#
+#    # remove workspace window
+#    screen -S "${sname}" -p 0 -X stuff 'exit\n'
+#
+#    # attach screen
+#    screen -r "${sname}" -p 1
+#}
+#
+#dir_screen_title='~'
+#command_screen_title=''
+#set_screen_title(){
+#    if [ ! "${STY}x" = "x" ]; then
+#        if [ ! "${command_screen_title}x" = "x" ]; then
+#            command_screen_title="(${command_screen_title})"
+#        fi
+#        screen -X title "${dir_screen_title} ${command_screen_title}"
+#        echo -ne "\e]2;${dir_screen_title} ${command_screen_title}\007"
 #    fi
 #}
+#chpwd_screen_title(){
+#    dir_screen_title="$(basename "$(pwd)" | LANG=C sed 's/[\x80-\xFF]/x/g' | cut -c 1-16)"
+#    set_screen_title
+#}
+#preexec_screen_title(){
+#    command_screen_title="$(echo $1 | cut -d ' ' -f 1)"
+#    set_screen_title
+#}
+#precmd_screen_title(){
+#    command_screen_title=''
+#    set_screen_title
+#}
+#autoload -Uz add-zsh-hook
+#add-zsh-hook chpwd chpwd_screen_title
+#add-zsh-hook preexec preexec_screen_title
+#add-zsh-hook precmd precmd_screen_title
+#
+#SCREEN_LOGDIR="${HOME}/log/screen"
+#screen_logdump(){
+#    current_log="$(ls -rt1 ${SCREEN_LOGDIR} | tail -n 1)"
+#    cat "${SCREEN_LOGDIR}/${current_log}" > "screen_$(date -Iseconds).log"
+#}
+#
+## for vbell in screen
+#vbell(){
+#    ps j | awk '{if($10 ~ /^screen/){print $5}}' | while read pts; do
+#        echo -en '\a' > "/dev/${pts}"
+#    done
+#}
+#
+## for vbell in screen (old)
+##getppid(){
+##    targetpid="$1"
+##    cat "/proc/${targetpid}/status" | grep '^PPid:' | awk '{print $2}'
+##}
+##getppname(){
+##    targetpid="$1"
+##    targetppid="$(getppid ${targetpid})"
+##    cat "/proc/${targetppid}/status" | grep '^Name' | awk '{print $2}'
+##}
+##getcpname(){
+##    cat /proc/$$/cmdline | rev | cut -d '/' -f 1 | rev
+##}
+##vbell_cpid="$$"
+##vbell(){
+##    #targetname="$(getcpname)"
+##    targetname="screen"
+##
+##    ppid="$(getppid ${vbell_cpid})"
+##    ppname="$(getppname ${vbell_cpid})"
+##    if [ "${ppname}" = "${targetname}" ]; then
+##        echo $ppid
+##        echo $ppname
+##        echo -en "\a" > /proc/${ppid}/fd/1
+##        return 0
+##    elif [ ${ppid} -eq 1 ]; then
+##        echo "Can't find ${targetname} in parent processes"
+##        return 1
+##    else
+##        vbell_cpid="${ppid}"
+##        vbell
+##    fi
+##}
 
 
+
+# --------------------------------------------------
+# Zellij
+# --------------------------------------------------
+zellij_pane_name_update() {
+    if [[ -n $ZELLIJ ]]; then
+        local current_dir=$PWD
+        if [[ $current_dir == $HOME ]]; then
+            current_dir="~"
+        else
+            current_dir=${current_dir##*/}
+        fi
+        command nohup zellij action rename-pane $current_dir >/dev/null 2>&1
+    fi
+}
+
+zellij_pane_name_update
+chpwd_functions+=(zellij_pane_name_update)
 
 
 # --------------------------------------------------
