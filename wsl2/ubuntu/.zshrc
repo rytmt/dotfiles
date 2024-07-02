@@ -119,7 +119,7 @@ alias b='cd ..'
 alias u='cd -'
 alias rmz='rm *:Zone.Identifier'
 alias screen='screen -U' # for copy-mode encoding issue
-alias fp='readlink -f'
+#alias fp='readlink -f'
 
 
 # --------------------------------------------------
@@ -534,10 +534,14 @@ clip (){
         echo "This function only used via pipe."
     fi
 }
-pwdwin (){
-    curdir="$(pwd)"
-    wslpath -w "${curdir}" | sed -z 's/\n//g' | clip.exe
-    wslpath -w "${curdir}"
+pc (){
+   pwd | clip
+}
+pcw (){
+    wslpath -w "$(pwd)" | tee >(iconv -c -t sjis | sed -z 's/\n//' | clip.exe)
+}
+fp (){
+    readlink -f "$@" | tee >(iconv -c -t sjis | sed -z 's/\n//' | clip.exe)
 }
 keyhac_config="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
 keyhac_dotfiles="${HOME}/dotfiles/win/10/config.py"
