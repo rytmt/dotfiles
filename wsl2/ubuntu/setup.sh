@@ -469,6 +469,27 @@ check_task 'exaコマンドが存在することの確認' 'type exa'
 try_task 'exaの手動インストール' 'manual_install_exa'
 
 
+# ----------
+# zellij
+# ----------
+echo_ptask 'zellij設定'
+manual_install_zellij (){
+    # ダウンロード
+    fdl 'https://github.com/zellij-org/zellij/releases/download/v0.40.1/zellij-x86_64-unknown-linux-musl.tar.gz'
+    # 解凍
+    try_task 'zellijの解凍' 'tar xvfz zellij-x86_64-unknown-linux-musl.tar.gz'
+    # ファイル移動
+    try_task 'ファイル移動(zellij)' 'mv ./zellij /usr/local/bin/'
+    # 設定フォルダ作成
+    try_task 'zellij設定フォルダ作成' "mkdir -p ${hdir}/.config/zellij"
+    # 設定ファイル配置
+    ln_s "${dotfiles}/.config/zellij/config.kdl" "${hdir}/.config/zellij/config.kdl"
+}
+check_task 'zellijコマンドが存在することの確認' 'type zellij'
+
+try_task 'zellijの手動インストール' 'manual_install_zellij'
+
+
 # ==================================================
 # User Tasks
 # ==================================================
