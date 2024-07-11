@@ -456,7 +456,7 @@ cmdsend (){
 # Zellij
 # --------------------------------------------------
 zellij_pane_name_update() {
-    if [[ -n $ZELLIJ ]]; then
+    if [ -n $ZELLIJ ] && [ -z $SSH_TTY ]; then
         local current_dir=$PWD
         if [[ $current_dir == $HOME ]]; then
             current_dir="~"
@@ -467,8 +467,8 @@ zellij_pane_name_update() {
     fi
 }
 
-zellij_pane_name_update
-chpwd_functions+=(zellij_pane_name_update)
+#zellij_pane_name_update
+#chpwd_functions+=(zellij_pane_name_update)
 
 splitpane4 (){
     zellij action new-tab --layout "${HOME}/.config/zellij/split4.kdl"
