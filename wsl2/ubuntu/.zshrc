@@ -39,7 +39,7 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
+HISTTIMEFORMAT="[%Y-%M-%D %H:%M:%S] "
 
 
 # --------------------------------------------------
@@ -111,7 +111,7 @@ bindkey "^[[F" end-of-line
 # --------------------------------------------------
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias history='history -f 1'
+alias history='history -i -f 1'
 alias less='less -i -N -S -M -R'
 alias python='python3'
 alias p='python'
@@ -539,7 +539,7 @@ clip (){
     fi
 }
 pc (){
-   pwd | clip
+   pwd | tee >(iconv -c -t sjis | sed -z 's/\n//' | clip.exe)
 }
 pcw (){
     wslpath -w "$(pwd)" | tee >(iconv -c -t sjis | sed -z 's/\n//' | clip.exe)
