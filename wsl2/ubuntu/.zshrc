@@ -533,19 +533,19 @@ c (){
 }
 clip (){
     if [ -p /dev/stdin ]; then
-        cat | tee >(iconv -c -t sjis | clip.exe)
+        cat | tee >(iconv -c -t utf16 | clip.exe)
     else
         echo "This function only used via pipe."
     fi
 }
 pc (){
-   pwd | tee >(iconv -c -t sjis | sed -z 's/\n//' | clip.exe)
+   pwd | tee >(iconv -c -t utf16 | sed -z 's/\n//' | clip.exe)
 }
 pcw (){
-    wslpath -w "$(pwd)" | tee >(iconv -c -t sjis | sed -z 's/\n//' | clip.exe)
+    wslpath -w "$(pwd)" | tee >(iconv -c -t utf16 | sed -z 's/\n//' | clip.exe)
 }
 fp (){
-    readlink -f "$@" | tee >(iconv -c -t sjis | sed -z 's/\n//' | clip.exe)
+    readlink -f "$@" | tee >(iconv -c -t utf16 | sed -z 's/\n//' | clip.exe)
 }
 keyhac_config="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
 keyhac_dotfiles="${HOME}/dotfiles/win/10/config.py"
