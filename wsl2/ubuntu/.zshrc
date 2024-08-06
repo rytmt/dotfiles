@@ -539,13 +539,13 @@ clip (){
     fi
 }
 pc (){
-   pwd | tee >(nkf --oc=UTF-16LE | sed -z 's/\n//' | clip.exe)
+   pwd | tee >(sed -z 's/\n//' | nkf --oc=UTF-16LE | clip.exe)
 }
 pcw (){
-    wslpath -w "$(pwd)" | tee >(nkf --oc=UTF-16LE | sed -z 's/\n//' | clip.exe)
+    wslpath -w "$(pwd)" | tee >(sed -z 's/\n//' | nkf --oc=UTF-16LE | clip.exe)
 }
 fp (){
-    readlink -f "$@" | tee >(nkf --oc=UTF-16LE | sed -z 's/\n//' | clip.exe)
+    readlink -f "$@" | tee >(sed -z 's/\n//' | nkf --oc=UTF-16LE | clip.exe)
 }
 keyhac_config="$(find /mnt/c/Users/*/AppData/Roaming/Keyhac -name 'config.py' | head -n 1)"
 keyhac_dotfiles="${HOME}/dotfiles/win/10/config.py"
