@@ -2,6 +2,7 @@
 import os
 import datetime
 import fnmatch
+import time
 
 import pyauto
 from keyhac import *
@@ -36,7 +37,11 @@ def configure(keymap):
 
     # IME 無効化/有効化
     def ime_off():
-        keymap.wnd.setImeStatus(0)
+        # しばしばエラーが発生してコンソールが開いてしまうのでtryで無視する
+        try:
+            keymap.wnd.setImeStatus(0)
+        except:
+            pass
     def ime_on():
         keymap.wnd.setImeStatus(1)
 
@@ -115,7 +120,14 @@ def configure(keymap):
         keymap_global["C-Space"] = "Back"
 
         # Ctrl+Alt+i で貼り付け
-        keymap_global["C-A-i"] = "S-Insert"
+        #keymap_global["C-A-i"] = "S-Insert"
+
+        # Ctrl+Alt+i プレーンテキストとして貼り付け
+        def paste_string(s):
+            setClipboardText(s)
+            time.sleep(0.05)
+            keymap.InputKeyCommand("S-Insert")()
+        keymap_global["C-A-i"] = lambda: paste_string(getClipboardText())
 
         # Ctrl+Shift+d で行削除
         keymap_global["C-S-D"] = "End", "S-Home", "C-X"
@@ -196,5 +208,85 @@ def configure(keymap):
             "C-2": ("msedge.exe", None, None),
             "C-3": ("WindowsTerminal.exe", None, None),
             "C-4": ("Code.exe", None, None),
+            "C-5": ("ms-teams.exe", None, None),
         }.items():
             keymap_global[key] = pseudo_cuteExec(*params)
+
+
+    # ウインドウ切り替え用 (停止中)
+    if 0:
+        import re
+        import unicodedata
+        debug_mode = False # デバッグ出力を有効にする場合は True にする
+
+        def dbg(text):
+            if debug_mode:
+                print("dbg: " + text)
+
+        def truncate(string, length, ellipsis="..."):
+            return string[:length] + (ellipsis if string[length:] else "")
+
+        def truncate_cjk(string, length, ellipsis="..."):
+            # http://www.unicode.org/reports/tr11/
+            count = 0
+            text = ""
+            for c in string:
+                if unicodedata.east_asian_width(c) in "FWA":
+                    count += 2
+                else:
+                    count += 1
+
+                if count > length:
+                    text += ellipsis
+                    break
+                text += c
+            return text
+
+        def switch_windows():
+            dbg(">>>>> switch_windows <<<<<")
+
+            def popWindowList():
+                # If the list window is already opened, just close it
+                if keymap.isListWindowOpened():
+                    keymap.cancelListWindow()
+                    return
+
+                def getWindowList(wnd, arg):
+                    if not wnd.isVisible():
+                        return True
+                    # if not wnd.getOwner():
+                    #     return True
+                    if wnd.getText() == "":
+                        return True
+                    dbg(wnd.getProcessName())
+                    dbg("  " + wnd.getClassName())
+                    dbg("    " + wnd.getText())
+                    if re.match(
+                        r"(keyhac|SystemSettings|ApplicationFrameHost|TextInputHost|explorer|onenoteim)\.exe",
+                        wnd.getProcessName(),
+                    ):
+                        dbg("(pass)")
+                        return True
+                    # if re.match(r"chrome", wnd.getClassName()):
+                    #     window_list.append(wnd)
+                    window_list.append(wnd)
+                    return True
+
+                window_list = []
+                Window.enum(getWindowList, None)
+
+                popup_list = [
+                    ("{:>20s} :: {}".format(truncate(i.getProcessName()[:-4], 17), truncate_cjk(i.getText(), 45)), i)
+                    for i in sorted(window_list, key=lambda x: x.getProcessName())
+                ]
+
+                listers = [("Windows", cblister_FixedPhrase(popup_list))]
+                item, mod = keymap.popListWindow(listers)
+                if item:
+                    item[1].setForeground()
+
+            # Because the blocking procedure cannot be executed in the key-hook,
+            # delayed-execute the procedure by delayedCall().
+            keymap.delayedCall(popWindowList, 0)
+
+        keymap_global["C-6"] = switch_windows

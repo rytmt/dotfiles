@@ -559,7 +559,7 @@ keyhac_show (){
 }
 keyhac_diff (){
     if [ -f "${keyhac_config}" -a -f "${keyhac_dotfiles}" ]; then
-        diff -u --color=always "${keyhac_config}" "${keyhac_dotfiles}"
+        diff -u --color=always "${keyhac_dotfiles}" "${keyhac_config}"
     else
         echo "one or more following config file does not exist."
         echo "${keyhac_config}"
