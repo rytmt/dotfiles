@@ -238,6 +238,15 @@ fcheck "${HOME}/.dircolors_gruvbox"
 #fcheck "/usr/share/source-highlight/src-hilite-lesspipe.sh"
 #[ $? ] && hilite (){ sh /usr/share/source-highlight/src-hilite-lesspipe.sh $* }
 
+# window title setting (using OSC)
+chpwd_window_title() {
+    if [ -z $SSH_TTY ]; then
+        printf "\e]0;%s\e\\" "$(pwd | sed "s|${HOME}|~|")"
+    fi
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd chpwd_window_title
+
 
 # --------------------------------------------------
 # External Programs
