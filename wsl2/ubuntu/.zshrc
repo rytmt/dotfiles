@@ -121,6 +121,37 @@ alias rmz='rm *:Zone.Identifier'
 alias screen='screen -U' # for copy-mode encoding issue
 #alias fp='readlink -f'
 
+# function like alias
+# view command
+v(){
+    # from stdin
+    if [ -p /dev/stdin ]; then
+        vim -R -
+    # others
+    else
+        vim -R "$@"
+    fi
+}
+# terminal logging
+logstart(){
+    if [ $# -ne 1 ]; then
+        echo 'argument error'
+    else
+        script -fq >(awk '{print strftime("%F %T ") $0}{fflush() }'>>"$1")
+    fi
+}
+work (){
+    work_folder="${HOME}/work/$(date '+%Y%m%d')"
+    [ -d "${work_folder}" ] || mkdir -p "${work_folder}"
+    cd "${work_folder}"
+}
+home (){
+    cd "${HOME}"
+}
+docker-tags(){
+    curl -s "https://registry.hub.docker.com/v2/repositories/library/$1/tags?page_size=1024" | jq -r '.results[].name'
+}
+
 
 # --------------------------------------------------
 # Misc.
@@ -135,25 +166,6 @@ export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>|'
 
 LS_COLORS=
 
-# terminal logging
-logstart(){
-    if [ $# -ne 1 ]; then
-        echo 'argument error'
-    else
-        script -fq >(awk '{print strftime("%F %T ") $0}{fflush() }'>>"$1")
-    fi
-}
-
-# shortcut
-work (){
-    work_folder="${HOME}/work/$(date '+%Y%m%d')"
-    [ -d "${work_folder}" ] || mkdir -p "${work_folder}"
-    cd "${work_folder}"
-}
-home (){
-    cd "${HOME}"
-}
-
 # show colors
 #colors_ansi (){
 #    for ((i = 0; i < 16; i++)); do
@@ -164,11 +176,6 @@ home (){
 #        echo "";
 #    done
 #}
-
-# docker
-docker-tags(){
-    curl -s "https://registry.hub.docker.com/v2/repositories/library/$1/tags?page_size=1024" | jq -r '.results[].name'
-}
 
 
 # --------------------------------------------------
