@@ -600,10 +600,9 @@ keyhac_git2local (){
         echo "copy failed"
     fi
 }
-open (){
+o (){
     if [ -f "$1" ]; then
-        fullpath="$(wslpath -w $(readlink -f $1))"
-        cmd.exe /c start "${fullpath}" >/dev/null 2>&1
+        cmd.exe /c start "" "$(wslpath -w $1)" >/dev/null 2>&1
     else
         cmd.exe /c start "$1" >/dev/null 2>&1
     fi
