@@ -80,6 +80,13 @@ def configure(keymap):
         keymap_global["A-K"] = lambda: up_multi()
         keymap_global["A-H"] = lambda: left_multi()
         keymap_global["A-L"] = lambda: right_multi()
+        # Ctrl + xx の代替
+        keymap_global["C-S-H"] = "C-H"
+        keymap_global["C-S-J"] = "C-J"
+        keymap_global["C-S-K"] = "C-K"
+        keymap_global["C-S-L"] = "C-L"
+        keymap_global["C-S-A"] = "C-A"
+        keymap_global["C-S-E"] = "C-E"
 
         # ウインドウのアクティブ化
 #        keymap_global["C-1"] = "W-1"
