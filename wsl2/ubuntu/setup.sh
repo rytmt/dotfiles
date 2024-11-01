@@ -401,6 +401,8 @@ install_pkg 'mkisofs' 'mkisofs'
 install_pkg 'pdftk' 'pdftk'
 install_pkg 'bat'
 install_pkg 'whois' 'whois'
+install_pkg 'libimage-exiftool-perl' 'exiftool'
+#install_pkg 'imagemagick' 'convert'
 
 
 # ----------

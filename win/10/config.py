@@ -122,6 +122,9 @@ def configure(keymap):
         keymap_global["(29)"] = lambda: ime_off()
         # Shift+無変換 で全角英数入力にならないようにする
         keymap_global["S-(29)"] = lambda: None
+        # Ctrl+変換/無変換 で余計な動作をしないようにする (for MS IME)
+        keymap_global["C-(28)"] = lambda: None
+        keymap_global["C-(29)"] = lambda: None
 
         # Ctrl+Space で Backspace
         keymap_global["C-Space"] = "Back"
