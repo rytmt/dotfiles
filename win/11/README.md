@@ -32,6 +32,7 @@
 - adobe acrobat reader
 - winmerge
 - winshot
+- powertoys (microsoft store)
 
 ### 設定が必要なもの
 #### google日本語入力
