@@ -44,7 +44,7 @@ peco-command-history() {
                  eval $tac | \
                  peco --query "$LBUFFER" --prompt 'COMMAND_HISTORY>')
     CURSOR=$#BUFFER
-    zle clear-screen
+#    zle clear-screen
 }
 zle -N peco-command-history
 bindkey '^r' peco-command-history
