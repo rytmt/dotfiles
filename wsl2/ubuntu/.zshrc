@@ -178,6 +178,7 @@ LS_COLORS=
 #}
 
 
+
 # --------------------------------------------------
 # Common Functions
 # --------------------------------------------------
@@ -489,6 +490,12 @@ splitpane4 (){
     zellij action new-tab --layout "${HOME}/.config/zellij/split4.kdl"
 }
 
+zellij_dumppane (){
+    zlogdir="${HOME}/work/zellij_log"
+    [ -d "${zlogdir}" ] || mkdir -p "${zlogdir}"
+    zellij action dump-screen --full "${zlogdir}/zellij_pane_$(date -Is).log"
+}
+trap zellij_dumppane EXIT
 
 # --------------------------------------------------
 # for WSL
