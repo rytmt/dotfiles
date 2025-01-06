@@ -134,9 +134,13 @@ def configure(keymap):
 
         # Ctrl+Alt+i プレーンテキストとして貼り付け
         def paste_string(s):
-            setClipboardText(s)
-            time.sleep(0.05)
-            keymap.InputKeyCommand("S-Insert")()
+            # クリップボードを使う版
+            #setClipboardText(s)
+            #time.sleep(0.05)
+            #keymap.InputKeyCommand("S-Insert")()
+            # 使わない版
+            ime_off()
+            keymap.InputTextCommand(s)()
         keymap_global["C-A-i"] = lambda: paste_string(getClipboardText())
 
         # Ctrl+Shift+d で行削除
