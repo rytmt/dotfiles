@@ -130,7 +130,7 @@ def configure(keymap):
         keymap_global["C-Space"] = "Back"
 
         # Ctrl+Alt+i で貼り付け
-        #keymap_global["C-A-i"] = "S-Insert"
+        keymap_global["C-A-i"] = "S-Insert"
 
         # Ctrl+Alt+i プレーンテキストとして貼り付け
         def paste_string(s):
@@ -141,7 +141,7 @@ def configure(keymap):
             # 使わない版
             ime_off()
             keymap.InputTextCommand(s)()
-        keymap_global["C-A-i"] = lambda: paste_string(getClipboardText())
+        keymap_global["C-A-p"] = lambda: paste_string(getClipboardText())
 
         # Ctrl+Shift+d で行削除
         keymap_global["C-S-D"] = "End", "S-Home", "C-X"
