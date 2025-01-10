@@ -66,7 +66,7 @@ function peco-directory-history () {
         BUFFER="cd ${selected_dir}"
         zle accept-line
     fi
-    zle clear-screen
+    #zle clear-screen
 }
 zle -N peco-directory-history
 bindkey '^[r' peco-directory-history
