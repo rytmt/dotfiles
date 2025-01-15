@@ -1,0 +1,4 @@
+autocmd FileType mail syntax match intDomain1 "@nxdomain\.local" display containedin=ALL
+autocmd FileType mail highlight intDomain1 ctermbg=NONE
+autocmd FileType mail syntax match allDomain "\v\@[a-zA-Z0-9.-]+" display containedin=ALL
+autocmd FileType mail highlight allDomain ctermbg=Red
