@@ -451,24 +451,40 @@ try_task 'sudoers設定の追加' "echo '${usrname} ALL=NOPASSWD: ALL' > /etc/su
 
 
 # ----------
-# exa
+# exa (discon)
 # ----------
 # ubuntu 20.10 以降は apt get exa でインストールできるらしい
-echo_ptask 'exa設定'
-manual_install_exa (){
-    # ダウンロード
-    fdl 'https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip'
-    # 解凍
-    try_task 'exaの解凍' 'unzip exa-linux-x86_64-v0.10.1.zip'
-    # ファイル移動
-    try_task 'ファイル移動(bin)' 'mv ./bin/exa /usr/local/bin/'
-    try_task 'ファイル移動(man.1)' 'mv ./man/exa.1 /usr/share/man/man1/'
-    try_task 'ファイル移動(man.5)' 'mv ./man/exa_colors.5 /usr/share/man/man5/'
+#echo_ptask 'exa設定'
+#manual_install_exa (){
+#    # ダウンロード
+#    fdl 'https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip'
+#    # 解凍
+#    try_task 'exaの解凍' 'unzip exa-linux-x86_64-v0.10.1.zip'
+#    # ファイル移動
+#    try_task 'ファイル移動(bin)' 'mv ./bin/exa /usr/local/bin/'
+#    try_task 'ファイル移動(man.1)' 'mv ./man/exa.1 /usr/share/man/man1/'
+#    try_task 'ファイル移動(man.5)' 'mv ./man/exa_colors.5 /usr/share/man/man5/'
+#
+#}
+#check_task 'exaコマンドが存在することの確認' 'type exa'
+#
+#try_task 'exaの手動インストール' 'manual_install_exa'
 
+
+# ----------
+# eza
+# ----------
+echo_ptask 'eza設定'
+manual_install_eza (){
+    # see https://github.com/eza-community/eza/blob/main/INSTALL.md#debian-and-ubuntu
+    try_task '/etc/apt/keyringsディレクトリ作成' 'sudo mkdir -p /etc/apt/keyrings'
+    try_task '/etc/apt/keyrings/gierens.gpg作成' 'wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg'
+    try_task '権限変更' 'sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list'
+    try_task 'apt update' 'sudo apt update'
+    install_pkg 'eza'
 }
-check_task 'exaコマンドが存在することの確認' 'type exa'
-
-try_task 'exaの手動インストール' 'manual_install_exa'
+check_task 'ezaコマンドが存在することの確認' 'type eza'
+try_task 'ezaの手動インストール' 'manual_install_eza'
 
 
 # ----------

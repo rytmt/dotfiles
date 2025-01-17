@@ -145,6 +145,9 @@ work (){
     [ -d "${work_folder}" ] || mkdir -p "${work_folder}"
     cd "${work_folder}"
 }
+work_rmdir(){
+    find "${HOME}/work" -maxdepth 1 -type d -empty | xargs rmdir
+}
 home (){
     cd "${HOME}"
 }
@@ -259,10 +262,10 @@ add-zsh-hook chpwd chpwd_window_title
 # --------------------------------------------------
 # External Programs
 # --------------------------------------------------
-# exa
-if [ 'type exa >/dev/null 2>&1' ]; then
-    alias ll='exa -lah --icons'
-    alias llt='exa -lah --icons -s modified'
+# eza
+if [ 'type eza >/dev/null 2>&1' ]; then
+    alias ll='eza -lah --icons'
+    alias llt='eza -lah --icons -s modified'
 fi
 tree (){
     target="$1"
@@ -271,7 +274,7 @@ tree (){
     else
         shift
     fi
-    exa -lah --icons --color=always -T --ignore-glob='.git' "${target}" $@ | less -i -N -S -M -R
+    eza -lah --icons=always --color=always -T --ignore-glob='.git' "${target}" $@ | less -i -N -S -M -R
 }
 dtree (){
     target="$1"
@@ -280,7 +283,7 @@ dtree (){
     else
         shift
     fi
-    exa -lah --icons --color=always -T -D --ignore-glob='.git' "${target}" $@ | less -i -N -S -M -R
+    eza -lah --icons=always --color=always -T -D --ignore-glob='.git' "${target}" $@ | less -i -N -S -M -R
 }
 
 # nvm
