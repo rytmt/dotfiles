@@ -256,7 +256,9 @@ chpwd_window_title() {
     fi
 }
 autoload -Uz add-zsh-hook
-add-zsh-hook chpwd chpwd_window_title
+#add-zsh-hook chpwd chpwd_window_title
+PERIOD=10
+add-zsh-hook periodic chpwd_window_title
 
 
 # --------------------------------------------------
