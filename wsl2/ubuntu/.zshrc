@@ -266,8 +266,8 @@ add-zsh-hook periodic chpwd_window_title
 # --------------------------------------------------
 # eza
 if [ 'type eza >/dev/null 2>&1' ]; then
-    alias ll='eza -lah --icons'
-    alias llt='eza -lah --icons -s modified'
+    alias ll='eza -lah --icons=automatic'
+    alias llt='eza -lah --icons=automatic -s modified'
 fi
 tree (){
     target="$1"

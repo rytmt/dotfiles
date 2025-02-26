@@ -403,6 +403,8 @@ install_pkg 'bat'
 install_pkg 'whois' 'whois'
 install_pkg 'libimage-exiftool-perl' 'exiftool'
 #install_pkg 'imagemagick' 'convert'
+install_pkg 'nodejs'
+install_pkg 'npm'
 
 
 # ----------
@@ -860,6 +862,15 @@ ln_s "/usr/bin/batcat" "${bdir}/bat"
 # ----------
 # Node.js
 # ----------
+echo_ptask 'node.jsセットアップ'
+
+tty-table_install(){
+    npm config set proxy ${prx_url}
+    npm npm install -g tty-table
+}
+check_task 'tty-tableがインストールされていることの確認' 'type tty-table'
+try_task 'tty-tableのインストール' 'tty-table_install'
+
 # おそらくnvmのインストールに使用したシェル(.xxshrcファイル)に環境変数が追加される。スクリプト化が難しいので諦める。
 #echo_ptask 'node.jsセットアップ'
 #
