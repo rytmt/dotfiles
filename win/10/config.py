@@ -143,8 +143,9 @@ def configure(keymap):
             keymap.InputTextCommand(s)()
         keymap_global["C-A-p"] = lambda: paste_string(getClipboardText())
 
-        # Ctrl+Shift+d で行削除
-        keymap_global["C-S-D"] = "End", "S-Home", "C-X"
+        # Ctrl+Shift+d で行削除、y で切り取り
+        keymap_global["C-S-D"] = "End", "S-Home", "Delete"
+        keymap_global["C-S-Y"] = "End", "S-Home", "C-X"
 
     # Edit class 用のキーマップ
 #    if 1:
