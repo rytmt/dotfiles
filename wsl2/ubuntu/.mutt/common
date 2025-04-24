@@ -33,6 +33,9 @@ set mime_forward = yes
 set mime_forward_rest = yes
 auto_view text/html text/calendar
 alternative_order text/calendar text/plain text/html
+#set crypt_verify_sig = no #s/mime verify workaround
+set crypt_use_gpgme = no
+set smime_ca_location = "/etc/ssl/certs/ca-certificates.crt"
 
 
 # --------------------------------------------------
