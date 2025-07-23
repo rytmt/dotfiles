@@ -124,6 +124,7 @@ endif
 nnoremap <C-n> gt
 nnoremap <C-p> gT
 nnoremap tt :tabnew<CR>
+nnoremap tw :tabclose<CR>
 
 " 各タブページのカレントバッファ名+αを表示
 function! s:tabpage_label(n)
