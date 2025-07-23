@@ -612,13 +612,14 @@ keyhac_git2local (){
         echo "copy failed"
     fi
 }
-o (){
-    if [ -f "$1" ]; then
-        cmd.exe /c start "" "$(wslpath -w $1)" >/dev/null 2>&1
-    else
-        cmd.exe /c start "$1" >/dev/null 2>&1
-    fi
-}
+#o (){
+#    if [ -f "$1" ]; then
+#        cmd.exe /c start "" "$(wslpath -w $1)" >/dev/null 2>&1
+#    else
+#        cmd.exe /c start "$1" >/dev/null 2>&1
+#    fi
+#}
+alias o=explorer.exe
 ghopen (){
     baseurl="$(git remote -v | grep -F '(fetch)' | grep -Eo 'https://.*\.git' | sed 's|\.git$|/|')"
     reponame="$(echo ${baseurl} | awk -F '/' '{print $(NF-1)}')"
