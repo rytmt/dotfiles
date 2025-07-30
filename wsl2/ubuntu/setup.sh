@@ -848,6 +848,7 @@ try_task 'powershellのインストール' 'powershell_install'
 echo_ptask 'rangerセットアップ'
 mkd -u 'ranger設定ファイル' "${hdir}/.config/ranger"
 ln_s "${dotfiles}/.config/ranger/rc.conf" "${hdir}/.config/ranger/rc.conf"
+ln_s "${dotfiles}/.config/ranger/rifle.conf" "${hdir}/.config/ranger/rifle.conf"
 git_clone 'https://github.com/alexanderjeurissen/ranger_devicons' "${hdir}/.config/ranger/plugins/"
 
 

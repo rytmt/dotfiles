@@ -619,7 +619,10 @@ keyhac_git2local (){
 #        cmd.exe /c start "$1" >/dev/null 2>&1
 #    fi
 #}
-alias o=explorer.exe
+#alias o=explorer.exe
+o (){
+    explorer.exe $@
+}
 ghopen (){
     baseurl="$(git remote -v | grep -F '(fetch)' | grep -Eo 'https://.*\.git' | sed 's|\.git$|/|')"
     reponame="$(echo ${baseurl} | awk -F '/' '{print $(NF-1)}')"
