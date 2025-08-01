@@ -14,9 +14,6 @@
 - スタートアップから不要なものを消す
 - サービス一覧から不要なものを停止+スタートアップ無効化
 - エクスプローラの右クリックを従来のものに戻す
-- 電源管理設定 (スリープしないようにする等)
-- 固定キー機能無効化 (shiftを5回連打)
-- テキスト入力色変更
 
 ## フォントインストール
 - https://github.com/yuru7/HackGen/releases/latest
@@ -37,7 +34,7 @@
 - adobe acrobat reader
 - winmerge
 - winshot
-- powertoys (microsoft store)
+- powertoys
 
 ### 設定が必要なもの
 #### google日本語入力
@@ -53,6 +50,8 @@
 
 #### keyhac
 1. keyhac のインストール
+   1. 起動時にエラーが発生する場合は Visual c++ 再配布可能パッケージが必要かも
+      1. https://docs.microsoft.com/ja-JP/cpp/windows/latest-supported-vc-redist?view=msvc-170
 2. keyhac の起動
 3. zsh(wsl2) から keyhac_git2local コマンドを実行 (config.py をローカルにコピー)
 4. keyhac 設定のリロード
