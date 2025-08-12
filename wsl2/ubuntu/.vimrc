@@ -49,6 +49,7 @@ set formatoptions=q
 set nrformats=
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
+imap <C-p> <Esc>:set paste<CR>a
 nnoremap Y y$
 nnoremap x "_x
 autocmd InsertLeave * set nopaste
