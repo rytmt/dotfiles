@@ -87,6 +87,8 @@ def configure(keymap):
         keymap_global["C-S-L"] = "C-L"
         keymap_global["C-S-A"] = "C-A"
         keymap_global["C-S-E"] = "C-E"
+        keymap_global["C-S-T"] = "C-T"
+        keymap_global["C-S-S"] = "C-S"
 
         # ウインドウのアクティブ化
 #        keymap_global["C-1"] = "W-1"
