@@ -186,8 +186,8 @@ LS_COLORS=
 # --------------------------------------------------
 # Common Functions
 # --------------------------------------------------
-gecho() { printf "\e[1;32m$*\e[m\n" }
-recho() { printf "\e[1;31m$*\e[m\n" }
+gecho() { printf $'\e[1;32m%s\e[m\n' "$@"; }
+recho() { printf $'\e[1;31m%s\e[m\n' "$@"; }
 fload() {
     if [ -f "$1" ]; then
         . "$1"
