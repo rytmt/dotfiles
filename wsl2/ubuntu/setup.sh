@@ -405,6 +405,7 @@ install_pkg 'libimage-exiftool-perl' 'exiftool'
 #install_pkg 'imagemagick' 'convert'
 install_pkg 'nodejs'
 install_pkg 'npm'
+install_pkg 'wslu'
 
 
 # ----------
