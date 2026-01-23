@@ -25,7 +25,9 @@ ROOM="$(grep -E '^LOCATION' "${ICAL}" | awk -F ':' '{ print $NF }' | tr -d '\r')
 
 DESCRIPTION="$(cat "${ICAL}" | awk '/^DESCRIPTION;LANGUAGE=/,/^UID:/ {print $0}' | sed -r -e 's/\r//g' -e 's/DESCRIPTION;LANGUAGE=.*://' | grep -v -e '^UID:' -e 'RRULE:FREQ' | sed -z 's/\n //g')"
 
-echo
+echo ''
+echo '[概要]'
+echo '--------------------------------------------------'
 echo "    作成者: ${ORGANIZER_NAME} (${ORGANIZER_ADDR})"
 echo "      日時: ${DATE_START} - ${DATE_END}"
 echo "      場所: ${ROOM}"
@@ -34,8 +36,13 @@ echo "必須出席者:"
 echo "      - ${ORGANIZER_ADDR}"
 echo "任意出席者:"
 [ "${ATTENDEE_OPT}x" = "x" ] || echo "${ATTENDEE_OPT}" | while read line; do echo "      - ${line}"; done
-echo
+echo '--------------------------------------------------'
+echo ''
+echo ''
+echo '[説明]'
+echo '--------------------------------------------------'
 echo "${DESCRIPTION}"
+echo '--------------------------------------------------'
 
 #echo "出席者: ${ATTENDEE}, ${ORGANIZER_ADDR}"| \
 #  nkf -w | \
