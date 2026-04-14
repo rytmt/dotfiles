@@ -406,6 +406,8 @@ install_pkg 'libimage-exiftool-perl' 'exiftool'
 install_pkg 'nodejs'
 install_pkg 'npm'
 install_pkg 'wslu'
+install_pkg 'docx2txt'
+install_pkg 'tidy'
 
 
 # ----------
