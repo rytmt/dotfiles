@@ -161,6 +161,7 @@ def configure(keymap):
 
         keymap_chrome["C-N"] = "C-Tab"
         keymap_chrome["C-P"] = "C-S-Tab"
+        keymap_chrome["C-S-T"] = "S-F10", "T", "Enter", "Esc" # 翻訳用
 
     # 日付入力ショートカット
     if 1:
