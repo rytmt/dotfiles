@@ -161,7 +161,18 @@ def configure(keymap):
 
         keymap_chrome["C-N"] = "C-Tab"
         keymap_chrome["C-P"] = "C-S-Tab"
-        keymap_chrome["C-S-T"] = "S-F10", "T", "Enter", "Esc" # 翻訳用
+
+        # 翻訳用
+        def translate_sequence():
+            keymap.InputKeyCommand("S-F10")()
+            time.sleep(0.05)
+            keymap.InputKeyCommand("T")()
+            keymap.InputKeyCommand("Enter")()
+            keymap.InputKeyCommand("Esc")()
+
+        keymap_chrome["C-Q"] = translate_sequence
+
+        #keymap_chrome["C-Q"] = "S-F10", "T", "Enter", "Esc" # 翻訳用
 
     # 日付入力ショートカット
     if 1:
