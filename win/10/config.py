@@ -46,10 +46,10 @@ def configure(keymap):
         keymap.wnd.setImeStatus(1)
 
     # カーソル移動用
-    input_down_command = keymap.InputKeyCommand("Down")
-    input_up_command = keymap.InputKeyCommand("Up")
-    input_left_command = keymap.InputKeyCommand("Left")
-    input_right_command = keymap.InputKeyCommand("Right")
+    input_down_command = keymap.InputKeyCommand("j")
+    input_up_command = keymap.InputKeyCommand("k")
+    input_left_command = keymap.InputKeyCommand("h")
+    input_right_command = keymap.InputKeyCommand("l")
     def down_multi():
         for i in range(10):
             input_down_command()
