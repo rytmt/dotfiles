@@ -155,12 +155,12 @@ def configure(keymap):
 #
 #        keymap_edit["C-S-D"] = "Home", "S-End", "C-X"
 
-    # Google Chrome用のキーマップ
+    # brave用のキーマップ
     if 1:
-        keymap_chrome = keymap.defineWindowKeymap( exe_name="chrome.exe" )
+        keymap_brave = keymap.defineWindowKeymap( exe_name="brave.exe" )
 
-        keymap_chrome["C-N"] = "C-Tab"
-        keymap_chrome["C-P"] = "C-S-Tab"
+        keymap_brave["C-N"] = "C-Tab"
+        keymap_brave["C-P"] = "C-S-Tab"
 
         # 翻訳用
         def translate_sequence():
@@ -170,9 +170,9 @@ def configure(keymap):
             keymap.InputKeyCommand("Enter")()
             keymap.InputKeyCommand("Esc")()
 
-        keymap_chrome["C-Q"] = translate_sequence
+        keymap_brave["C-Q"] = translate_sequence
 
-        #keymap_chrome["C-Q"] = "S-F10", "T", "Enter", "Esc" # 翻訳用
+        #keymap_brave["C-Q"] = "S-F10", "T", "Enter", "Esc" # 翻訳用
 
     # 日付入力ショートカット
     if 1:
@@ -233,7 +233,7 @@ def configure(keymap):
 
         # キー割当
         for key, params in {
-            "C-1": ("chrome.exe", None, None),
+            "C-1": ("brave.exe", None, None),
             "C-2": ("msedge.exe", None, None),
             "C-3": ("WindowsTerminal.exe", None, None),
             "C-4": ("Code.exe", None, None),
@@ -296,7 +296,7 @@ def configure(keymap):
                     ):
                         dbg("(pass)")
                         return True
-                    # if re.match(r"chrome", wnd.getClassName()):
+                    # if re.match(r"brave", wnd.getClassName()):
                     #     window_list.append(wnd)
                     window_list.append(wnd)
                     return True
