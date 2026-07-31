@@ -629,7 +629,7 @@ ghopen (){
     pathstr="$(pwd | grep -Eo "${reponame}/.*" | sed "s|${reponame}/||")"
     branch="$(git branch --contains | grep '^*' | cut -d ' ' -f 2)"
     fullpath="${baseurl}tree/${branch}/${pathstr}"
-    cmd.exe /c start chrome.exe "${fullpath}" >/dev/null 2>&1
+    cmd.exe /c start brave.exe "${fullpath}" >/dev/null 2>&1
 }
 
 # compile
