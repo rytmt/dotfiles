@@ -145,6 +145,13 @@ work (){
     [ -d "${work_folder}" ] || mkdir -p "${work_folder}"
     cd "${work_folder}"
 }
+worktmp (){
+    work_folder="${HOME}/work/$(date '+%Y%m%d')"
+    [ -d "${work_folder}" ] || mkdir -p "${work_folder}"
+    cd "${work_folder}"
+    tmpdir="$(mktemp -d ./tmp.XXXXXXXXXX)"
+    cd "${tmpdir}"
+}
 work_rmdir(){
     find "${HOME}/work" -maxdepth 1 -type d -empty | xargs rmdir
 }
@@ -153,6 +160,16 @@ home (){
 }
 docker-tags(){
     curl -s "https://registry.hub.docker.com/v2/repositories/library/$1/tags?page_size=1024" | jq -r '.results[].name'
+}
+cwork_tmp (){
+    cwork_folder="${HOME}/work/claude/tmp/$(date '+%Y-%m')"
+    [ -d "${cwork_folder}" ] || mkdir -p "${cwork_folder}"
+    cd "${cwork_folder}"
+}
+cwork_prj (){
+    cwork_folder="${HOME}/work/claude/prj"
+    [ -d "${cwork_folder}" ] || mkdir -p "${cwork_folder}"
+    cd "${cwork_folder}"
 }
 
 

@@ -11,6 +11,7 @@ keybinds {
         unbind "Ctrl o"
         unbind "Ctrl g"
         unbind "Ctrl b"
+        unbind "Ctrl q"
     }
     locked {
         bind "Ctrl g" { SwitchToMode "Normal"; }
